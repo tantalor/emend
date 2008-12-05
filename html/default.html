@@ -1,0 +1,54 @@
+<html>
+  <head>
+    <title>Emend</title>
+    <link type="text/css" rel="stylesheet" href="/css/site.css" />
+  </head>
+  <body>
+    <h1><a href="/">Emend</a></h1>
+    
+    <h2>Edit the interwebs</h2>
+    
+    {% if handler.user %}
+      <form action="/" method="post">
+        <label class="field">
+          <span class="name">URL</span>
+          <input type="text" class="text" name="url" value="{{url}}"/>
+          {% if errors.url %}{{errors.url}}{% endif %}
+        </label>
+        <label class="field">
+          <span class="name">Original</span>
+          <textarea name="original">{{original}}</textarea>
+        </label>
+        <label class="field">
+          <span class="name">Proposal</span>
+          <textarea name="proposal"></textarea>
+        </label>
+        <label class="field">
+          <input type="submit" value="Submit proposal"/>
+        </label>
+      </form>
+    {% else %}
+      <p>Please <a href="{{handler.login_url}}">login</a> before making a submission.</p>
+    {% endif %}
+    
+    <h2>Latest edits</h2>
+    
+    {% if edits %}
+      <ul>
+        {% for edit in edits %}
+          <li>&ldquo;{{edit.proposal|escape}}&rdquo; on <a href="{{edit.url}}">{{edit.url}}</a>.</li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No edits.</p>
+    {% endif %}
+    
+    <h2>More neat stuff</h2>
+    
+    <p>Browse the <a href="/sites">sites</a>.</p>
+    
+    <p>Bookmarklet: <a href="javascript:({{bookmarklet}})()">Emend</a></p>
+    
+    {% include 'sections/user-box.html' %}
+  </body>
+</html>

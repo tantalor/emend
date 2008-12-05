@@ -1,0 +1,47 @@
+body {
+  font-family: Arial, Helvetica;
+  color: #333;
+}
+
+/* h1 */
+
+h1 {
+  color: #333;
+}
+
+h1 a {
+  color: #D33;
+  text-decoration: none;
+}
+
+/* form fields */
+
+label.field {
+  display: block;
+  position: relative;
+  left: 100px;
+  margin-bottom: 15px;
+  width: 200px;
+}
+
+label.field .name {
+  font-weight:bold;
+ position: absolute;
+ left: -90px;
+ text-align: right;
+ width: 80px;
+}
+
+label.field input.text,
+label.field textarea {
+  border: solid 1px #999;
+  padding: 3px;
+  width: 100%;
+}
+
+/* user box */
+
+.user-box {
+  border: dashed 1px #999;
+  padding: 10px;
+}

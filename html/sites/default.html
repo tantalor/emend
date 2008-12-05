@@ -1,0 +1,21 @@
+<html>
+  <head>
+    <title>Emend > Sites</title>
+    <link type="text/css" rel="stylesheet" href="/css/site.css" />
+  </head>
+  <body>
+    <h1><a href="/">Emend</a> > Sites</h1>
+    
+    {% if sites.count %}
+      <ul>
+        {% for site in sites %}
+          <li><a href="/sites/{{site.domain|escape}}">{{site.domain}}</a></li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No sites</p>
+    {% endif %}
+    
+    {% include '../sections/user-box.html' %}
+  </body>
+</html>

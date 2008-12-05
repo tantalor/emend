@@ -1,0 +1,50 @@
+<html>
+  <head>
+    <title>Emend > Sites</title>
+    <link type="text/css" rel="stylesheet" href="/css/site.css" />
+  </head>
+  <body>
+    <h1><a href="/">Emend</a> > <a href="/sites">Sites</a> > {{site.domain}}</h1>
+    
+    {% if edits %}
+      <ul>
+        {% for edit in edits %}
+          <li><a href="{{edit.url}}">{{edit.url}}</a></li>
+          <ul>
+            <li>Proposed by {{edit.author}} on {{edit.datetime_fmt}}</li>
+            <li>Original is &ldquo;{{edit.original|escape}}&rdquo;</li>
+            <li>Should be &ldquo;{{edit.proposal|escape}}&rdquo;</li>
+            {% if edit.can_edit %}
+              <li>
+                <form action="/sites/{{site.domain}}/edits/{{edit.key.id}}/delete" method="post">
+                  <input type="hidden" name="continue" value="{{handler.request.uri}}">
+                  <input type="submit" value="Delete">
+                </form>
+              </li>
+            {% endif %}
+          </ul>
+        {% endfor %}
+      </ul>
+      
+      {% if has_prev or has_next %}
+        <p class="prev-next">
+          {% if has_prev %}
+            <a href="/sites/{{site.domain}}?from={{prev_from}}">&laquo; prev</a>
+          {% endif %}
+          
+          {% if has_prev and has_next %}|{% endif %}
+          
+          {% if has_next %}
+            <a href="/sites/{{site.domain}}?from={{next_from}}"> 	next &raquo;</a>
+          {% endif %}
+        </p>
+      {% endif %}
+      
+    {% else %}
+      <p>No edits.</p>
+    {% endif %}
+    
+    
+    {% include '../sections/user-box.html' %}
+  </body>
+</html>
