@@ -4,6 +4,7 @@ from google.appengine.ext.webapp.util import run_wsgi_app
 from util.handler import Handler
 
 import app.admin.edit
+import app.admin.memclear
 import app.admin.site_count
 import app.admin.site_key
 import app.admin.user_count
@@ -30,6 +31,8 @@ def main():
     [
       (r'/admin/edit',
         Handler.factory(page=app.admin.edit)),
+      (r'/admin/memclear',
+        Handler.factory(page=app.admin.memclear)),
       (r'/admin/site_count',
         Handler.factory(page=app.admin.site_count)),
       (r'/admin/site_key',
