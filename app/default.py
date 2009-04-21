@@ -1,60 +1,93 @@
 import re
 import os
-
 from urlparse import urlparse
 
-from emend import Site, Edit
+from model.site import Site
+from model.edit import Edit
+from model.user import User
+
 from google.appengine.ext import db
 
 def get(handler, response):
   # get params
   response.url = handler.request.get('url');
   response.original = handler.request.get('original')
+  response.proposal = handler.request.get('proposal') or response.original
   # build bookmarklet
   bookmarklet = ''.join(file('js/bookmarklet.js').readlines())
   bookmarklet = re.compile('\s').sub('', bookmarklet)
   response.bookmarklet = bookmarklet
   # get latest edits
-  response.edits = set(Edit.all().order('-datetime').fetch(3))
+  response.edits = list(Edit.all().order('-datetime').fetch(3))
 
 def post(handler, response):
-  if not handler.user():
+  if not handler.current_user():
     return handler.redirect('/')
   # post params
-  url = handler.request.get('url');
-  original = handler.request.get('original')
-  proposal = handler.request.get('proposal')
+  url = handler.request.get('url').strip()
+  original = handler.request.get('original').strip()
+  proposal = handler.request.get('proposal').strip()
+  # copy params for error case
+  response.url = url
+  response.original = original
+  response.proposal = proposal
   # parse url
   domain = urlparse(url).netloc
   if not domain:
     # fix URL by prefixing with default scheme
     url = "http://%s" % url
     domain = urlparse(url).netloc
+  # error cases
   if not domain:
-    # error case
-    response.errors.url = "Invalid URL."
+    handler.form_error(url="Invalid URL")
+  if not original:
+    handler.form_error(original="Original required")
+  if not proposal:
+    handler.form_error(proposal="Proposal required")
+  # exit if errors occured
+  if handler.has_errors():
     return
+  
   # get site
   key_name = Site.key_name_from_domain(domain)
   site = Site.get_or_insert(key_name, domain=domain)
   
+  # check for an existing instance of this edit
+  existing = Edit.all()\
+    .ancestor(site)\
+    .filter('original =', original)\
+    .filter('proposal =', proposal)\
+    .filter('url =', url)\
+    .get()
+  
+  if existing:
+    handler.redirect(existing.permalink())
+    return
+  
   def put_edit():
-    Edit(
+    edit = Edit(
       index = site.index,
-      site = site,
-      author = handler.user(),
+      author = handler.current_user(),
       original = original,
       proposal = proposal,
       url = url,
       parent = site
-    ).put()
-    # increment index and put
-    site.index +=1
+    )
+    edit.put()
+    # increment index and count, put
+    site.index += 1
+    site.open += 1
     site.put()
+    return edit
   
-  db.run_in_transaction(put_edit)
+  edit = db.run_in_transaction(put_edit)
   
-  # if not handler.is_dev():
-  #   tweet("\"%s\" should be \"%s\" %s" % (original, proposal, url))
-  handler.tweet("\"%s\" should be \"%s\" %s" % (original, proposal, url))
-  handler.redirect("/sites/%s" % site.domain)
+  # fiddle user's count
+  edit.author.open += 1
+  edit.author.put()
+  
+  # notifications
+  edit.tweet()
+  handler.ping_blogsearch()
+  
+  handler.redirect(edit.permalink())

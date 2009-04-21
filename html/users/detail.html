@@ -1,0 +1,39 @@
+{% extends "../base.html" %}
+
+{% block title %}
+  Emend > {{user|escape}}
+{% endblock %}
+
+{% block content %}
+  <h1><a href="/">Emend</a> > <a href="/users">Users</a> > {{user|escape}}</h1>
+  
+  <h2>Most recent open edits</h2>
+      
+  {% if open %}
+    <ul>
+      {% for edit in open %}
+        <li><a href="{{edit.permalink}}">&ldquo;{{edit.proposal|escape}}&rdquo;</a> at <a href="{{edit.site.permalink}}">{{edit.site}}</a></li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No edits.</p>
+  {% endif %}
+  
+  <h2>Most recent closed edits</h2>
+      
+  {% if closed %}
+    <ul>
+      {% for edit in closed %}
+        <li><a href="{{edit.permalink}}">&ldquo;{{edit.proposal|escape}}&rdquo;</a> at <a href="{{edit.site}}">{{edit.site}}</a></li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No edits.</p>
+  {% endif %}
+  
+  {% if user.can_edit %}
+    <h2>Other stuff</h2>
+    
+    <p><a href="{{user.shareable_permalink}}">Shareable permalink</a></p>
+  {% endif %}
+{% endblock %}

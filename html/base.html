@@ -1,0 +1,94 @@
+<html>
+  <head>
+    <title>{% block title %}Emend{% endblock %}</title>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="/css/site.css">
+    <link media="only screen and (max-device-width: 480px)" href="/css/iphone.css" type="text/css" rel="stylesheet">
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=630">
+    
+    {% block head %}{% endblock %}
+    
+  </head>
+  <body>
+    <div id="content" class="{% block content_class %}{% endblock %}">
+      <div class="area">
+        {% block content %}{% endblock %}
+      </div>
+    </div>
+    <div id="footer">
+      <div class="area">
+        <div class="user-box">
+          {% if handler.current_user %}
+            <p>
+              You are <a href="{{handler.current_user.permalink}}">{{handler.current_user|escape}}</a> -
+              <span class="fakelink change-nickname">Change nickname</span> -
+              <a href="{{handler.logout_url}}">Log out</a>
+            </p>
+            <script type="text/javascript" charset="utf-8">
+              $('.change-nickname').click(function ()
+              {
+                var current = "{{handler.current_user|escape}}";
+                var nickname = prompt("What nickname would you like?", current);
+                if (nickname == current)
+                {
+                  alert("Okay, your nickname hasn't changed.");
+                } else if (nickname)
+                {
+                  var request = {
+                    nickname: nickname,
+                    json: 1
+                  };
+                  $.post("{{handler.current_user.permalink}}/nickname", request, function (response)
+                  {
+                    alert("Great! Your new nickname is \""+response.user.nickname+"\".");
+                  }, 'json');
+                }
+              });
+            </script>
+          {% else %}
+            <p>
+              You aren't logged in: <a href="{{handler.login_url}}">log in</a>
+            </p>
+          {% endif %}
+        </div><!-- end user-box -->
+        <p>
+          <a href="/">Home</a> -
+          {% if handler.twitter_credentials %}
+            <a href="http://twitter.com/{{handler.twitter_credentials.username}}">Twitter</a> -
+          {% endif %}
+          <a href="/sites">Sites</a> -
+          <a href="/users">Users</a> -
+          <a href="/search">Search</a>
+        </p>
+        <p>
+          {% if handler.is_admin %}
+            <p>You are an <strong>admin</strong></p>
+            <p>
+              {% for item in handler.admin_config.items %}
+                <a href="{{item.1}}">{{item.0}}</a>
+                {% if not forloop.last %}-{% endif %}
+              {% endfor %}
+            </p>
+          {% endif %}
+          {% if is_dev %}
+            <p>This is <strong>development</strong></p>
+            <p>
+              <a href="/_ah/admin/datastore">SDK Console</a>
+            <p>
+          {% endif %}
+        </p>
+      </div> <!-- end area -->
+    </div><!-- end footer -->    
+    
+    {% if not is_dev %}
+      <!-- google analytics -->
+      <script type="text/javascript" src="http://www.google-analytics.com/ga.js"></script>
+      <script type="text/javascript">
+        try {_gat._getTracker("UA-7312081-1")._trackPageview();} catch(err) {}
+      </script>
+      <!-- end google analytics -->
+    {% endif %}
+    
+  </body>
+</html>

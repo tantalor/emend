@@ -1,1 +1,137 @@
-oh hai
+{% extends "../../base.html" %}
+
+{% block title %}
+  Emend > {{site.domain}} > {{edit.proposal_utf8|escape|truncate:32}}
+{% endblock %}
+
+{% block content %}
+  <h1><a href="/">Emend</a> > <a href="/sites">Sites</a> > <a href="/sites/{{site.domain}}">{{site.domain}}</a> > {{edit.proposal_utf8|escape|truncate:32}}</h1>
+  
+  <p>According to <a href="{{edit.author.permalink}}">{{edit.author|escape}}</a>, &ldquo;{{edit.original_utf8|escape}}&rdquo; should be &ldquo;{{edit.proposal_utf8|escape}}&rdquo; on <a href="{{edit.url}}">{{edit.url|truncate:45}}</a>.<p>
+    
+  <p>This was first noticed on <abbr title="{{edit.datetime.isoformat}}">{{edit.short_date}}</abbr>.</p>
+  
+  <h2>Original</h2>
+  <blockquote class="diff original">
+    {% describe edit.original edit.original_desc %}
+  </blockquote>
+
+  <h2>Proposal</h2>
+  <blockquote class="diff proposal">
+    {% describe edit.proposal edit.proposal_desc %}
+  </blockquote>
+  
+  <h2>Things to do</h2>
+  
+  <p><a href="http://twitter.com/home?status={{edit.as_tweet|urlencode}}">Tweet this</a></p>
+  
+  {% if edit.can_edit and not edit.closed %}
+    <p><span class="fakelink click-close">Change to &ldquo;fixed&rdquo;</span></p>
+    <script type="text/javascript" charset="utf-8">
+      $('.click-close').click(function ()
+      {
+        $.post("{{edit.permalink}}/test", {json: 1}, function (response)
+        {
+          if (response.status == 'fixed') {
+            alert("Thanks!");
+            window.location.reload();
+          } else {
+            var again;
+            if (response.status == 'unfixed') {
+              again = confirm("Looks like it hasn't been fixed yet, change it anyway?");
+            } else if (response.status == 'uncertain') {
+              again = confirm("I couldn't tell if it was fixed, change it anyway?");
+            } else if (response.error)
+            {
+              alert("An error occured: "+response.error);
+            }
+            if (again) {
+              $.post("{{edit.permalink}}/close", {json: 1}, function ()
+              {
+                alert("Thanks!");
+                window.location.reload();
+              });
+            }
+          }
+        }, 'json');
+      });
+    </script>
+  {% endif %}
+  
+  {% if edit.can_edit and edit.closed %}
+    <p><span class="fakelink click-open">Change back to &ldquo;unfixed&rdquo;</span></p>
+    <script type="text/javascript" charset="utf-8">
+      $('.click-open').click(function ()
+      {
+        $.post("{{edit.permalink}}/open", {json: 1}, function ()
+        {
+          alert("Thanks!");
+          window.location.reload();
+        });
+      });
+    </script>
+  {% endif %}
+  
+  {% if edit.can_edit %}
+    <p><a href="{{edit.permalink}}/update">Update this</a></p>
+  {% endif %}
+  
+  <p>
+    <span class="fakelink click-pingback">Pingback</span> -
+    <span class="fakelink click-trackback">Trackback</span>
+  </p>
+  
+  <script type="text/javascript" charset="utf-8">
+    $('.click-pingback').click(function ()
+    {
+      var el = $(this);
+      el.text('Sending pingback...');
+      $.post("{{edit.permalink}}/pingback", {json: 1}, function (response)
+      {
+        if (response.success)
+        {
+          alert('Success!');
+        } else if (response.error)
+        {
+          alert("Sorry, something went wrong.\n\n"+response.error);
+        }
+        el.text('Pingback');
+      }, 'json');
+    });
+  </script>
+  
+  <script type="text/javascript" charset="utf-8">
+    $('.click-trackback').click(function ()
+    {
+      var el = $(this);
+      el.text('Sending trackback...');
+      $.post("{{edit.permalink}}/trackback", {json: 1}, function (response)
+      {
+        if (response.success)
+        {
+          alert('Success!');
+        } else if (response.error)
+        {
+          alert("Sorry, something went wrong.\n\n"+response.error);
+        }
+        el.text('Trackback');
+      }, 'json');
+    });
+  </script>
+  
+  <p><a href="{{edit.site.permalink}}">More {{edit.site}} edits</a><p>
+  
+  {% if prev or next %}
+    <p class="prev-next">
+      {% if prev %}
+        <a href="{{prev.permalink}}">&larr; {{prev.proposal_utf8|escape|truncate:16}}</a>
+      {% endif %}
+    
+      {% if prev and next %}|{% endif %}
+    
+      {% if next %}
+        <a href="{{next.permalink}}">{{next.proposal_utf8|escape|truncate:16}} &rarr;</a>
+      {% endif %}
+    </p>
+  {% endif %}
+{% endblock %}

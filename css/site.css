@@ -1,47 +1,131 @@
+/* content, footer */
+
 body {
+  margin: 0;
+  background: #333;
   font-family: Arial, Helvetica;
-  color: #333;
 }
 
-/* h1 */
+#content {
+  color: #333;
+  background: #FFF;
+}
+
+#footer {
+  color: #EEE;
+}
+
+.area {
+  width: 600px;
+  margin: 0 auto;
+  padding: 15px 0;
+}
+
+/* general */
+
+.cleaner {
+  clear: both;
+  height: 1px;
+  overflow: hidden;
+}
 
 h1 {
   color: #333;
+  margin: 0;
+  border-bottom: solid 1px #AAA;
 }
 
-h1 a {
+h2 {
+  margin: 20px 0 0 0;
+}
+
+p {
+  margin: 10px 0
+}
+
+/* links */
+
+span.fakelink,
+a {
   color: #D33;
   text-decoration: none;
+  cursor: pointer;
 }
 
-/* form fields */
+span.fakelink:hover,
+a:hover {
+  color: #FFF;
+  background: #D33;
+  cursor: pointer;
+}
 
-label.field {
-  display: block;
-  position: relative;
-  left: 100px;
-  margin-bottom: 15px;
+/* columns */
+
+.cols-2-1 .alpha {
+  float: left;
+  width: 380px;
+  margin-right: 20px;
+}
+
+.cols-2-1 .beta {
+  float: left;
   width: 200px;
 }
 
+/* lists */
+
+ul {
+  padding-left: 20px;
+}
+
+ul li {
+  margin: 10px 0;
+}
+
+/* forms and fields */
+
+form {
+  margin: 20px 0 0 40px;
+}
+
+label.field {
+  display: block;
+  margin: 0 75px 10px 0;
+}
+
 label.field .name {
-  font-weight:bold;
- position: absolute;
- left: -90px;
- text-align: right;
- width: 80px;
+  font-weight: bold;
+  display: block;
 }
 
 label.field input.text,
 label.field textarea {
   border: solid 1px #999;
   padding: 3px;
-  width: 100%;
+  width: 300px;
+  vertical-align: text-top;
 }
 
-/* user box */
+/* errors */
 
-.user-box {
-  border: dashed 1px #999;
-  padding: 10px;
+.error {
+  color: #D33;
+  font-weight: bold;
+  display: block;
+}
+
+/* prev-next */
+
+.prev-next {
+  text-align: center;
+}
+
+/* diff */
+
+.diff .d {
+  background: #FAA;
+}
+
+.diff .i {
+  background: #ADA;
 }

@@ -10,7 +10,15 @@ indexes:
 # automatically uploaded to the admin console when you next deploy
 # your application using appcfg.py.
 
-# Used 6 times in query history.
+# Unused in query history -- copied from input.
+- kind: Edit
+  properties:
+  - name: author
+  - name: closed
+  - name: datetime
+    direction: desc
+
+# Unused in query history -- copied from input.
 - kind: Edit
   properties:
   - name: datetime
@@ -22,9 +30,79 @@ indexes:
   - name: index
     direction: desc
 
-# Used once in query history.
+# Unused in query history -- copied from input.
 - kind: Edit
   properties:
   - name: site
   - name: index
+
+# Unused in query history -- copied from input.
+- kind: Edit
+  properties:
+  - name: site
+  - name: index
+    direction: desc
+
+# Used 59 times in query history.
+- kind: Edit
+  ancestor: yes
+  properties:
+  - name: index
+
+# Used 61 times in query history.
+- kind: Edit
+  ancestor: yes
+  properties:
+  - name: index
+    direction: desc
+
+# Unused in query history -- copied from input.
+- kind: Site
+  properties:
+  - name: count
+    direction: desc
+
+# Unused in query history -- copied from input.
+- kind: Site
+  properties:
+  - name: index
+    direction: desc
+
+# Unused in query history -- copied from input.
+- kind: Site
+  properties:
+  - name: open
+  - name: domain
+
+# Unused in query history -- copied from input.
+- kind: Site
+  properties:
+  - name: open
+    direction: desc
+  - name: __key__
+
+# Unused in query history -- copied from input.
+- kind: Site
+  properties:
+  - name: open
+    direction: desc
+  - name: domain
+
+# Unused in query history -- copied from input.
+- kind: User
+  properties:
+  - name: open
+  - name: closed
+
+# Unused in query history -- copied from input.
+- kind: User
+  properties:
+  - name: open
+  - name: closed
+    direction: desc
+
+# Unused in query history -- copied from input.
+- kind: User
+  properties:
+  - name: open
     direction: desc

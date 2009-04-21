@@ -7,8 +7,12 @@ handlers:
 - url: /css
   static_dir: css
   
-- url: /image
-  static_dir: image
+- url: /images
+  static_dir: images
 
-- url: /.*
+- url: /favicon.ico
+  static_files: images/favicon.ico
+  upload: images/favicon.ico
+  
+- url: .*
   script: main.py

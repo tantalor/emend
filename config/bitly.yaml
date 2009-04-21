@@ -1,0 +1,6 @@
+dev:
+  login: emendappdev
+  apiKey: R_6b3a8cf2771696edca9f4ab9101b060b
+prod:
+  login: emendapp
+  apiKey: R_b535b9fe720e4597e1e46401674f712f

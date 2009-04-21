@@ -1,54 +1,81 @@
-<html>
-  <head>
-    <title>Emend</title>
-    <link type="text/css" rel="stylesheet" href="/css/site.css" />
-  </head>
-  <body>
-    <h1><a href="/">Emend</a></h1>
+{% extends "base.html" %}
+
+{% block title %}
+  Emend: Edit the Interwebs
+{% endblock %}
+
+{% block head %}
+  <link href="/?atom" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed" />
+{% endblock %}
+
+{% block content_class %}
+  cols-2-1
+{% endblock %}
+
+{% block content %}
+  <h1><a href="/">Emend</a></h1>
+  
+  <div class="alpha">
+    <h2>Edit the Interwebs</h2>
     
-    <h2>Edit the interwebs</h2>
+    <p><i>Emend</i> (verb), to improve by critical editing.</p>
     
-    {% if handler.user %}
+    <p>From the Latin <i>emendare</i>, &ldquo;to free from fault.&rdquo;</p>
+    
+    <h2>Make a new edit</h2>
+    {% if handler.current_user %}
       <form action="/" method="post">
         <label class="field">
           <span class="name">URL</span>
           <input type="text" class="text" name="url" value="{{url}}"/>
-          {% if errors.url %}{{errors.url}}{% endif %}
+          {% form_error url %}
         </label>
         <label class="field">
           <span class="name">Original</span>
           <textarea name="original">{{original}}</textarea>
+          {% form_error original %}
         </label>
         <label class="field">
           <span class="name">Proposal</span>
-          <textarea name="proposal"></textarea>
+          <textarea name="proposal">{{proposal}}</textarea>
+          {% form_error proposal %}
         </label>
-        <label class="field">
+        <label class="field buttons">
           <input type="submit" value="Submit proposal"/>
         </label>
       </form>
     {% else %}
-      <p>Please <a href="{{handler.login_url}}">login</a> before making a submission.</p>
+      <p>
+        Please <a href="{{handler.login_url}}">login</a> before making a submission.
+      </p>
+      <p class="no-iphone">
+        <object width="380" height="238"><param name="allowfullscreen" value="true" /><param name="allowscriptaccess" value="always" /><param name="movie" value="http://vimeo.com/moogaloop.swf?clip_id=3412718&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=0&amp;show_portrait=0&amp;color=dd3333&amp;fullscreen=1" /><embed src="http://vimeo.com/moogaloop.swf?clip_id=3412718&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=0&amp;show_portrait=0&amp;color=dd3333&amp;fullscreen=1" type="application/x-shockwave-flash" allowfullscreen="true" allowscriptaccess="always" width="380" height="238"></embed></object>
+      </p>
     {% endif %}
-    
+  </div>
+  
+  <div class="beta">
     <h2>Latest edits</h2>
-    
     {% if edits %}
       <ul>
         {% for edit in edits %}
-          <li>&ldquo;{{edit.proposal|escape}}&rdquo; on <a href="{{edit.url}}">{{edit.url}}</a>.</li>
+          <li>
+            <a href="{{edit.permalink}}">&ldquo;{{edit.proposal_utf8|escape|truncate:32}}&rdquo;</a>
+            by <a href="{{edit.author.permalink}}">{{edit.author|escape}}</a>
+          </li>
         {% endfor %}
       </ul>
     {% else %}
       <p>No edits.</p>
     {% endif %}
     
-    <h2>More neat stuff</h2>
-    
-    <p>Browse the <a href="/sites">sites</a>.</p>
-    
+    <h2>More neat stuff</h2>    
+    <p>Browse the <a href="/sites">list of sites</a></p>
+    <p>Try to <a href="/search">search for an edit</a></p
+    {% if handler.twitter_credentials %}
+      <p>Follow <a href="http://twitter.com/{{handler.twitter_credentials.username}}">Emend on Twitter</a></p>
+    {% endif %}
     <p>Bookmarklet: <a href="javascript:({{bookmarklet}})()">Emend</a></p>
-    
-    {% include 'sections/user-box.html' %}
-  </body>
-</html>
+  </div>
+  <div class="cleaner"></div>
+{% endblock %}

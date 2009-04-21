@@ -1,0 +1,277 @@
+import cgi
+import os
+import sys
+import re
+import urllib
+import traceback
+from types import InstanceType
+
+from google.appengine.api import users, memcache
+from google.appengine.ext import db, webapp
+from google.appengine.api.urlfetch_errors import DownloadError
+from google.appengine.ext.webapp import template
+from google.appengine.api.datastore_errors import BadKeyError
+
+import twitter
+import blogsearch
+import json
+import yaml
+import bitly
+import env
+from model.site import Site
+from model.edit import Edit
+from model.user import User
+from warn import warn
+from recursivedefaultdict import recursivedefaultdict
+
+template.register_template_library('template')
+
+class NotFoundException(Exception):
+  pass
+
+class Handler(webapp.RequestHandler):
+  _response_dict = None
+  _url_args = None
+  
+  @staticmethod
+  def factory(**kwargs):
+    """Convenience method for subclasses of Handler."""
+    return type(str(kwargs), (Handler,), kwargs)
+  
+  def response_dict(self, **kwargs):
+    if self._response_dict:
+      self._response_dict.update(**kwargs)
+      return self._response_dict
+    # some defaults that the template might find handy
+    self._response_dict = recursivedefaultdict(
+      handler = self,
+      is_dev = env.is_dev(),
+      admin_config = self.admin_config(),
+      **kwargs
+    )
+    return self._response_dict
+  
+  def admin_config(self, filename="config/admin.yaml"):    
+    admin_config = memcache.get('admin_config')
+    if admin_config:
+      return admin_config
+    if os.path.exists(filename):
+      admin_config = yaml.load(file(filename).read())
+      memcache.set('admin_config', admin_config)
+      return admin_config
+    
+  def get(self, *args):
+    # check for trailing slashes
+    match = re.compile('^(/.*[^/])/+$').search(self.request.path)
+    if match and match.groups(1):
+      # strip trailing slashes and redirect
+      return self.redirect(match.group(1))
+    # check if we can respond
+    if hasattr(self.page, 'get'):
+      # run the handler and get the template path
+      path = self.handle(self.page.get, *args)
+    else:
+      # return with 405
+      path = self.not_found(status=405)
+    # render the template
+    if self.is_atom():
+      # for atom
+      self.response.headers['Content-Type'] = "application/atom+xml; charset=UTF-8"
+      self.render(path, 'atom')
+    else:
+      # for html
+      self.render(path)
+  
+  def post(self, *args):
+    self._url_args = args
+    # check if we can post
+    if hasattr(self.page, 'post'):
+      # run the handler and get the template path
+      path = self.handle(self.page.post, *args)
+    else:
+      # return with 405
+      path = self.not_found(status=405)
+    # if we encountered errors, run the get handler
+    if self.has_errors():
+      self.get(*args)
+    else:
+      # otherwise render the template
+      self.render(path)
+  
+  def has_errors(self):
+    return 'errors' in self.response_dict()
+  
+  def is_admin(self):
+    return users.is_current_user_admin()
+  
+  def is_json(self):
+    return len(self.request.get_all('json')) > 0
+  
+  def is_yaml(self):
+    return len(self.request.get_all('yaml')) > 0
+  
+  def is_atom(self):
+    return len(self.request.get_all('atom')) > 0
+  
+  def logout_url(self):
+    return users.create_logout_url(self.request.uri)
+  
+  def login_url(self):
+    return users.create_login_url(self.request.uri)
+  
+  def current_user(self):
+    """Returns the current user"""
+    user = users.get_current_user()
+    if user:
+      key_name = User.key_name_from_email(user.email())
+      cached = memcache.get(key_name)
+      if cached:
+        return cached
+      # User models are keyed by user email
+      uncached = User.get_or_insert(key_name=key_name, user=user)
+      uncached.invalidate() # cache it
+      return uncached
+  
+  def get_site(self, required=False, create_if_missing=False):
+    if self._url_args:
+      # based on the regexp in main.py
+      domain = self._url_args[0]
+      key_name = Site.key_name_from_domain(domain)
+      site = Site.get_by_key_name(key_name)
+      if not site and create_if_missing:
+        # create a site (but don't save it)
+        site = Site(key_name=key_name, domain=domain)
+      if site:
+        self.response_dict(site = site) # for the template
+        return site
+    if required:
+      raise NotFoundException("site not found")
+  
+  def get_edit(self, required=False):
+    site = self.get_site()
+    if site and self._url_args:
+      # based on the regexp in main.py
+      index = int(self._url_args[1])
+      edits = Edit.all().\
+        ancestor(site).\
+        filter('index =', index).\
+        fetch(1)
+      if edits:
+        edit = edits[0]
+        self.response_dict(edit = edit) # for the template
+        return edit
+    if required:
+      raise NotFoundException("edit not found")
+  
+  def get_user(self, required=False):
+    if self._url_args:
+      # based on the regexp in main.py
+      key = self._url_args[0]
+      email = urllib.unquote(key)
+      key_name = User.key_name_from_email(email)
+      user = None
+      try:
+        user = User.get(key)
+      except BadKeyError:
+        pass
+      if not user:
+        user = User.get_by_key_name(key_name)
+      if user:
+        self.response_dict(user = user) # for the template
+        return user
+    if required:
+      raise NotFoundException("user not found")
+  
+  def host(self):
+    return os.environ['HTTP_HOST']
+  
+  def default_template(self, ext="html", base="/app"):
+    page = self.page.__file__
+    match = re.compile("%s/([^.]*)" % base).search(page)
+    if match and match.group(1):
+      return "%s.%s" % (match.group(1), ext)
+    raise Exception("failed to build default template for %s" % page)
+  
+  def handle(self, method, *args):
+    """Invoke the given method and return the template path to render."""
+    self._url_args = args
+    try:
+      return method(self, self.response_dict())
+    except NotFoundException:
+      return self.not_found()
+    except:
+      (error, value, tb) = sys.exc_info()
+      tb_formatted = "\n".join(traceback.format_tb(tb))
+      self.response_dict(error=value, tb=tb_formatted)
+      warn(error, value)
+      return 'error.html'
+  
+  def render(self, path, base="html"):
+    """Render the given template or the default template."""
+    if self.is_json():
+      sanitized = Handler.sanitize(self.response_dict())
+      json_str = json.write(sanitized)
+      self.response.headers['Content-Type'] = "text/javascript; charset=UTF-8"
+      self.response.out.write(json_str)
+      return
+    if self.is_yaml():
+      sanitized = Handler.sanitize(self.response_dict())
+      yaml_str = yaml.dump(sanitized, default_flow_style=False)
+      self.response.headers['Content-Type'] = "text/plain; charset=UTF-8"
+      self.response.out.write(yaml_str)
+      return;
+    if not path:
+      path = self.default_template(ext=base)
+    path = os.path.join(base, path)
+    if os.path.exists(path):
+      try:
+        rendered = template.render(path, self.response_dict())
+        self.response.out.write(rendered)
+      except template.django.template.TemplateSyntaxError, error:
+        self.response.headers['Content-Type'] = 'text/plain'
+        message = "Template syntax error: %s" % error
+        warn(message)
+        self.response.out.write(message)
+    else:
+      self.response.headers['Content-Type'] = 'text/plain'
+      message = "Template not found: %s" % path
+      warn(message)
+      self.response.out.write(message)
+  
+  blacklist = dict.fromkeys(['handler', 'bookmarklet', 'is_dev'])
+  @staticmethod
+  def sanitize(obj):
+    """Sanitize the given object for json or yaml output."""
+    if isinstance(obj, dict):      
+      json_obj = {}
+      for key in obj:
+        if key not in Handler.blacklist:
+          json_obj[key] = Handler.sanitize(obj[key])
+      return json_obj
+    if hasattr(obj, '__iter__'):
+      return [Handler.sanitize(v) for v in obj]
+    if hasattr(obj, 'sanitize'):
+      return obj.sanitize()
+    if isinstance(obj, BaseException):
+      return str(obj)
+    return obj
+  
+  def redirect(self, *args):
+    if not self.is_json() and not self.is_yaml():
+      super(Handler, self).redirect(*args)
+  
+  def not_found(self, status=404):
+    self.response_dict(status=status)
+    self.response.set_status(code=status)
+    return 'not_found.html'
+  
+  def form_error(self, **kwargs):
+    response = self.response_dict()
+    for key, value in kwargs.iteritems():
+      response.errors[key] = value
+  
+  def ping_blogsearch(self):
+    name = 'Emend: Edit the Interwebs'
+    url = 'http://%s' % self.host()
+    changesURL = '%s?atom' % url
+    return blogsearch.ping(name=name, url=url, changesURL=changesURL)

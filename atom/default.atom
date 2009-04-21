@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  
+  <title>Emend</title>
+  <subtitle>Edit the Interwebs</subtitle>
+  <link href="http://{{handler.host}}/?atom" rel="self"/>
+  <link href="http://{{handler.host}}/"/>
+  
+  {% if edits %} 
+    <updated>{{edits.0.datetime.isoformat}}</updated>
+    
+    {% for edit in edits %}
+      <entry>
+        <title>"{{edit.proposal|escape}}"</title>
+        <link href="{{edit.permalink}}"/>
+        <updated>{{edit.datetime.isoformat}}</updated>
+        <id>tag:{{handler.host}}:{{edit.key}}</id>
+        <summary>
+          According to {{edit.author|escape}}, "{{edit.original|escape}}" should be "{{edit.proposal|escape}}" on {{edit.site}}.
+        </summary>
+      </entry>
+    {% endfor %}
+    
+  {% endif %}
+  
+</feed>

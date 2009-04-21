@@ -1,0 +1,28 @@
+{% extends "../base.html" %}
+
+{% block title %}
+  Emend > Search
+{% endblock %}
+
+{% block content_class %}
+  cols-2-1
+{% endblock %}
+
+{% block content %}
+  <h1><a href="/">Emend</a> > Search</h1>
+  
+  <div class="alpha">
+    <h2>Search edits</h2>
+
+    <form action="/search/edits" method="get">
+      <label class="field">
+        <span class="name">Query</span>
+        <input type="text" class="text" name="q" value=""/>
+      </label>
+      <label class="field buttons">
+        <input type="submit" value="Search"/>
+      </label>
+    </form>
+  </div>
+  <div class="cleaner"></div>
+{% endblock %}

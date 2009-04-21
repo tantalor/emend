@@ -1,0 +1,30 @@
+{% extends "../../base.html" %}
+
+{% block title %}
+  Emend > {{site.domain}} > {{edit.proposal_utf8|escape|truncate:32}}
+{% endblock %}
+
+{% block content %}
+  <h1><a href="/">Emend</a> > <a href="/sites">Sites</a> > <a href="/sites/{{site.domain}}">{{site.domain}}</a> > <a href="{{edit.permalink}}">{{edit.original_utf8|escape|truncate:32}}</a> > Update</h1>
+  
+  <form action="{{edit.permalink}}/update" method="post">
+    <label class="field">
+      <span class="name">URL</span>
+      <input type="text" class="text" name="url" value="{{url}}"/>
+      {% form_error url %}
+    </label>
+    <label class="field">
+      <span class="name">Original</span>
+      <textarea name="original">{{original}}</textarea>
+      {% form_error original %}
+    </label>
+    <label class="field">
+      <span class="name">Proposal</span>
+      <textarea name="proposal">{{proposal}}</textarea>
+      {% form_error proposal %}
+    </label>
+    <label class="field buttons">
+      <input type="submit" value="Submit proposal"/>
+    </label>
+  </form>  
+{% endblock %}
