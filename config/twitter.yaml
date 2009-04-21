@@ -1,6 +1,0 @@
-dev:
-  username: emendappdev
-  password: lemonade
-prod:
-  username: emendapp
-  password: lemonade
