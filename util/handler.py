@@ -45,7 +45,6 @@ class Handler(webapp.RequestHandler):
     self._response_dict = recursivedefaultdict(
       handler = self,
       is_dev = env.is_dev(),
-      admin_config = self.admin_config(),
       **kwargs
     )
     return self._response_dict
