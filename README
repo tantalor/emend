@@ -18,17 +18,17 @@ be cached in memcached.
 
 File: /config/twitter.yaml
 
-This file should contain two keys, 'prod' and 'dev', which each should
-contain 'username' and 'password' keys.
+This file should contain two keys, 'prod' and 'dev', which should each
+contain a 'username' and 'password' key.
 
 === Bitly credentials ===
 
 File: /config/bitly.yaml
 
-This file should contain two keys, 'prod' and 'dev', which each should
-contain 'login' and 'apiKey' keys.
+This file should contain two keys, 'prod' and 'dev', which should each
+contain a 'login' and 'apiKey' key.
 
-=== Admin configuration ==
+=== Admin configuration ===
 
 File: /config/admin.yaml
 
