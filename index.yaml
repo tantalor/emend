@@ -43,13 +43,13 @@ indexes:
   - name: index
     direction: desc
 
-# Used 59 times in query history.
+# Used 74 times in query history.
 - kind: Edit
   ancestor: yes
   properties:
   - name: index
 
-# Used 61 times in query history.
+# Used 76 times in query history.
 - kind: Edit
   ancestor: yes
   properties:

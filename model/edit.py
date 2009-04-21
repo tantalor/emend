@@ -5,6 +5,7 @@ from user import User
 
 from google.appengine.ext import db, search
 from google.appengine.api import users
+from google.appengine.api.urlfetch_errors import DownloadError
 from util import bitly, twitter, env
 from util.warn import warn
 
@@ -70,7 +71,7 @@ class Edit(search.SearchableModel):
       credentials = env.branch(twitter.credentials())
       if credentials:
         try:
-          return twitter.tweet(self.status(), **credentials)
+          return twitter.tweet(status, **credentials)
         except DownloadError, e:
           warn("failed to tweet", e)
       else:

@@ -8,7 +8,6 @@ from types import InstanceType
 
 from google.appengine.api import users, memcache
 from google.appengine.ext import db, webapp
-from google.appengine.api.urlfetch_errors import DownloadError
 from google.appengine.ext.webapp import template
 from google.appengine.api.datastore_errors import BadKeyError
 
@@ -269,6 +268,9 @@ class Handler(webapp.RequestHandler):
     response = self.response_dict()
     for key, value in kwargs.iteritems():
       response.errors[key] = value
+  
+  def twitter_credentials(self):
+    return env.branch(twitter.credentials())
   
   def ping_blogsearch(self):
     name = 'Emend: Edit the Interwebs'
