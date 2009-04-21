@@ -3,10 +3,35 @@ United States License. To view a copy of this license, visit
 http://creativecommons.org/licenses/by-sa/3.0/us/ or send a letter to Creative
 Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.
 
-Created by John Tantalo
+== Created by John Tantalo ==
+
 - http://johntantalo.com
 - john.tantalo@gmail.com
 
-Note on twitter: Emend will look for a twitter.yaml file in the root directory
-for twitter credentials. This file should contain two keys, 'prod' and 'dev',
-which each should contain 'username' and 'password' keys.
+== Local configuration ==
+
+Emend will look for local configuration files in a "/config" directory.
+These are optional and must be yaml formatted. They will automatically
+be cached in memcached.
+
+=== Twitter credentials ===
+
+File: /config/twitter.yaml
+
+This file should contain two keys, 'prod' and 'dev', which each should
+contain 'username' and 'password' keys.
+
+=== Bitly credentials ===
+
+File: /config/bitly.yaml
+
+This file should contain two keys, 'prod' and 'dev', which each should
+contain 'login' and 'apiKey' keys.
+
+=== Admin configuration ==
+
+File: /config/admin.yaml
+
+This file should contain a flat {key: value, ...} dictionary. Each item
+corresponds to a link in the admin section of the footer. The key is the
+inner HTML of each link and the value is the href.
