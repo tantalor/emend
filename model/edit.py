@@ -83,6 +83,7 @@ class Edit(search.SearchableModel):
       proposal=self.proposal,
       closed=self.closed,
       site=self.site.sanitize(),
+      url=self.url,
       author=self.author.sanitize(),
     )
   
