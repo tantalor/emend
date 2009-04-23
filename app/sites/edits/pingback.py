@@ -16,6 +16,9 @@ def post(handler, response):
   except xmlrpclib.Fault, e:
     response.error = e.faultString
     warn("pingback XMLRPC failed", e);
+  except xmlrpclib.ProtocolError, e:
+    response.error = e.errmsg
+    warn("pingback XMLRPC failed", e);
   except urlfetch.DownloadError, e:
     response.error = e.message
     warn("pingback failed", e);
