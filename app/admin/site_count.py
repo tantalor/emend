@@ -3,7 +3,7 @@ from model.edit import Edit
 
 def get(handler, response):
   if not handler.is_admin():
-    return handler.redirect('/')
+    return handler.not_found(status=403)
   # unclose unclosed edits
   for edit in Edit.all():
     if not edit.closed:

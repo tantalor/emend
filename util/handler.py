@@ -202,6 +202,7 @@ class Handler(webapp.RequestHandler):
       tb_formatted = "\n".join(traceback.format_tb(tb))
       self.response_dict(error=value, tb=tb_formatted)
       warn(error, value)
+      self.response.set_status(code=500)
       return 'error.html'
   
   def render(self, path, base="html"):

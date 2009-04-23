@@ -5,7 +5,7 @@ def get(handler, response):
   """Enforce key_name_from_domain compatibility 
   on all sites and edits."""
   if not handler.is_admin():
-    return handler.redirect('/')
+    return handler.not_found(status=403)
   for site in Site.all():
     key_name = Site.key_name_from_domain(site.domain)
     if not site.key().name() == key_name:

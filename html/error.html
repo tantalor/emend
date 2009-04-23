@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <div style="text-align: center">
-    <img src="/images/fail.jpg">
-    <pre>{{error|escape}}</pre>
+  <div style="width: 444px; margin: 0 auto;">
+    <img src="/images/errors/500.jpg">
+    <strong><pre>{{error|escape}}</pre></strong>
     <pre>{{tb|escape}}</pre>
   </div>
 {% endblock %}

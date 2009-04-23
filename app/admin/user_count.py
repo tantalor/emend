@@ -3,7 +3,7 @@ from model.user import User
 
 def get(handler, response):
   if not handler.is_admin():
-    return handler.redirect('/')
+    return handler.not_found(status=403)
   # reset counts
   for user in User.all():
     user.open = 0
