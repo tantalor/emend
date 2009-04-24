@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from util.levenshtein import describe
 
 from site import Site
@@ -13,14 +15,15 @@ class Edit(search.SearchableModel):
   index = db.IntegerProperty(required=True)
   url = db.StringProperty(required=True)
   author = db.ReferenceProperty(required=True, reference_class=User)
-  datetime = db.DateTimeProperty(auto_now_add=True)
+  created = db.DateTimeProperty(auto_now_add=True)
+  modified = db.DateTimeProperty()
   original = db.StringProperty(required=True, multiline=True)
   proposal = db.StringProperty(required=True, multiline=True)
   closed = db.BooleanProperty(required=True, default=False)
   
   site = property(fget=lambda self: self.parent())
-  short_date = property(fget=lambda self: self.datetime.strftime('%A, %b %d, %Y'))
-  long_date = property(fget=lambda self: self.datetime.strftime('%a, %b %d at %I:%M %p'))
+  created_short = property(fget=lambda self: self.created.strftime('%A, %b %d, %Y'))
+  modified_short = property(fget=lambda self: self.modified.strftime('%A, %b %d, %Y'))
   original_utf8 = property(fget=lambda self: self.original.encode('utf8'))
   proposal_utf8 = property(fget=lambda self: self.proposal.encode('utf8'))
   original_desc = property(fget=lambda self: self.describe()[0])
@@ -88,34 +91,36 @@ class Edit(search.SearchableModel):
     )
   
   def open(self):
-    def open_edit():
+    def open_txn():
       if not self.closed:
         return
       self.closed = False
+      self.modified = datetime.now()
       self.put()
       # fiddle site counts
       self.site.closed -= 1
       self.site.open += 1
       self.site.put()
       return True
-    if (db.run_in_transaction(open_edit)):
+    if (db.run_in_transaction(open_txn)):
       # fiddle user counts
       self.author.closed -= 1
       self.author.open += 1
       self.author.put()
   
   def close(self):
-    def close_edit():
+    def close_txn():
       if self.closed:
         return
       self.closed = True
+      self.modified = datetime.now()
       self.put()
       # fiddle site counts
       self.site.open -= 1
       self.site.closed += 1
       self.site.put()
       return True
-    if (db.run_in_transaction(close_edit)):
+    if (db.run_in_transaction(close_txn)):
       # fiddle user counts
       self.author.open -= 1
       self.author.closed += 1

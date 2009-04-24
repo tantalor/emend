@@ -18,7 +18,7 @@ def get(handler, response):
   bookmarklet = re.compile('\s').sub('', bookmarklet)
   response.bookmarklet = bookmarklet
   # get latest edits
-  response.edits = list(Edit.all().order('-datetime').fetch(3))
+  response.edits = list(Edit.all().order('-created').fetch(3))
 
 def post(handler, response):
   if not handler.current_user():

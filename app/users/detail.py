@@ -6,11 +6,11 @@ def get(handler, response):
   response.open = Edit.all().\
     filter('author =', user).\
     filter('closed = ', False).\
-    order('-datetime').\
+    order('-created').\
     fetch(10)
   # get some closed edits
   response.closed = Edit.all().\
     filter('author =', user).\
     filter('closed = ', True).\
-    order('-datetime').\
+    order('-created').\
     fetch(10)
