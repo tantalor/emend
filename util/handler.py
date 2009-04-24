@@ -198,10 +198,14 @@ class Handler(webapp.RequestHandler):
     except NotFoundException:
       return self.not_found()
     except:
-      (error, value, tb) = sys.exc_info()
-      tb_formatted = "\n".join(traceback.format_tb(tb))
-      self.response_dict(error=value, tb=tb_formatted)
-      warn(error, value)
+      (error_type, error, tb) = sys.exc_info()
+      tb_formatted = traceback.format_tb(tb)
+      error_type = error_type.mro()[0].__name__
+      self.response_dict(
+        error=error,
+        error_type=error_type,
+        tb_formatted=tb_formatted)
+      warn(**{error_type: error})
       self.response.set_status(code=500)
       return 'error.html'
   

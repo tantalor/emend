@@ -1,9 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <div style="width: 444px; margin: 0 auto;">
+  <div style="width: 444px; margin: 0 auto; font-family: Courier, Courier New">
     <img src="/images/errors/500.jpg">
-    <strong><pre>{{error|escape}}</pre></strong>
-    <pre>{{tb|escape}}</pre>
+    <p><strong>{{error_type|escape}}: {{error|escape}}</strong></p>
+    {% for line in tb_formatted %}
+      <p>{{line|escape}}</p>
+    {% endfor %}
   </div>
 {% endblock %}
