@@ -25,7 +25,7 @@
   
   <p><a href="http://twitter.com/home?status={{edit.as_tweet|urlencode}}">Tweet this</a></p>
   
-  {% if edit.can_edit and not edit.closed %}
+  {% if edit.can_edit and edit.is_open %}
     <p><span class="fakelink click-close">Change to &ldquo;fixed&rdquo;</span></p>
     <script type="text/javascript" charset="utf-8">
       $('.click-close').click(function ()
@@ -58,7 +58,7 @@
     </script>
   {% endif %}
   
-  {% if edit.can_edit and edit.closed %}
+  {% if edit.can_edit and edit.is_closed %}
     <p><span class="fakelink click-open">Change back to &ldquo;unfixed&rdquo;</span></p>
     <script type="text/javascript" charset="utf-8">
       $('.click-open').click(function ()

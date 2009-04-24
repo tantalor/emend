@@ -5,12 +5,12 @@ def get(handler, response):
   # get some open edits
   response.open = Edit.all().\
     filter('author =', user).\
-    filter('closed = ', False).\
+    filter('status =', 'open').\
     order('-created').\
     fetch(10)
   # get some closed edits
   response.closed = Edit.all().\
     filter('author =', user).\
-    filter('closed = ', True).\
+    filter('status =', 'closed').\
     order('-created').\
     fetch(10)

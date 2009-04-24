@@ -10,8 +10,8 @@ def get(handler, response):
       edit.closed = False
       edit.put()
   for site in Site.all():
-    open = Edit.all().ancestor(site).filter('closed =', False)
-    closed = Edit.all().ancestor(site).filter('closed =', True)
+    open = Edit.all().ancestor(site).filter('status =', 'open')
+    closed = Edit.all().ancestor(site).filter('status =', 'closed')
     site.open = open.count()
     site.closed = closed.count()
     site.put()

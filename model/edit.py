@@ -19,9 +19,11 @@ class Edit(search.SearchableModel):
   modified = db.DateTimeProperty()
   original = db.StringProperty(required=True, multiline=True)
   proposal = db.StringProperty(required=True, multiline=True)
-  closed = db.BooleanProperty(required=True, default=False)
+  status = db.StringProperty(default="open", required=True)
   
   site = property(fget=lambda self: self.parent())
+  is_open = property(fget=lambda self: self.status == 'open')
+  is_closed = property(fget=lambda self: self.status == 'closed')
   created_short = property(fget=lambda self: self.created.strftime('%A, %b %d, %Y'))
   modified_short = property(fget=lambda self: self.modified.strftime('%A, %b %d, %Y'))
   original_utf8 = property(fget=lambda self: self.original.encode('utf8'))
@@ -84,7 +86,7 @@ class Edit(search.SearchableModel):
     return dict(
       original=self.original,
       proposal=self.proposal,
-      closed=self.closed,
+      status=self.status,
       site=self.site.sanitize(),
       url=self.url,
       author=self.author.sanitize(),
@@ -92,9 +94,9 @@ class Edit(search.SearchableModel):
   
   def open(self):
     def open_txn():
-      if not self.closed:
+      if self.is_open:
         return
-      self.closed = False
+      self.status = 'open'
       self.modified = datetime.now()
       self.put()
       # fiddle site counts
@@ -110,9 +112,9 @@ class Edit(search.SearchableModel):
   
   def close(self):
     def close_txn():
-      if self.closed:
+      if self.is_closed:
         return
-      self.closed = True
+      self.status = 'closed'
       self.modified = datetime.now()
       self.put()
       # fiddle site counts
