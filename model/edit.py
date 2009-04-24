@@ -1,3 +1,4 @@
+import logging
 from datetime import datetime
 
 from util.levenshtein import describe
@@ -9,7 +10,6 @@ from google.appengine.ext import db, search
 from google.appengine.api import users
 from google.appengine.api.urlfetch_errors import DownloadError
 from util import bitly, twitter, env
-from util.warn import warn
 
 class Edit(search.SearchableModel):
   index = db.IntegerProperty(required=True)
@@ -65,9 +65,9 @@ class Edit(search.SearchableModel):
       try:
         return bitly.shorten(self.permalink(), **credentials)
       except DownloadError, e:
-        warn("failed to shorten", e)
+        logging.error("failed to shorten: %s", e)
     else:
-      warn("could not find bitly credentials")
+      logging.info("could not find bitly credentials")
   
   def tweet(self):
     """Try to tweet this edit, but suppress errors."""
@@ -78,9 +78,9 @@ class Edit(search.SearchableModel):
         try:
           return twitter.tweet(status, **credentials)
         except DownloadError, e:
-          warn("failed to tweet", e)
+          logging.error("failed to tweet: %s", e)
       else:
-        warn("could not find twitter credentials")
+        logging.info("could not find twitter credentials")
     
   def sanitize(self):
     return dict(

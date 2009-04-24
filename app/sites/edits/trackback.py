@@ -1,3 +1,5 @@
+import logging
+
 from util.tblib import TrackBack
 
 from google.appengine.api import urlfetch
@@ -16,6 +18,7 @@ def post(handler, response):
     else:
       response.success = 1
   except urlfetch.DownloadError, e:
+    logging.error("trackback failed: %s", e);
     response.error = e.message
   # redirect
   handler.redirect(handler.request.get('continue') or edit.permalink())

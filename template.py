@@ -1,5 +1,4 @@
 from google.appengine.ext.webapp import template
-from util.warn import warn
 
 register = template.create_template_register()
 

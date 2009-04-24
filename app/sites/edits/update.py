@@ -1,6 +1,5 @@
 from urlparse import urlparse
 from model.site import Site
-from util.warn import warn
 
 def get(handler, response):
   edit = handler.get_edit(required=True)

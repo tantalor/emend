@@ -1,5 +1,4 @@
 from model.site import Site
-from util.warn import warn
 PAGE_SIZE = 10
 
 def get(handler, response):

@@ -4,6 +4,7 @@ import sys
 import re
 import urllib
 import traceback
+import logging
 from types import InstanceType
 
 from google.appengine.api import users, memcache
@@ -20,7 +21,6 @@ import env
 from model.site import Site
 from model.edit import Edit
 from model.user import User
-from warn import warn
 from recursivedefaultdict import recursivedefaultdict
 
 template.register_template_library('template')
@@ -205,7 +205,7 @@ class Handler(webapp.RequestHandler):
         error=error,
         error_type=error_type,
         tb_formatted=tb_formatted)
-      warn(**{error_type: error})
+      logging.error("%s: %s", error_type, error)
       self.response.set_status(code=500)
       return 'error.html'
   
@@ -233,12 +233,12 @@ class Handler(webapp.RequestHandler):
       except template.django.template.TemplateSyntaxError, error:
         self.response.headers['Content-Type'] = 'text/plain'
         message = "Template syntax error: %s" % error
-        warn(message)
+        logging.critical(message)
         self.response.out.write(message)
     else:
       self.response.headers['Content-Type'] = 'text/plain'
       message = "Template not found: %s" % path
-      warn(message)
+      logging.critical(message)
       self.response.out.write(message)
   
   blacklist = dict.fromkeys(['handler', 'bookmarklet', 'is_dev'])

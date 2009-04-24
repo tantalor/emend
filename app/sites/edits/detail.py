@@ -1,7 +1,5 @@
 from model.edit import Edit
 
-from util.warn import warn
-
 def get(handler, response):
   edit = handler.get_edit(required=True)
   

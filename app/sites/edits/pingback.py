@@ -1,8 +1,9 @@
-from util.pingback import pingback
+import logging
 import xmlrpclib
-from google.appengine.api import urlfetch
 
-from util.warn import warn
+from util.pingback import pingback
+
+from google.appengine.api import urlfetch
 
 def post(handler, response):
   edit = handler.get_edit(required=True)
@@ -15,12 +16,12 @@ def post(handler, response):
       response.error = "Didn't find a pingback URI."
   except xmlrpclib.Fault, e:
     response.error = e.faultString
-    warn("pingback XMLRPC failed", e);
+    logging.error("pingback XMLRPC failed: %s", e);
   except xmlrpclib.ProtocolError, e:
     response.error = e.errmsg
-    warn("pingback XMLRPC failed", e);
+    logging.error("pingback XMLRPC failed: %s", e);
   except urlfetch.DownloadError, e:
     response.error = e.message
-    warn("pingback failed", e);
+    logging.error("pingback failed: %s", e);
   # redirect
   handler.redirect(handler.request.get('continue') or edit.permalink())

@@ -1,7 +1,5 @@
 from google.appengine.api.urlfetch import fetch
 
-from util.warn import warn
-
 def post(handler, response):
   edit = handler.get_edit(required=True)
   page = fetch(edit.url)
