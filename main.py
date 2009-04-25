@@ -3,6 +3,7 @@ from google.appengine.ext.webapp.util import run_wsgi_app
 
 from util.handler import Handler
 
+import app.about
 import app.admin.edit
 import app.admin.memclear
 import app.admin.site_count
@@ -29,6 +30,8 @@ import app.not_found
 def main():
   run_wsgi_app(WSGIApplication(
     [
+      (r'/about',
+        Handler.factory(page=app.about)),
       (r'/admin/edit',
         Handler.factory(page=app.admin.edit)),
       (r'/admin/memclear',
