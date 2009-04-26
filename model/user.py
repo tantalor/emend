@@ -1,9 +1,11 @@
 from os import environ
 
+from util.counts import Counts
+
 from google.appengine.ext import db
 from google.appengine.api import users, memcache
 
-class User(db.Model):
+class User(db.Model,Counts):
   user = db.UserProperty(required=True)
   nickname = db.StringProperty()
   open = db.IntegerProperty(required=True, default=0)
@@ -41,18 +43,6 @@ class User(db.Model):
   def key_name_from_email(email, prefix="user"):
     """Accepts google.appengine.api.users.User object."""
     return '%s:%s' % (prefix, email)
-  
-  def counts(self):
-    counts = []
-    if self.open:
-      plural = ''
-      if self.open > 1:
-        plural = 's'
-      counts.append('%s edit%s' % (self.open, plural))
-    if self.closed:
-      counts.append('%s fixed' % self.closed)
-    if counts:
-      return ', '.join(counts)
   
   def sanitize(self):
     return dict(

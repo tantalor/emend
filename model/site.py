@@ -1,9 +1,11 @@
 from os import environ
 import re
 
+from util.counts import Counts
+
 from google.appengine.ext import db
 
-class Site(db.Model):
+class Site(db.Model,Counts):
   domain = db.StringProperty(required=True)
   index = db.IntegerProperty(required=True, default=0)
   open = db.IntegerProperty(required=True, default=0)
@@ -24,18 +26,6 @@ class Site(db.Model):
   def permalink(self):
     host = environ['HTTP_HOST']
     return "http://%s/sites/%s" % (host, self.domain)
-  
-  def counts(self):
-    counts = []
-    if self.open:
-      plural = ''
-      if self.open > 1:
-        plural = 's'
-      counts.append('%s edit%s' % (self.open, plural))
-    if self.closed:
-      counts.append('%s fixed' % self.closed)
-    if counts:
-      return ', '.join(counts)
   
   def sanitize(self):
     json = dict(
