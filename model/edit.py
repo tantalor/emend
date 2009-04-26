@@ -10,6 +10,7 @@ from google.appengine.ext import db, search
 from google.appengine.api import users
 from google.appengine.api.urlfetch_errors import DownloadError
 from util import bitly, twitter, env
+from util.const import DATE_SHORT
 
 class Edit(search.SearchableModel):
   index = db.IntegerProperty(required=True)
@@ -24,8 +25,8 @@ class Edit(search.SearchableModel):
   site = property(fget=lambda self: self.parent())
   is_open = property(fget=lambda self: self.status == 'open')
   is_closed = property(fget=lambda self: self.status == 'closed')
-  created_short = property(fget=lambda self: self.created.strftime('%A, %b %d, %Y'))
-  modified_short = property(fget=lambda self: self.modified.strftime('%A, %b %d, %Y'))
+  created_short = property(fget=lambda self: self.created.strftime(DATE_SHORT))
+  modified_short = property(fget=lambda self: self.modified.strftime(DATE_SHORT))
   original_utf8 = property(fget=lambda self: self.original.encode('utf8'))
   proposal_utf8 = property(fget=lambda self: self.proposal.encode('utf8'))
   original_desc = property(fget=lambda self: self.__describe_once()[0])
