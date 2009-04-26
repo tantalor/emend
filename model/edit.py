@@ -28,8 +28,8 @@ class Edit(search.SearchableModel):
   modified_short = property(fget=lambda self: self.modified.strftime('%A, %b %d, %Y'))
   original_utf8 = property(fget=lambda self: self.original.encode('utf8'))
   proposal_utf8 = property(fget=lambda self: self.proposal.encode('utf8'))
-  original_desc = property(fget=lambda self: self.describe()[0])
-  proposal_desc = property(fget=lambda self: self.describe()[1])
+  original_desc = property(fget=lambda self: self.__describe_once()[0])
+  proposal_desc = property(fget=lambda self: self.__describe_once()[1])
   
   def can_edit(self):
     user = users.get_current_user()
@@ -41,11 +41,15 @@ class Edit(search.SearchableModel):
   def permalink(self):
     return "%s/edits/%s" % (self.site.permalink(), self.index)
   
-  _describe = None
   def describe(self):
-    if not self._describe:
-      self._describe = describe(self.original, self.proposal)
-    return self._describe
+    return describe(self.original, self.proposal)
+  
+  def __describe_once(self):
+    """Save the results of self.describe() locally."""
+    attr = '__description__'
+    if not hasattr('self', attr):
+      setattr(self, attr, self.describe())
+    return getattr(self, attr)
   
   def as_tweet(self):
     as_tweet = '"%s" should be "%s" on #%s' % (\
