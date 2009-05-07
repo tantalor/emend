@@ -1,5 +1,6 @@
 import logging
 import xmlrpclib
+from xml.parsers import expat
 
 from util.pingback import pingback
 
@@ -20,6 +21,9 @@ def post(handler, response):
   except xmlrpclib.ProtocolError, e:
     response.error = e.errmsg
     logging.error("pingback XMLRPC failed: %s", e);
+  except expat.ExpatError, e:
+    response.error = expat.ErrorString(e.code)
+    logging.error("pingback parsing failed: %s", e);
   except urlfetch.DownloadError, e:
     response.error = e.message
     logging.error("pingback failed: %s", e);
