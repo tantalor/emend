@@ -70,3 +70,30 @@ class DescribeNode(template.django.template.Node):
     if op == 'p':
       return c
     return '<span class="%s">%s</span>' % (op, c)
+
+
+@register.tag
+def counts(parser, token):
+  (_, string_key) = token.split_contents()
+  return CountsNode(string_key)
+
+class CountsNode(template.django.template.Node):
+  """Describe the counts of an object."""
+  def __init__(self, string_key):
+    self.string_key = string_key
+  
+  def render(self, context):
+    try:
+      obj = template.django.template.resolve_variable(self.string_key, context)
+      counts = []
+      if obj.open:
+        plural = ''
+        if obj.open > 1:
+          plural = 's'
+        counts.append('%s open edit%s' % (obj.open, plural))
+      if obj.closed:
+        counts.append('%s fixed' % obj.closed)
+      if counts:
+        return "(%s)" % ', '.join(counts)
+    except template.django.template.VariableDoesNotExist:
+      pass

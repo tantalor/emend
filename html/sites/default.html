@@ -14,9 +14,7 @@
       {% for site in sites %}
         <li>
           <a href="{{site.permalink}}">{{site.domain}}</a>
-          {% if site.counts %}
-            ({{site.counts}})
-          {% endif %}
+          {% counts site %}
         </li>
       {% endfor %}
     </ul>

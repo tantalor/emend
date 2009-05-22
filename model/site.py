@@ -1,11 +1,9 @@
 from os import environ
 import re
 
-from util.counts import Counts
-
 from google.appengine.ext import db
 
-class Site(db.Model,Counts):
+class Site(db.Model):
   domain = db.StringProperty(required=True)
   index = db.IntegerProperty(required=True, default=0)
   open = db.IntegerProperty(required=True, default=0)

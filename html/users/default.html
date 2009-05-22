@@ -14,9 +14,7 @@
       {% for user in users %}
         <li>
           <a href="{{user.permalink}}">{{user|escape}}</a>
-          {% if user.counts %}
-            ({{user.counts}})
-          {% endif %}
+          {% counts user %}
         </li>
       {% endfor %}
     </ul>

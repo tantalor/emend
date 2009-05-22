@@ -1,11 +1,9 @@
 from os import environ
 
-from util.counts import Counts
-
 from google.appengine.ext import db
 from google.appengine.api import users, memcache
 
-class User(db.Model,Counts):
+class User(db.Model):
   user = db.UserProperty(required=True)
   nickname = db.StringProperty()
   open = db.IntegerProperty(required=True, default=0)
