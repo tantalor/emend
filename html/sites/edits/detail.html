@@ -13,12 +13,12 @@
   
   <h2>Original</h2>
   <blockquote class="diff original">
-    {% describe edit.original edit.original_desc %}
+    {% diff edit.original edit.proposal %}
   </blockquote>
 
   <h2>Proposal</h2>
   <blockquote class="diff proposal">
-    {% describe edit.proposal edit.proposal_desc %}
+    {% diff edit.proposal edit.original %}
   </blockquote>
   
   <h2>Things to do</h2>

@@ -122,10 +122,10 @@ label.field textarea {
 
 /* diff */
 
-.diff .d {
+.diff.original .different {
   background: #FAA;
 }
 
-.diff .i {
+.diff.proposal .different {
   background: #ADA;
 }

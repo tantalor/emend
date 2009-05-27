@@ -1,8 +1,6 @@
 import logging
 from datetime import datetime
 
-from util.levenshtein import describe
-
 from site import Site
 from user import User
 
@@ -29,8 +27,6 @@ class Edit(search.SearchableModel):
   modified_short = property(fget=lambda self: self.modified.strftime(DATE_SHORT))
   original_utf8 = property(fget=lambda self: self.original.encode('utf8'))
   proposal_utf8 = property(fget=lambda self: self.proposal.encode('utf8'))
-  original_desc = property(fget=lambda self: self.__describe_once()[0])
-  proposal_desc = property(fget=lambda self: self.__describe_once()[1])
   
   def can_edit(self):
     user = users.get_current_user()
@@ -41,16 +37,6 @@ class Edit(search.SearchableModel):
   
   def permalink(self):
     return "%s/edits/%s" % (self.site.permalink(), self.index)
-  
-  def describe(self):
-    return describe(self.original, self.proposal)
-  
-  def __describe_once(self):
-    """Save the results of self.describe() locally."""
-    attr = '__description__'
-    if not hasattr('self', attr):
-      setattr(self, attr, self.describe())
-    return getattr(self, attr)
   
   def as_tweet(self):
     as_tweet = '"%s" should be "%s" on #%s' % (\

@@ -1,3 +1,5 @@
+from difflib import SequenceMatcher
+
 from google.appengine.ext.webapp import template
 
 register = template.create_template_register()
@@ -40,36 +42,37 @@ class FormErrorNode(template.django.template.Node):
 
 
 @register.tag
-def describe(parser, token):
-  (_, string_key, desc_key) = token.split_contents()
-  return DescribeNode(string_key, desc_key)
+def diff(parser, token):
+  (_, src_key, dst_key) = token.split_contents()
+  return DiffNode(src_key, dst_key)
 
-class DescribeNode(template.django.template.Node):
+class DiffNode(template.django.template.Node):
   """Annotate a string with a description of string operations."""
-  def __init__(self, string_key, desc_key):
-    self.string_key = string_key
-    self.desc_key = desc_key
+  def __init__(self, src_key, dst_key):
+    self.src_key = src_key
+    self.dst_key = dst_key
   
   def render(self, context):
     try:
-      string = template.django.template.resolve_variable(self.string_key, context)
-      desc = template.django.template.resolve_variable(self.desc_key, context)
-      return ''.join(map(DescribeNode.span, zip(string, desc)))
+      src = template.django.template.resolve_variable(self.src_key, context)
+      dst = template.django.template.resolve_variable(self.dst_key, context)
+      # sequence matcher with spaces as "junk"
+      seq = SequenceMatcher(lambda x: x == ' ', src, dst)
+      # map opcodes to a list of spans (.same or .different)
+      spans = [DiffNode.span(src, op) for op in seq.get_opcodes()]
+      return ''.join(spans)
     except template.django.template.VariableDoesNotExist:
       pass
     return ''
   
   @staticmethod
-  def span(pair):
-    c, op = pair
-    c = c.encode('utf8')
-    if c == '\r':
+  def span(src, (op, i1, i2, j1, j2)):
+    if i1 == i2:
       return ''
-    if c == '\n':
-      return '<br>'
-    if op == 'p':
-      return c
-    return '<span class="%s">%s</span>' % (op, c)
+    elif op == 'equal':
+      return '<span class="same">%s</span>' % src[i1:i2]
+    else:
+      return '<span class="different">%s</span>' % src[i1:i2]
 
 
 @register.tag
