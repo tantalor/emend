@@ -18,6 +18,7 @@ import json
 import yaml
 import bitly
 import env
+import local
 from model.site import Site
 from model.edit import Edit
 from model.user import User
@@ -44,15 +45,6 @@ class Handler(webapp.RequestHandler):
     if kwargs:
       self._response_dict.update(**kwargs)
     return self._response_dict
-  
-  def admin_config(self, filename="config/admin.yaml"):    
-    admin_config = memcache.get('admin_config')
-    if admin_config:
-      return admin_config
-    if os.path.exists(filename):
-      admin_config = yaml.load(file(filename).read())
-      memcache.set('admin_config', admin_config)
-      return admin_config
     
   def get(self, *args):
     # check for trailing slashes
@@ -264,3 +256,6 @@ class Handler(webapp.RequestHandler):
     url = 'http://%s' % self.host()
     changesURL = '%s?atom' % url
     return blogsearch.ping(name=name, url=url, changesURL=changesURL)
+  
+  def config(self):
+    return local.config()

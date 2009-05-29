@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   
   <title>Emend > Sites > {{site.domain}}</title>
-  <subtitle>Edit the Interwebs</subtitle>
+  <subtitle>{{handler.config.tagline}}</subtitle>
   <link href="{{site.permalink}}?atom" rel="self"/>
   <link href="{{site.permalink}}/"/>
   

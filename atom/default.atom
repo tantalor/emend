@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   
   <title>Emend</title>
-  <subtitle>Edit the Interwebs</subtitle>
+  <subtitle>{{handler.config.tagline}}</subtitle>
   <link href="http://{{handler.host}}/?atom" rel="self"/>
   <link href="http://{{handler.host}}/"/>
   

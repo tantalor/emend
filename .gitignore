@@ -1,5 +1,5 @@
 *.pyc
 .DS_Store
-config/*
+local.yaml
 TODO
 index.yaml

@@ -1,8 +1,16 @@
 import logging
 
+from util import local
 from util.tblib import TrackBack
 
 from google.appengine.api import urlfetch
+
+def blog_name():
+  config = local.config()
+  if 'tagline' in config:
+    return 'Emend: %s' % local.config()['tagline']
+  else:
+    return 'Emend'
 
 def post(handler, response):
   edit = handler.get_edit(required=True)
@@ -10,8 +18,7 @@ def post(handler, response):
     title = 'Emend > Sites > %s > %s' % (edit.site.domain, edit.original)
     excerpt = edit.as_tweet()
     url = edit.permalink()
-    blog_name = 'Emend: Edit the Interwebs'
-    tb = TrackBack(title=title, excerpt=excerpt, url=url, blog_name=blog_name)
+    tb = TrackBack(title=title, excerpt=excerpt, url=url, blog_name=blog_name())
     tb.autodiscover(edit.url)
     if tb.ping() == 1:
       response.error = "Didn't find a trackback URI."
