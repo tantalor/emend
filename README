@@ -21,7 +21,7 @@ should each contain a "username" and "password" key.
 
 === Bitly credentials ===
 
-Bitly credentials are read from the "bitley" key in the local configuration.
+Bitly credentials are read from the "bitly" key in the local configuration.
 The value should contain two keys, "prod" and "dev", which should each contain
 a "login" and "apiKey" key.
 
