@@ -1,7 +1,8 @@
 import os
 
 def is_dev():
-  return 'Development' in os.environ['SERVER_SOFTWARE']
+  return 'SERVER_SOFTWARE' not in os.environ\
+    or 'Development' in os.environ['SERVER_SOFTWARE']
 
 def branch(choices):
   """Choose one of the choices based on the environment."""
