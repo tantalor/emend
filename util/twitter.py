@@ -49,4 +49,4 @@ def tweet(status, username, password, source='Emend'):
     return response.content
 
 if __name__ == '__main__':
-  test();
+  test()
