@@ -22,6 +22,7 @@ from model.site import Site
 from model.edit import Edit
 from model.user import User
 from recursivedefaultdict import recursivedefaultdict
+from sanitize import sanitize
 
 template.register_template_library('template')
 
@@ -207,13 +208,13 @@ class Handler(webapp.RequestHandler):
   def render(self, path, base="html"):
     """Render the given template or the default template."""
     if self.is_json():
-      sanitized = Handler.sanitize(self.response_dict())
+      sanitized = sanitize(self.response_dict())
       json_str = json.write(sanitized)
       self.response.headers['Content-Type'] = "text/javascript; charset=UTF-8"
       self.response.out.write(json_str)
       return
     if self.is_yaml():
-      sanitized = Handler.sanitize(self.response_dict())
+      sanitized = sanitize(self.response_dict())
       yaml_str = yaml.dump(sanitized, default_flow_style=False)
       self.response.headers['Content-Type'] = "text/plain; charset=UTF-8"
       self.response.out.write(yaml_str)
@@ -240,22 +241,6 @@ class Handler(webapp.RequestHandler):
       message = "Template not found: %s" % path
       logging.critical(message)
       self.response.out.write(message)
-  
-  @staticmethod
-  def sanitize(obj):
-    """Sanitize the given object for json or yaml output."""
-    if isinstance(obj, dict):      
-      json_obj = {}
-      for key in obj:
-        json_obj[key] = Handler.sanitize(obj[key])
-      return json_obj
-    if hasattr(obj, '__iter__'):
-      return [Handler.sanitize(v) for v in obj]
-    if hasattr(obj, 'sanitize'):
-      return obj.sanitize()
-    if isinstance(obj, BaseException):
-      return str(obj)
-    return obj
   
   def redirect(self, *args):
     if not self.is_json() and not self.is_yaml():
