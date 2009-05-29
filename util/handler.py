@@ -38,15 +38,10 @@ class Handler(webapp.RequestHandler):
     return type(str(kwargs), (Handler,), kwargs)
   
   def response_dict(self, **kwargs):
-    if self._response_dict:
+    if not self._response_dict:
+      self._response_dict = recursivedefaultdict()
+    if kwargs:
       self._response_dict.update(**kwargs)
-      return self._response_dict
-    # some defaults that the template might find handy
-    self._response_dict = recursivedefaultdict(
-      handler = self,
-      is_dev = env.is_dev(),
-      **kwargs
-    )
     return self._response_dict
   
   def admin_config(self, filename="config/admin.yaml"):    
@@ -228,6 +223,11 @@ class Handler(webapp.RequestHandler):
     path = os.path.join(base, path)
     if os.path.exists(path):
       try:
+        # the template might find these handy
+        self.response_dict(
+          handler=self,
+          is_dev=env.is_dev()
+        )
         rendered = template.render(path, self.response_dict())
         self.response.out.write(rendered)
       except template.django.template.TemplateSyntaxError, error:
@@ -241,15 +241,13 @@ class Handler(webapp.RequestHandler):
       logging.critical(message)
       self.response.out.write(message)
   
-  blacklist = dict.fromkeys(['handler', 'bookmarklet', 'is_dev'])
   @staticmethod
   def sanitize(obj):
     """Sanitize the given object for json or yaml output."""
     if isinstance(obj, dict):      
       json_obj = {}
       for key in obj:
-        if key not in Handler.blacklist:
-          json_obj[key] = Handler.sanitize(obj[key])
+        json_obj[key] = Handler.sanitize(obj[key])
       return json_obj
     if hasattr(obj, '__iter__'):
       return [Handler.sanitize(v) for v in obj]
