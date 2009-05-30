@@ -31,17 +31,17 @@ class NotFoundException(Exception):
   pass
 
 class Handler(webapp.RequestHandler):
-  _response_dict = None
-  _url_args = None
   
   @staticmethod
   def factory(**kwargs):
     """Convenience method for subclasses of Handler."""
     return type(str(kwargs), (Handler,), kwargs)
   
+  def __init__(self):
+    self._response_dict = recursivedefaultdict()
+    self._url_args = None
+  
   def response_dict(self, **kwargs):
-    if not self._response_dict:
-      self._response_dict = recursivedefaultdict()
     if kwargs:
       self._response_dict.update(**kwargs)
     return self._response_dict
