@@ -124,13 +124,13 @@
   {% if prev or next %}
     <p class="prev-next">
       {% if prev %}
-        <a href="{{prev.permalink}}">&larr; {{prev.proposal_utf8|escape|truncate:16}}</a>
+        <a href="{{prev.permalink}}">&larr; {{prev.proposal_utf8|escape|truncate:32}}</a>
       {% endif %}
     
       {% if prev and next %}|{% endif %}
     
       {% if next %}
-        <a href="{{next.permalink}}">{{next.proposal_utf8|escape|truncate:16}} &rarr;</a>
+        <a href="{{next.permalink}}">{{next.proposal_utf8|escape|truncate:32}} &rarr;</a>
       {% endif %}
     </p>
   {% endif %}
