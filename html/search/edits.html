@@ -19,21 +19,6 @@
         </li>
       {% endfor %}
     </ul>
-  
-    {% if has_prev or has_next %}
-      <p class="prev-next">
-        {% if has_prev %}
-          <a href="{{site.permalink}}?from={{prev_from}}">&laquo; prev</a>
-        {% endif %}
-      
-        {% if has_prev and has_next %}|{% endif %}
-      
-        {% if has_next %}
-          <a href="{{site.permalink}}?from={{next_from}}"> 	next &raquo;</a>
-        {% endif %}
-      </p>
-    {% endif %}
-  
   {% else %}
     <p>No edits matched your query.</p>
   {% endif %}
