@@ -38,8 +38,6 @@ def mock_edit(original, proposal="test", url="http://test.com"):
     parent=mock_site(),
   )
 
-import logging
-
 class EditTest(unittest.TestCase):
   def testUnicode(self):
     # mock edit
