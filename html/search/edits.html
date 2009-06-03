@@ -19,6 +19,12 @@
         </li>
       {% endfor %}
     </ul>
+  
+    {% if has_next %}
+      <p class="prev-next">
+        <a href="/search/edits?q={{query}}&amp;from={{next_from}}">next &rarr;</a>
+      </p>
+    {% endif %}
   {% else %}
     <p>No edits matched your query.</p>
   {% endif %}
