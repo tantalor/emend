@@ -3,7 +3,6 @@ from datetime import datetime
 from model.edit import Edit
 
 PAGE_SIZE=10
-DATE_FORMAT="%Y-%m-%d"
 
 import logging
 
