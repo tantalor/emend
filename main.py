@@ -24,6 +24,8 @@ import app.sites.edits.trackback
 import app.sites.edits.update
 import app.users.default
 import app.users.detail
+import app.users.closed
+import app.users.open
 import app.users.nickname
 import app.not_found
 
@@ -69,6 +71,10 @@ def application():
       Handler.factory(page=app.users.default)),
     (r'/users/([^/]+)',
       Handler.factory(page=app.users.detail)),
+    (r'/users/([^/]+)/closed',
+      Handler.factory(page=app.users.closed)),
+    (r'/users/([^/]+)/open',
+      Handler.factory(page=app.users.open)),
     (r'/users/([^/]+)/nickname',
       Handler.factory(page=app.users.nickname)),
     (r'/*',

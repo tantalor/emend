@@ -1,0 +1,31 @@
+{% extends "../base.html" %}
+
+{% block title %}
+  Emend > {{user|escape}} > closed edits
+{% endblock %}
+
+{% block content %}
+  <h1><a href="/">Emend</a> > <a href="/users">Users</a> > <a href="{{user.permalink}}">{{user|escape}}</a> > closed edits</h1>
+  
+  {% if edits %}
+    <ul>
+      {% for edit in edits %}
+        <li>
+          <a href="{{edit.permalink}}">&ldquo;{{edit.proposal|escape}}&rdquo;</a> at <a href="{{edit.site.permalink}}">{{edit.site}}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  
+    {% if has_prev or has_next %}
+      <p class="prev-next">
+        {% if has_next %}
+          <a href="{{site.permalink}}?from={{next_from}}">next &rarr;</a>
+        {% endif %}
+      </p>
+    {% endif %}
+  
+  {% else %}
+    <p>No closed edits.</p>
+  {% endif %}
+  
+{% endblock %}

@@ -15,6 +15,11 @@
         <li><a href="{{edit.permalink}}">&ldquo;{{edit.proposal|escape}}&rdquo;</a> at <a href="{{edit.site.permalink}}">{{edit.site}}</a></li>
       {% endfor %}
     </ul>
+    {% if has_next_open %}
+      <p class="prev-next">
+        <a href="{{user.permalink}}/open?from={{next_open_from}}">more open &rarr;</a>
+      </p>
+    {% endif %}
   {% else %}
     <p>No edits.</p>
   {% endif %}
@@ -27,6 +32,11 @@
         <li><a href="{{edit.permalink}}">&ldquo;{{edit.proposal|escape}}&rdquo;</a> at <a href="{{edit.site}}">{{edit.site}}</a></li>
       {% endfor %}
     </ul>
+    {% if has_next_closed %}
+      <p class="prev-next">
+        <a href="{{user.permalink}}/closed?from={{next_closed_from}}">more closed &rarr;</a>
+      </p>
+    {% endif %}
   {% else %}
     <p>No edits.</p>
   {% endif %}
