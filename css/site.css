@@ -4,6 +4,7 @@ body {
   margin: 0;
   background: #333;
   font-family: Arial, Helvetica;
+  text-align: center;
 }
 
 #content {
@@ -18,6 +19,7 @@ body {
 .area {
   width: 600px;
   margin: 0 auto;
+  text-align: left;
   padding: 15px 0;
 }
 
