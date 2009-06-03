@@ -51,7 +51,8 @@ class EditTest(unittest.TestCase):
     handler.initialize(Request(environ=dict()), Response())
     handler.response_dict(edit=edit)
     handler.get_edit = lambda **kwargs: edit
-    handler.logout_url = lambda self: ''
+    handler.logout_url = lambda self: None
+    handler.login_url = lambda self: None
     # execute handler
     try:
       handler.get()
