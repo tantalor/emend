@@ -1,10 +1,14 @@
+# -*- coding: utf-8 -*-
+
 import unittest
 
+from util.handler import Handler
 from model.site import Site
 from model.edit import Edit
 from model.user import User
 
 from google.appengine.api import users
+from google.appengine.ext.webapp import Request, Response
 
 class SiteTest(unittest.TestCase):
   def testDomainKey(self):
@@ -20,3 +24,36 @@ class SiteTest(unittest.TestCase):
 def mock_user(email="foo@bar.com"):
   return User(key_name="test",
     user=users.User(email=email, _auth_domain="test"))
+
+def mock_site(domain="test.com", key_name="test"):
+  return Site(domain=domain, key_name=key_name)
+
+def mock_edit(original, proposal="test", url="http://test.com"):
+  return Edit(
+    index=0,
+    url=url,
+    original=original,
+    proposal=proposal,
+    author=mock_user(),
+    parent=mock_site(),
+  )
+
+import logging
+
+class EditTest(unittest.TestCase):
+  def testUnicode(self):
+    # mock edit
+    original = u"Don’t judge a proggie by it’s UI"
+    edit = mock_edit(original=original)
+    # mock handler
+    import app.sites.edits.detail
+    handler = Handler.factory(page=app.sites.edits.detail)()
+    handler.initialize(Request(environ=dict()), Response())
+    handler.response_dict(edit=edit)
+    handler.get_edit = lambda **kwargs: edit
+    handler.logout_url = lambda self: ''
+    # execute handler
+    try:
+      handler.get()
+    except UnicodeDecodeError:
+      self.fail("failed to decode unicode")    
