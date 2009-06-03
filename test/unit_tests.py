@@ -40,6 +40,7 @@ def mock_edit(original, proposal="test", url="http://test.com"):
 
 class EditTest(unittest.TestCase):
   def testUnicode(self):
+    """An edit with unicode characters should not raise UnicodeDecodeError"""
     # mock edit
     original = u"Don’t judge a proggie by it’s UI"
     edit = mock_edit(original=original)
