@@ -77,4 +77,4 @@ class EditTest(unittest.TestCase):
     try:
       handler.get()
     except UnicodeEncodeError:
-      self.fail("failed to encode unicode")    
+      self.fail("failed to encode unicode")
