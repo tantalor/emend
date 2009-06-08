@@ -7,7 +7,7 @@
 {% block content %}
   <h1><a href="/">Emend</a> > <a href="/sites">Sites</a> > <a href="/sites/{{site.domain}}">{{site.domain}}</a> > {{edit.proposal_utf8|escape|truncate:32}}</h1>
   
-  <p>According to <a href="{{edit.author.permalink}}">{{edit.author|escape}}</a>, &ldquo;{{edit.original_utf8|escape}}&rdquo; should be &ldquo;{{edit.proposal_utf8|escape}}&rdquo; on <a href="{{edit.url}}">{{edit.url|truncate:45}}</a>.<p>
+  <p>According to <a href="{{edit.author.permalink}}">{{edit.author|escape}}</a>, &ldquo;{{edit.original_utf8|escape}}&rdquo; should be &ldquo;{{edit.proposal_utf8|escape}}&rdquo; on <a href="{{edit.url_utf8}}">{{edit.url_utf8|truncate:45}}</a>.<p>
     
   <p>This was first noticed on <abbr title="{{edit.created.isoformat}}">{{edit.created_short}}</abbr>.</p>
   

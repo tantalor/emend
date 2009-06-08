@@ -27,6 +27,7 @@ class Edit(search.SearchableModel):
   modified_short = property(fget=lambda self: self.modified.strftime(DATE_SHORT))
   original_utf8 = property(fget=lambda self: self.original.encode('utf8'))
   proposal_utf8 = property(fget=lambda self: self.proposal.encode('utf8'))
+  url_utf8 = property(fget=lambda self: self.url.encode('utf8'))
   
   def can_edit(self):
     user = users.get_current_user()
