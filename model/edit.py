@@ -25,9 +25,6 @@ class Edit(search.SearchableModel):
   is_closed = property(fget=lambda self: self.status == 'closed')
   created_short = property(fget=lambda self: self.created.strftime(DATE_SHORT))
   modified_short = property(fget=lambda self: self.modified.strftime(DATE_SHORT))
-  original_utf8 = property(fget=lambda self: self.original.encode('utf8'))
-  proposal_utf8 = property(fget=lambda self: self.proposal.encode('utf8'))
-  url_utf8 = property(fget=lambda self: self.url.encode('utf8'))
   
   def can_edit(self):
     user = users.get_current_user()
@@ -40,10 +37,11 @@ class Edit(search.SearchableModel):
     return "%s/edits/%s" % (self.site.permalink(), self.index)
   
   def as_tweet(self):
-    as_tweet = '"%s" should be "%s" on #%s' % (\
-        self.original_utf8,\
-        self.proposal_utf8,\
-        self.site.domain.encode('utf8'))
+    """This edit as a tweet (unicode)."""
+    as_tweet = u'"%s" should be "%s" on #%s' % (\
+        self.original,\
+        self.proposal,\
+        self.site.domain)
     # try to append a short url if we can
     short_url = self.short_url()
     if short_url:
@@ -63,7 +61,7 @@ class Edit(search.SearchableModel):
   
   def tweet(self):
     """Try to tweet this edit, but suppress errors."""
-    status = self.as_tweet()
+    status = self.as_tweet().encode('utf8')
     if status:
       credentials = env.branch(twitter.credentials())
       if credentials:
@@ -73,7 +71,7 @@ class Edit(search.SearchableModel):
           logging.error("failed to tweet: %s", e)
       else:
         logging.info("could not find twitter credentials")
-    
+  
   def sanitize(self):
     return dict(
       original=self.original,

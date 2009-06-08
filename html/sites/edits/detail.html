@@ -1,29 +1,29 @@
 {% extends "../../base.html" %}
 
 {% block title %}
-  Emend > {{site.domain}} > {{edit.proposal_utf8|escape|truncate:32}}
+  Emend > {{site.domain}} > {{edit.proposal|utf8|escape|truncate:32}}
 {% endblock %}
 
 {% block content %}
-  <h1><a href="/">Emend</a> > <a href="/sites">Sites</a> > <a href="/sites/{{site.domain}}">{{site.domain}}</a> > {{edit.proposal_utf8|escape|truncate:32}}</h1>
+  <h1><a href="/">Emend</a> > <a href="/sites">Sites</a> > <a href="/sites/{{site.domain}}">{{site.domain}}</a> > {{edit.proposal|utf8|escape|truncate:32}}</h1>
   
-  <p>According to <a href="{{edit.author.permalink}}">{{edit.author|escape}}</a>, &ldquo;{{edit.original_utf8|escape}}&rdquo; should be &ldquo;{{edit.proposal_utf8|escape}}&rdquo; on <a href="{{edit.url_utf8}}">{{edit.url_utf8|truncate:45}}</a>.<p>
+  <p>According to <a href="{{edit.author.permalink}}">{{edit.author|escape}}</a>, &ldquo;{{edit.original|utf8|escape}}&rdquo; should be &ldquo;{{edit.proposal|utf8|escape}}&rdquo; on <a href="{{edit.url|utf8}}">{{edit.url|utf8|truncate:45}}</a>.<p>
     
   <p>This was first noticed on <abbr title="{{edit.created.isoformat}}">{{edit.created_short}}</abbr>.</p>
   
   <h2>Original</h2>
   <blockquote class="diff original">
-    {% diff edit.original_utf8 edit.proposal_utf8 %}
+    {% diff edit.original|utf8 edit.proposal|utf8 %}
   </blockquote>
 
   <h2>Proposal</h2>
   <blockquote class="diff proposal">
-    {% diff edit.proposal_utf8 edit.original_utf8 %}
+    {% diff edit.proposal|utf8 edit.original|utf8 %}
   </blockquote>
   
   <h2>Things to do</h2>
   
-  <p><a href="http://twitter.com/home?status={{edit.as_tweet|urlencode}}">Tweet this</a></p>
+  <p><a href="http://twitter.com/home?status={{edit.as_tweet|utf8|urlencode}}">Tweet this</a></p>
   
   {% if edit.can_edit and edit.is_open %}
     <p><span class="fakelink click-close">Change to &ldquo;fixed&rdquo;</span></p>
@@ -124,13 +124,13 @@
   {% if prev or next %}
     <p class="prev-next">
       {% if prev %}
-        <a href="{{prev.permalink}}">&larr; {{prev.proposal_utf8|escape|truncate:32}}</a>
+        <a href="{{prev.permalink}}">&larr; {{prev.proposal|utf8|escape|truncate:32}}</a>
       {% endif %}
     
       {% if prev and next %}|{% endif %}
     
       {% if next %}
-        <a href="{{next.permalink}}">{{next.proposal_utf8|escape|truncate:32}} &rarr;</a>
+        <a href="{{next.permalink}}">{{next.proposal|utf8|escape|truncate:32}} &rarr;</a>
       {% endif %}
     </p>
   {% endif %}

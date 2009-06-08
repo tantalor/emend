@@ -16,7 +16,7 @@ def post(handler, response):
   edit = handler.get_edit(required=True)
   try:
     title = 'Emend > Sites > %s > %s' % (edit.site.domain, edit.original)
-    excerpt = edit.as_tweet()
+    excerpt = edit.as_tweet().encode('utf8')
     url = edit.permalink()
     tb = TrackBack(title=title, excerpt=excerpt, url=url, blog_name=blog_name())
     tb.autodiscover(edit.url)

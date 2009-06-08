@@ -20,6 +20,11 @@ def strip(value):
   return value.strip()
 
 
+@register.filter
+def utf8(value):
+  return value.encode('utf8')
+
+
 @register.tag
 def form_error(parser, token):
   (_, key) = token.split_contents()
