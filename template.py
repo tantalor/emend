@@ -61,6 +61,9 @@ class DiffNode(template.django.template.Node):
     try:
       src = template.django.template.resolve_variable(self.src_key, context)
       dst = template.django.template.resolve_variable(self.dst_key, context)
+      # utf8 encode
+      src = src.encode('utf8')
+      dst = dst.encode('utf8')
       # sequence matcher with spaces as "junk"
       seq = SequenceMatcher(lambda x: x == ' ', src, dst)
       # map opcodes to a list of spans (.same or .different)
