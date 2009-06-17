@@ -36,12 +36,12 @@ def shorten(longUrl, login, apiKey):
   url = "http://api.bit.ly/shorten"
   response = urlfetch.fetch("%s?%s" % (url, payload))
   if response:
-    data = json.read(response.content)
-    if data['errorCode'] == 0:
-      return data['results'][longUrl]['shortUrl']
-    else:
-      return data['errorMessage']
-    # return response.content
+    try:
+      data = json.read(response.content)
+      if data['errorCode'] == 0:
+        return data['results'][longUrl]['shortUrl']
+    except ReadException:
+      pass
 
 if __name__ == '__main__':
   test();
