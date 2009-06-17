@@ -47,12 +47,6 @@ class Handler(webapp.RequestHandler):
     return self._response_dict
     
   def get(self, *args):
-    # remove expiration from ACSID cookie, set ACSID-reset=1
-    if 'ACSID' in self.request.cookies and\
-       'ACSID-reset' not in self.request.cookies:
-      acsid = self.request.cookies['ACSID']
-      self.response.headers.add_header('Set-Cookie', "ACSID=%s" % acsid, path='/')
-      self.response.headers.add_header('Set-Cookie', "ACSID-reset=1", path='/')
     # check for trailing slashes
     match = re.compile('^(/.*[^/])/+$').search(self.request.path)
     if match and match.groups(1):
