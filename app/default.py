@@ -7,6 +7,12 @@ from model.edit import Edit
 from model.user import User
 
 from google.appengine.ext import db
+from google.appengine.api import memcache
+
+__CACHE_KEY = 'app/default-edits'
+
+def invalidate():
+  memcache.delete(__CACHE_KEY)
 
 def get(handler, response):
   # get params
@@ -17,8 +23,12 @@ def get(handler, response):
   bookmarklet = ''.join(file('js/bookmarklet.js').readlines())
   bookmarklet = re.compile('\s').sub('', bookmarklet)
   response.bookmarklet = bookmarklet
-  # get latest edits
-  response.edits = list(Edit.all().order('-created').fetch(3))
+  # get latest edits (cached)
+  edits = memcache.get(__CACHE_KEY)
+  if not edits:
+    edits = list(Edit.all().order('-created').fetch(3))
+    memcache.set(__CACHE_KEY, edits)
+  response.edits = edits
 
 def post(handler, response):
   if not handler.current_user():
@@ -81,6 +91,9 @@ def post(handler, response):
     return edit
   
   edit = db.run_in_transaction(put_edit)
+  
+  # clear cache
+  invalidate()
   
   # fiddle user's count
   edit.author.open += 1
