@@ -19,16 +19,21 @@ def get(handler, response):
   response.url = handler.request.get('url');
   response.original = handler.request.get('original')
   response.proposal = handler.request.get('proposal') or response.original
-  # build bookmarklet
-  bookmarklet = ''.join(file('js/bookmarklet.js').readlines())
-  bookmarklet = re.compile('\s').sub('', bookmarklet)
-  response.bookmarklet = bookmarklet
-  # get latest edits (cached)
-  edits = memcache.get(__CACHE_KEY)
-  if not edits:
+  # check cache
+  cached = memcache.get(__CACHE_KEY)
+  if cached:
+    response.update(cached)
+  else:
+    # build bookmarklet
+    bookmarklet = ''.join(file('js/bookmarklet.js').readlines())
+    bookmarklet = re.compile('\s').sub('', bookmarklet)
+    response.bookmarklet = bookmarklet
+    # get latest edits
     edits = list(Edit.all().order('-created').fetch(3))
-    memcache.set(__CACHE_KEY, edits)
-  response.edits = edits
+    response.edits = edits
+    # cache
+    cached = dict(bookmarklet=bookmarklet, edits=edits)
+    memcache.set(__CACHE_KEY, cached)
 
 def post(handler, response):
   if not handler.current_user():
