@@ -28,5 +28,7 @@ class Site(db.Model):
   def sanitize(self):
     json = dict(
       domain=self.domain,
+      open=self.open,
+      closed=self.closed,
     )
     return json
