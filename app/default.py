@@ -27,12 +27,11 @@ def get(handler, response):
     # build bookmarklet
     bookmarklet = ''.join(file('js/bookmarklet.js').readlines())
     bookmarklet = re.compile('\s').sub('', bookmarklet)
-    response.bookmarklet = bookmarklet
     # get latest edits
     edits = list(Edit.all().order('-created').fetch(3))
-    response.edits = edits
     # cache
     cached = dict(bookmarklet=bookmarklet, edits=edits)
+    response.update(cached)
     memcache.set(__CACHE_KEY, cached)
 
 def post(handler, response):
