@@ -106,5 +106,7 @@ class CountsNode(template.django.template.Node):
         counts.append('%s fixed' % obj.closed)
       if counts:
         return "(%s)" % ', '.join(counts)
+      else:
+        return ''
     except template.django.template.VariableDoesNotExist:
       pass
