@@ -84,6 +84,9 @@ def application():
   ], debug=True)
 
 def main():
+  run()
+
+def run():
   run_wsgi_app(application())
 
 if __name__ == "__main__":
