@@ -78,3 +78,19 @@ class EditTest(unittest.TestCase):
       handler.get()
     except UnicodeEncodeError:
       self.fail("failed to encode unicode")
+  
+  def testAsTweet(self):
+    """Tweets of various lengths"""
+    original = ("Lorem ipsum dolor sit amet, consectetur adipisicing elit, "
+                "sed do eiusmod tempor incididunt ut labore et dolore magna "
+                "aliqua. Ut enim ad minim veniam, quis nostrud exercitation "
+                "ullamco laboris nisi ut aliquip ex ea commodo consequat.")
+    proposal = ("Duis aute irure dolor in reprehenderit in voluptate velit "
+                "esse cillum dolore eu fugiat nulla pariatur. Excepteur sint "
+                "occaecat cupidatat non proident, sunt in culpa qui officia "
+                "deserunt mollit anim id est laborum.")
+    edit = mock_edit(original=original, proposal=proposal)
+    for max_len in (100, 120, 140, 160, 180):
+      tweet = edit.as_tweet(max_len=max_len)
+      if len(tweet) > max_len:
+        self.fail("tweet is too long")

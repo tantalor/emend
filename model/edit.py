@@ -36,14 +36,26 @@ class Edit(search.SearchableModel):
   def permalink(self):
     return "%s/edits/%s" % (self.site.permalink(), self.index)
   
-  def as_tweet(self):
+  def as_tweet(self, max_len=140):
     """This edit as a tweet (unicode)."""
-    as_tweet = u'"%s" should be "%s" on #%s' % (\
-        self.original,\
-        self.proposal,\
-        self.site.domain)
-    # try to append a short url if we can
     short_url = self.short_url()
+    original = self.original
+    proposal = self.proposal
+    # compute limit, i.e. maximum lenth of original+proposal
+    template = u'"%s" should be "%s" on %s'
+    limit = max_len - len(template % ('', '', '')) - len(self.site.domain)
+    if short_url:
+      limit = limit - len(short_url) - 1 # for the short url and space
+    # cut down to limit
+    if len(original)+len(proposal) > limit:
+      sub_limit = limit/2-3 # leave space for ellipses
+      if len(original) > sub_limit:
+        original = original[:sub_limit]+"..."
+      if len(proposal) > sub_limit:
+        proposal = proposal[:sub_limit]+"..."
+    # compose tweet
+    as_tweet = template % (original, proposal, self.site.domain)
+    # try to append a short url if we can
     if short_url:
       as_tweet = "%s %s" % (as_tweet, short_url)
     return as_tweet
