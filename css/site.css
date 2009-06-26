@@ -45,6 +45,10 @@ p {
   margin: 10px 0
 }
 
+.center {
+  text-align: center;
+}
+
 /* links */
 
 span.fakelink,

@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block head %}
+<style type="text/css" media="screen">
+  img.framed {
+    margin: 0 auto;
+    border: solid 1px #666;
+  }
+</style>
+{% endblock %}
+
+{% block title %}
+  Emend > iPhone
+{% endblock %}
+
+{% block content %}
+  <h1><a href="/">Emend</a> > iPhone</h1>
+  
+  <p>
+    If you have an <a href="http://www.apple.com/iphone/">iPhone</a> or <a href="http://www.apple.com/ipodtouch/">iPod Touch</a> and the <a
+    href="http://www.apple.com/iphone/softwareupdate/">iPhone OS 3.0</a>
+    software update, you should be able to easily use Emend on the go. Follow
+    these steps to learn how.
+  </p>
+  
+  <p>
+    <strong>Step 1:</strong> In Safari, drag the bookmarklet (<a
+    href="javascript:({{bookmarklet}})()">Emend</a>) to your Bookmarks Toolbar.
+    Then synchronize your iPhone. Make sure you have specified to &ldquo;Sync
+    Safari bookmarks&rdquo; in iTunes.
+  </p>
+  
+  <p class="center">
+    <img src="/images/iphone/sync-bookmarks.png" class="framed" width="449" height="118">
+  </p>
+  
+  <p>
+    <strong>Step 2:</strong> On your iPhone, find a page desperately in need of
+    copy editing. Tap and hold to select a word, then drag the sliders to select
+    the desired phrase. Tap &ldquo;Copy&rdquo; to save the phrase to your
+    clipboard.
+  </p>
+  
+  <p class="center">
+    <img src="/images/iphone/demo/1.png" class="framed" width="320" height="480">
+  </p>
+  
+  <p>
+    <strong>Step 3:</strong> Invoke Emend by selecting the bookmarklet, which
+    should be in your &ldquo;Bookmarks Bar&rdquo;.
+  </p>
+  
+  <p class="center">
+    <img src="/images/iphone/demo/2.png" class="framed" width="320" height="480">
+  </p>
+  
+  <p>
+    <strong>Step 4:</strong> Emend should load with the page's URL already
+    filled in. You will probably have to log in first with your Google Account.
+  </p>
+  
+  <p class="center">
+    <img src="/images/iphone/demo/3.png" class="framed" width="320" height="480">
+  </p>
+  
+  <p>
+    <strong>Step 5:</strong> Focus on the &ldquo;Original&rdquo; field and tap
+    &ldquo;Paste&rdquo;. Repeat for the &ldquo;Proposal&rdquo; field.
+  </p>
+  
+  <p class="center">
+    <img src="/images/iphone/demo/4.png" class="framed" width="320" height="480">
+  </p>
+  
+  <p>
+    <strong>Step 6:</strong> Alter the proposal to fix the mistake, in this
+    case &ldquo;mocktail&rdquo; should be &ldquo;cocktail&rdquo;.
+  </p>
+  
+  <p class="center">
+    <img src="/images/iphone/demo/5.png" class="framed" width="320" height="480">
+  </p>
+  
+  <p>
+    <strong>Step 7:</strong> Tap &ldquo;Submit proposal&rdquo;, and you're done!
+  </p>
+  
+  <p class="center">
+    <img src="/images/iphone/demo/6.png" class="framed" width="320" height="480">
+  </p>
+
+  <div class="cleaner"></div>
+{% endblock %}

@@ -3,6 +3,7 @@ from google.appengine.ext.webapp.util import run_wsgi_app
 
 from util.handler import Handler
 
+import app.iphone
 import app.about
 import app.admin.edit
 import app.admin.memclear
@@ -31,6 +32,8 @@ import app.not_found
 
 def application():
   return WSGIApplication([
+    (r'/iphone',
+      Handler.factory(page=app.iphone)),
     (r'/about',
       Handler.factory(page=app.about)),
     (r'/admin/edit',
