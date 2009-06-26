@@ -1,10 +1,10 @@
-import re
-import os
 from urlparse import urlparse
 
 from model.site import Site
 from model.edit import Edit
 from model.user import User
+
+from util.bookmarklet import bookmarklet
 
 from google.appengine.ext import db
 from google.appengine.api import memcache
@@ -24,13 +24,10 @@ def get(handler, response):
   if cached:
     response.update(cached)
   else:
-    # build bookmarklet
-    bookmarklet = ''.join(file('js/bookmarklet.js').readlines())
-    bookmarklet = re.compile('\s').sub('', bookmarklet)
     # get latest edits
     edits = list(Edit.all().order('-created').fetch(3))
     # cache
-    cached = dict(bookmarklet=bookmarklet, edits=edits)
+    cached = dict(bookmarklet=bookmarklet(), edits=edits)
     response.update(cached)
     memcache.set(__CACHE_KEY, cached)
 
