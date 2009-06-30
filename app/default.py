@@ -9,27 +9,17 @@ from util.bookmarklet import bookmarklet
 from google.appengine.ext import db
 from google.appengine.api import memcache
 
-__CACHE_KEY = 'app/default-edits'
-
-def invalidate():
-  memcache.delete(__CACHE_KEY)
-
 def get(handler, response):
   # get params
   response.url = handler.request.get('url');
   response.original = handler.request.get('original')
   response.proposal = handler.request.get('proposal') or response.original
   # check cache
-  cached = memcache.get(__CACHE_KEY)
-  if cached:
-    response.update(cached)
-  else:
+  if not handler.cached():
     # get latest edits
     edits = list(Edit.all().order('-created').fetch(3))
-    # cache
-    cached = dict(bookmarklet=bookmarklet(), edits=edits)
-    response.update(cached)
-    memcache.set(__CACHE_KEY, cached)
+    # cache these and update the response
+    handler.cache(bookmarklet=bookmarklet(), edits=edits)
 
 def post(handler, response):
   if not handler.current_user():
@@ -94,7 +84,7 @@ def post(handler, response):
   edit = db.run_in_transaction(put_edit)
   
   # clear cache
-  invalidate()
+  handler.invalidate()
   
   # fiddle user's count
   edit.author.open += 1

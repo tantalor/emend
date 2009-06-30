@@ -171,6 +171,35 @@ class Handler(webapp.RequestHandler):
   def host(self):
     return os.environ['HTTP_HOST']
   
+  def cache_key(self, page=None):
+    if not page:
+      page = self.page
+    if page:
+      return page.__file__
+  
+  def cached(self):
+    cached = memcache.get(
+      key=self.cache_key(),
+      namespace="handler-cache")
+    if cached:
+      # update the response
+      self.response_dict(**cached)
+      return True
+  
+  def cache(self, time=0, **kwargs):
+    memcache.set(
+      key=self.cache_key(),
+      value=kwargs,
+      time=time,
+      namespace="handler-cache")
+    # update the response
+    self.response_dict(**kwargs)
+  
+  def invalidate(self, page=None):
+    memcache.delete(
+      key=self.cache_key(page),
+      namespace="handler-cache")
+  
   def default_template(self, ext="html", base="/app"):
     page = self.page.__file__
     match = re.compile("%s/([^.]*)" % base).search(page)
