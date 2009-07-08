@@ -113,10 +113,13 @@ class Handler(webapp.RequestHandler):
       cached = memcache.get(key_name)
       if cached:
         return cached
-      # User models are keyed by user email
-      uncached = User.get_or_insert(key_name=key_name, user=user)
-      uncached.invalidate() # cache it
-      return uncached
+      try:
+        # User models are keyed by user email
+        uncached = User.get_or_insert(key_name=key_name, user=user)
+        uncached.invalidate() # cache it
+        return uncached
+      except CapabilityDisabledError:
+        pass
   
   def get_site(self, required=False, create_if_missing=False):
     if self._url_args:
