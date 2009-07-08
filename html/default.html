@@ -37,20 +37,20 @@
         </label>
         <label class="field">
           <span class="name">Proposal</span>
+          {% if suggestion %}
+            <span>
+             May we suggest <span class="fakelink click-suggestion">{{suggestion}}</span>?
+            </span>
+            <script type="text/javascript" charset="utf-8">
+              $('.click-suggestion').click(function ()
+              {
+                $('[name=proposal]').val($(this).text());
+              });
+            </script>
+          {% endif %}  
           <textarea name="proposal">{{proposal}}</textarea>
           {% form_error proposal %}
         </label>
-        {% if suggestion %}
-          <p>
-            May we suggest <span class="fakelink click-suggestion">{{suggestion}}</span>?
-          </p>
-          <script type="text/javascript" charset="utf-8">
-            $('.click-suggestion').click(function ()
-            {
-              $('[name=proposal]').val($(this).text());
-            });
-          </script>
-        {% endif %}
         <label class="field buttons">
           <input type="submit" value="Submit proposal"/>
         </label>
