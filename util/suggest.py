@@ -35,7 +35,7 @@ def suggest(query, appid):
         result = data['ResultSet']['Result']
         if result != 'None':
           return result
-    except ReadException:
+    except json.ReadException:
       pass
 
 if __name__ == '__main__':

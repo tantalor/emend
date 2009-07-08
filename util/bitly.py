@@ -37,7 +37,7 @@ def shorten(longUrl, login, apiKey):
       data = json.read(response.content)
       if data['errorCode'] == 0:
         return data['results'][longUrl]['shortUrl']
-    except ReadException:
+    except json.ReadException:
       pass
 
 if __name__ == '__main__':
