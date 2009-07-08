@@ -1,19 +1,16 @@
-import os
-import yaml
-from time import time
 from base64 import encodestring
 from urllib import urlencode
 
 import local
-import stubs
 
-from google.appengine.api import urlfetch, memcache, apiproxy_stub_map, urlfetch_stub
-from google.appengine.api.memcache import memcache_stub
+from google.appengine.api import urlfetch
 
 def test():
+  import stubs
   stubs.all()
   # canonical test
   cred = credentials()
+  from time import time
   status = "test %s" % int(time())
   response = tweet(status=status, **cred)
   if '<id>' in response:

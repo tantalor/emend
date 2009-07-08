@@ -2,10 +2,8 @@ import yaml
 import os
 
 from env import branch
-import stubs
 
-from google.appengine.api import memcache, apiproxy_stub_map
-from google.appengine.api.memcache import memcache_stub
+from google.appengine.api import memcache
 
 def config(filename='local.yaml', cachekey='local_config'):
   config = memcache.get(cachekey)
@@ -19,6 +17,7 @@ def config(filename='local.yaml', cachekey='local_config'):
     return config
 
 def test():
+  import stubs
   stubs.memcache()
   # canonical test
   c = config()
