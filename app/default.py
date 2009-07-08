@@ -4,6 +4,7 @@ from model.site import Site
 from model.edit import Edit
 from model.user import User
 
+from util import suggest
 from util.bookmarklet import bookmarklet
 
 from google.appengine.ext import db
@@ -14,6 +15,10 @@ def get(handler, response):
   response.url = handler.request.get('url');
   response.original = handler.request.get('original')
   response.proposal = handler.request.get('proposal') or response.original
+  # get a suggestion
+  if response.original:
+    cred = suggest.credentials()
+    response.suggestion = suggest.suggest(response.original, **cred)
   # check cache
   if not handler.cached():
     # get latest edits
