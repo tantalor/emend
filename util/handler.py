@@ -122,6 +122,8 @@ class Handler(webapp.RequestHandler):
         pass
   
   def get_site(self, required=False, create_if_missing=False):
+    if self.repsonse_dict().site:
+      return self.repsonse_dict().site
     if self._url_args:
       # based on the regexp in main.py
       domain = self._url_args[0]
@@ -137,6 +139,8 @@ class Handler(webapp.RequestHandler):
       raise NotFoundException("site not found")
   
   def get_edit(self, required=False):
+    if self.response_dict().edit:
+      return self.response_dict().edit
     site = self.get_site()
     if site and self._url_args:
       # based on the regexp in main.py
@@ -153,6 +157,8 @@ class Handler(webapp.RequestHandler):
       raise NotFoundException("edit not found")
   
   def get_user(self, required=False):
+    if self.response_dict().user:
+      return self.response_dict().user
     if self._url_args:
       # based on the regexp in main.py
       key = self._url_args[0]

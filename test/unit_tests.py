@@ -2,7 +2,7 @@
 
 import unittest
 
-from util.handler import Handler
+from util.handler import Handler, NotFoundException
 from model.site import Site
 from model.edit import Edit
 from model.user import User
@@ -38,6 +38,17 @@ def mock_edit(original="test", proposal="test", url="http://test.com"):
     parent=mock_site(),
   )
 
+def mock_handler(page, **response):
+  handler = Handler.factory(page=page)()
+  handler.initialize(Request(environ=dict()), Response())
+  handler.response_dict(**response)
+  handler.logout_url = lambda self: None
+  handler.login_url = lambda self: None
+  def mock_not_found():
+    raise NotFoundException()
+  handler.not_found = mock_not_found
+  return handler
+
 class EditTest(unittest.TestCase):
   def testUnicodeOriginal(self):
     """An edit with unicode characters"""
@@ -46,12 +57,7 @@ class EditTest(unittest.TestCase):
     edit = mock_edit(original=original, proposal=original)
     # mock handler
     import app.sites.edits.detail
-    handler = Handler.factory(page=app.sites.edits.detail)()
-    handler.initialize(Request(environ=dict()), Response())
-    handler.response_dict(edit=edit)
-    handler.get_edit = lambda **kwargs: edit
-    handler.logout_url = lambda self: None
-    handler.login_url = lambda self: None
+    handler = mock_handler(page=app.sites.edits.detail, edit=edit)
     # execute handler
     try:
       handler.get()
