@@ -25,6 +25,7 @@ def credentials():
     return config['yahoo']
 
 def suggest(query, appid):
+  """query should be utf8 encoded"""
   url = "http://search.yahooapis.com/WebSearchService/V1/spellingSuggestion"
   payload = urlencode(dict(output='json', query=query, appid=appid))
   response = urlfetch.fetch('%s?%s' % (url, payload))

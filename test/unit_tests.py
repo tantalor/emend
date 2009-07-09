@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 import unittest
+import sys
+from urllib import urlencode
 
 from util.handler import Handler, NotFoundException
 from model.site import Site
@@ -38,15 +40,19 @@ def mock_edit(original="test", proposal="test", url="http://test.com"):
     parent=mock_site(),
   )
 
-def mock_handler(page, **response):
+def mock_handler(page, request='/', **response):
   handler = Handler.factory(page=page)()
-  handler.initialize(Request(environ=dict()), Response())
+  handler.initialize(Request.blank(request), Response())
   handler.response_dict(**response)
   handler.logout_url = lambda self: None
   handler.login_url = lambda self: None
   def mock_not_found():
     raise NotFoundException()
   handler.not_found = mock_not_found
+  def mock_handle_error():
+    (error_type, error, tb) = sys.exc_info()
+    raise error
+  handler.handle_error = mock_handle_error
   return handler
 
 class EditTest(unittest.TestCase):
@@ -73,12 +79,7 @@ class EditTest(unittest.TestCase):
     edit = mock_edit(url=url)
     # mock handler
     import app.sites.edits.detail
-    handler = Handler.factory(page=app.sites.edits.detail)()
-    handler.initialize(Request(environ=dict()), Response())
-    handler.response_dict(edit=edit)
-    handler.get_edit = lambda **kwargs: edit
-    handler.logout_url = lambda self: None
-    handler.login_url = lambda self: None
+    handler = mock_handler(page=app.sites.edits.detail, edit=edit)
     # execute handler
     try:
       handler.get()
@@ -100,3 +101,18 @@ class EditTest(unittest.TestCase):
       tweet = edit.as_tweet(max_len=max_len)
       if len(tweet) > max_len:
         self.fail("tweet is too long")
+
+class HomePageTest(unittest.TestCase):
+  def testUnicodeSuggest(self):
+    original = u"the original design"
+    request = '/?%s' % urlencode(dict(original=original.encode('utf8')))
+    import logging
+    logging.warn(request)
+    # mock handler
+    import app.default
+    handler = mock_handler(page=app.default, request=request)
+    # execute handler
+    try:
+      handler.get()
+    except UnicodeEncodeError:
+      self.fail('failed to encode unicode')

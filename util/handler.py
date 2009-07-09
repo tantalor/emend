@@ -224,16 +224,19 @@ class Handler(webapp.RequestHandler):
     except NotFoundException:
       return self.not_found()
     except:
-      (error_type, error, tb) = sys.exc_info()
-      tb_formatted = traceback.format_tb(tb)
-      error_type = error_type.mro()[0].__name__
-      self.response_dict(
-        error=error,
-        error_type=error_type,
-        tb_formatted=tb_formatted)
-      logging.error("%s: %s", error_type, error)
-      self.response.set_status(code=500)
-      return 'error.html'
+      return self.handle_error()
+  
+  def handle_error(self):
+    (error_type, error, tb) = sys.exc_info()
+    tb_formatted = traceback.format_tb(tb)
+    error_type = error_type.mro()[0].__name__
+    self.response_dict(
+      error=error,
+      error_type=error_type,
+      tb_formatted=tb_formatted)
+    logging.error("%s: %s", error_type, error)
+    self.response.set_status(code=500)
+    return 'error.html'
   
   def render(self, path, base="html"):
     """Render the given template or the default template."""

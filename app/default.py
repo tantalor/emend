@@ -18,7 +18,8 @@ def get(handler, response):
   # get a suggestion
   if response.original:
     cred = suggest.credentials()
-    response.suggestion = suggest.suggest(response.original, **cred)
+    query = response.original.encode('utf8')
+    response.suggestion = suggest.suggest(query, **cred)
   # check cache
   if not handler.cached():
     # get latest edits
