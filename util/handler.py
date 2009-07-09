@@ -122,8 +122,8 @@ class Handler(webapp.RequestHandler):
         pass
   
   def get_site(self, required=False, create_if_missing=False):
-    if self.repsonse_dict().site:
-      return self.repsonse_dict().site
+    if self.response_dict().site:
+      return self.response_dict().site
     if self._url_args:
       # based on the regexp in main.py
       domain = self._url_args[0]
