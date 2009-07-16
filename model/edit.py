@@ -133,12 +133,12 @@ class Edit(search.SearchableModel):
       self.author.put()
   
   def test(self):
+    # record test
+    self.tested = datetime.now()
+    self.put()
     # fetch page
     page = fetch(self.url)
     if page:
-      # record test
-      self.tested = datetime.now()
-      self.put()
       # test page
       content = unicode(page.content, 'iso-8859-1')
       if self.proposal in content:

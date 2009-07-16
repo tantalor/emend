@@ -1,5 +1,7 @@
 from model.edit import Edit
 
+from google.appengine.api.urlfetch_errors import DownloadError
+
 FETCH_COUNT = 10
 
 def get(handler, response):
@@ -13,5 +15,8 @@ def get(handler, response):
   # test them
   response.edits = []
   for edit in edits:
-    status = edit.test()
-    response.edits.append(dict(edit=edit, status=status))
+    try:
+      status = edit.test()
+      response.edits.append(dict(edit=edit, status=status))
+    except DownloadError:
+      response.edits.append(dict(edit=edit, status="error"))
