@@ -6,6 +6,7 @@ from user import User
 
 from google.appengine.ext import db, search
 from google.appengine.api import users
+from google.appengine.api.urlfetch import fetch
 from google.appengine.api.urlfetch_errors import DownloadError
 from util import bitly, twitter, env
 from util.const import DATE_SHORT
@@ -129,3 +130,20 @@ class Edit(search.SearchableModel):
       self.author.open -= 1
       self.author.closed += 1
       self.author.put()
+  
+  def test(self):
+    # fetch page
+    page = fetch(self.url)
+    if page:
+      # record test
+      self.tested = datetime.now()
+      self.put()
+      # test page
+      content = unicode(page.content, 'iso-8859-1')
+      if self.proposal in content:
+        self.close()
+        return 'fixed'
+      elif self.original in content:
+        return 'unfixed'
+      else:
+        return 'uncertain'
