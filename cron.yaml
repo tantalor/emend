@@ -1,0 +1,4 @@
+cron:
+- description: test for completed edits
+  url: /tasks/edits/test
+  schedule: every 30 minutes

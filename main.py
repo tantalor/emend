@@ -23,6 +23,7 @@ import app.sites.edits.pingback
 import app.sites.edits.test
 import app.sites.edits.trackback
 import app.sites.edits.update
+import app.tasks.edits.test
 import app.users.default
 import app.users.detail
 import app.users.closed
@@ -70,6 +71,8 @@ def application():
       Handler.factory(page=app.sites.edits.trackback)),
     (r'/sites/([^/]+)/edits/([^/]+)/update',
       Handler.factory(page=app.sites.edits.update)),
+    (r'/tasks/edits/test',
+      Handler.factory(page=app.tasks.edits.test)),
     (r'/users',
       Handler.factory(page=app.users.default)),
     (r'/users/([^/]+)',

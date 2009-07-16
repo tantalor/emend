@@ -17,6 +17,7 @@ class Edit(search.SearchableModel):
   author = db.ReferenceProperty(required=True, reference_class=User)
   created = db.DateTimeProperty(auto_now_add=True)
   modified = db.DateTimeProperty()
+  tested = db.DateTimeProperty()
   original = db.StringProperty(required=True, multiline=True)
   proposal = db.StringProperty(required=True, multiline=True)
   status = db.StringProperty(default="open", required=True)
