@@ -1,4 +1,4 @@
 cron:
 - description: test for completed edits
-  url: /tasks/edits/test
+  url: /tasks/edits/test?yaml
   schedule: every 30 minutes
