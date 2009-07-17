@@ -2,7 +2,7 @@ from model.edit import Edit
 
 from google.appengine.api.urlfetch_errors import DownloadError
 
-FETCH_COUNT = 10
+FETCH_COUNT = 5
 
 def get(handler, response):
   # get edits in need of testing
