@@ -7,7 +7,29 @@
 {% block content %}
   <h1><a href="/">Emend</a> > About</h1>
   
-  <img src="/images/app_engine.jpg" style="float: right">
+  <h2>
+    What is Emend?
+  </h2>
+  
+  <a href="http://xkcd.com/386/">
+    <img src="http://imgs.xkcd.com/comics/duty_calls.png" title="Duty calls" style="float: right; border: 0; margin: 0 0 5px 5px;">
+  </a>
+  
+  <p>
+    Emend is a service for alerting website owners and authors of grammatical and
+    spelling mistakes found on their site.
+  </p>
+  
+  <p>
+    Simply subscribe to <span
+    class="fakelink">http://{{handler.host}}/sites/yourdomain.com?atom</span> to get
+    a feed of proposed edits for your site.
+  </p>
+  
+  <p>
+    To control spam, you will need a <a
+    href="https://www.google.com/accounts/">Google Account</a> before proposing edits.
+  </p>
   
   <p>
     Emend was created by <a href="http://johntantalo.com">John Tantalo</a> based
@@ -21,7 +43,7 @@
   </p>
     
   <p>
-    The code behind Emend is available at
+    The code behind Emend is available on
     <a href="http://github.com/dodgeballcannon/emend">GitHub</a> under the
     <a href="http://creativecommons.org/licenses/by-sa/3.0/us/">Creative
     Commons Attribution-Share Alike 3.0 United States License</a>.
