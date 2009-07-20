@@ -18,16 +18,11 @@ def test():
   else:
     print 'failed, got no suggestion'
 
-def credentials():
-  config = local.config()
-  if config:
-    return config['yahoo']
-
 def suggest(query, appid=None):
   """query should be utf8 encoded"""
   if appid is None:
     # shortcut for no-credentials case
-    return suggest(query, **credentials())
+    return suggest(query, **local.credentials('yahoo'))
   url = "http://search.yahooapis.com/WebSearchService/V1/spellingSuggestion"
   payload = urlencode(dict(output='json', query=query, appid=appid))
   response = urlfetch.fetch('%s?%s' % (url, payload))

@@ -17,15 +17,10 @@ def test():
   else:
     print 'failed, got "%s"' % response
 
-def credentials():
-  config = local.config()
-  if config:
-    return config['bitly']
-
 def shorten(longUrl, login=None, apiKey=None):
   if login is None and apiKey is None:
     # shortcut for no-credentials case
-    return shorten(longUrl, **credentials())
+    return shorten(longUrl, **local.credentials('bitly'))
   payload = urlencode(dict(
     longUrl=longUrl,
     login=login,

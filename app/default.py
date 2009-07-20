@@ -1,4 +1,5 @@
 from urlparse import urlparse
+import logging
 
 from model.site import Site
 from model.edit import Edit
@@ -6,6 +7,7 @@ from model.user import User
 
 from util.suggest import suggest
 from util.bookmarklet import bookmarklet
+from util.local import MissingCredentials
 
 from google.appengine.ext import db
 from google.appengine.api import memcache
@@ -18,7 +20,10 @@ def get(handler, response):
   # get a suggestion
   if response.original:
     query = response.original.encode('utf8')
-    response.suggestion = suggest(query)
+    try:
+      response.suggestion = suggest(query)
+    except MissingCredentials, e:
+      logging.warn('Missing credentials: %s' % e)
   # check cache
   if not handler.cached():
     # get latest edits

@@ -17,15 +17,10 @@ def test():
   else:
     print 'failed, got "%s"' % response
 
-def credentials():
-  config = local.config()
-  if config:
-    return config['twitter']
-
 def tweet(status, username=None, password=None, source='Emend'):
   if username is None and password is None:
     # shortcut for no-credentials case
-    return tweet(status, **credentials())
+    return tweet(status, **local.credentials('twitter'))
   payload = urlencode(dict(status=status, source=source))
   auth = encodestring('%s:%s' % (username, password))
   auth = auth.rstrip() # remove trailing newline

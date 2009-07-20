@@ -5,6 +5,9 @@ from env import branch
 
 from google.appengine.api import memcache
 
+class MissingCredentials(Exception):
+  pass
+
 def config(filename='local.yaml', cachekey='local_config'):
   config = memcache.get(cachekey)
   if config:
@@ -15,6 +18,14 @@ def config(filename='local.yaml', cachekey='local_config'):
     config = dict([(key, branch(value)) for key, value in config.iteritems()])
     memcache.set(cachekey, config)
     return config
+  return dict()
+
+def credentials(key):
+  local = config()
+  if key in local:
+    return local[key]
+  else:
+    raise MissingCredentials(key)
 
 def test():
   import stubs

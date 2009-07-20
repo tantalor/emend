@@ -8,7 +8,9 @@ from google.appengine.ext import db, search
 from google.appengine.api import users
 from google.appengine.api.urlfetch import fetch
 from google.appengine.api.urlfetch_errors import DownloadError
-from util import bitly, twitter, env
+
+from util import bitly, twitter
+from util.local import MissingCredentials
 from util.const import DATE_SHORT
 
 class Edit(search.SearchableModel):
@@ -68,6 +70,8 @@ class Edit(search.SearchableModel):
       return bitly.shorten(self.permalink())
     except DownloadError, e:
       logging.error("failed to shorten: %s", e)
+    except MissingCredentials, e:
+      logging.warn('Missing credentials: %s' % e)
   
   def tweet(self):
     """Try to tweet this edit, but suppress errors."""
@@ -77,6 +81,8 @@ class Edit(search.SearchableModel):
         return twitter.tweet(status)
       except DownloadError, e:
         logging.error("failed to tweet: %s", e)
+      except MissingCredentials, e:
+        logging.warn('Missing credentials: %s' % e)
   
   def sanitize(self):
     return dict(
