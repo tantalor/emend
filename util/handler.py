@@ -290,7 +290,7 @@ class Handler(webapp.RequestHandler):
       response.errors[key] = value
   
   def twitter_credentials(self):
-    return twitter.credentials()
+    return local.credentials('twitter')
   
   def ping_blogsearch(self):
     name = 'Emend: Edit the Interwebs'
