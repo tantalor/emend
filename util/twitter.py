@@ -24,9 +24,8 @@ def credentials():
 
 def tweet(status, username=None, password=None, source='Emend'):
   if username is None and password is None:
-    cred = credentials()
-    username = cred['username']
-    password = cred['password']
+    # shortcut for no-credentials case
+    return tweet(status, **credentials())
   payload = urlencode(dict(status=status, source=source))
   auth = encodestring('%s:%s' % (username, password))
   auth = auth.rstrip() # remove trailing newline

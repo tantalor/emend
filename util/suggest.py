@@ -26,8 +26,8 @@ def credentials():
 def suggest(query, appid=None):
   """query should be utf8 encoded"""
   if appid is None:
-    cred = credentials()
-    appid = cred['appid']
+    # shortcut for no-credentials case
+    return suggest(query, **credentials())
   url = "http://search.yahooapis.com/WebSearchService/V1/spellingSuggestion"
   payload = urlencode(dict(output='json', query=query, appid=appid))
   response = urlfetch.fetch('%s?%s' % (url, payload))
