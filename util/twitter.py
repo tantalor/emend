@@ -9,10 +9,9 @@ def test():
   import stubs
   stubs.all()
   # canonical test
-  cred = credentials()
   from time import time
   status = "test %s" % int(time())
-  response = tweet(status=status, **cred)
+  response = tweet(status=status)
   if '<id>' in response:
     print 'ok'
   else:
@@ -23,7 +22,11 @@ def credentials():
   if config:
     return config['twitter']
 
-def tweet(status, username, password, source='Emend'):
+def tweet(status, username=None, password=None, source='Emend'):
+  if username is None and password is None:
+    cred = credentials()
+    username = cred['username']
+    password = cred['password']
   payload = urlencode(dict(status=status, source=source))
   auth = encodestring('%s:%s' % (username, password))
   auth = auth.rstrip() # remove trailing newline

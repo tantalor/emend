@@ -77,14 +77,10 @@ class Edit(search.SearchableModel):
     """Try to tweet this edit, but suppress errors."""
     status = self.as_tweet().encode('utf8')
     if status:
-      credentials = env.branch(twitter.credentials())
-      if credentials:
-        try:
-          return twitter.tweet(status, **credentials)
-        except DownloadError, e:
-          logging.error("failed to tweet: %s", e)
-      else:
-        logging.info("could not find twitter credentials")
+      try:
+        return twitter.tweet(status)
+      except DownloadError, e:
+        logging.error("failed to tweet: %s", e)
   
   def sanitize(self):
     return dict(
