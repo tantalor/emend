@@ -64,14 +64,10 @@ class Edit(search.SearchableModel):
   
   def short_url(self):
     """Try to shorten the url, but suppress errors."""
-    credentials = env.branch(bitly.credentials())
-    if credentials:
-      try:
-        return bitly.shorten(self.permalink(), **credentials)
-      except DownloadError, e:
-        logging.error("failed to shorten: %s", e)
-    else:
-      logging.info("could not find bitly credentials")
+    try:
+      return bitly.shorten(self.permalink())
+    except DownloadError, e:
+      logging.error("failed to shorten: %s", e)
   
   def tweet(self):
     """Try to tweet this edit, but suppress errors."""

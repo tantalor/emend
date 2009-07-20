@@ -10,9 +10,8 @@ def test():
   import stubs
   stubs.all()
   # canonical test
-  cred = credentials()
   longUrl = "http://google.com"
-  response = shorten(longUrl=longUrl, **cred)
+  response = shorten(longUrl=longUrl)
   if 'http://bit.ly/' in response:
     print 'ok'
   else:
@@ -23,7 +22,10 @@ def credentials():
   if config:
     return config['bitly']
 
-def shorten(longUrl, login, apiKey):
+def shorten(longUrl, login=None, apiKey=None):
+  if login is None and apiKey is None:
+    # shortcut for no-credentials case
+    return shorten(longUrl, **credentials())
   payload = urlencode(dict(
     longUrl=longUrl,
     login=login,
