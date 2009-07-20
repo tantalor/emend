@@ -9,9 +9,8 @@ def test():
   import stubs
   stubs.all()
   # canonical test
-  cred = credentials()
   query = "Lunar Reconnoissance Orbiter"
-  response = suggest(query=query, **cred)
+  response = suggest(query=query)
   if response == 'Lunar Reconnaissance Orbiter':
     print 'ok'
   elif response:
@@ -24,8 +23,10 @@ def credentials():
   if config:
     return config['yahoo']
 
-def suggest(query, appid):
+def suggest(query, appid=None):
   """query should be utf8 encoded"""
+  if appid is None:
+    appid = credentials()
   url = "http://search.yahooapis.com/WebSearchService/V1/spellingSuggestion"
   payload = urlencode(dict(output='json', query=query, appid=appid))
   response = urlfetch.fetch('%s?%s' % (url, payload))
