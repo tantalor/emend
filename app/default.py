@@ -23,7 +23,7 @@ def get(handler, response):
     try:
       response.suggestion = suggest(query)
     except MissingCredentials, e:
-      logging.warn('Missing credentials: %s' % e)
+      logging.warn('Missing credentials: %s', e)
   # check cache
   if not handler.cached():
     # get latest edits

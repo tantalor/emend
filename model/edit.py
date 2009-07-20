@@ -71,7 +71,7 @@ class Edit(search.SearchableModel):
     except DownloadError, e:
       logging.error("failed to shorten: %s", e)
     except MissingCredentials, e:
-      logging.warn('Missing credentials: %s' % e)
+      logging.warn('missing credentials: %s', e)
   
   def tweet(self):
     """Try to tweet this edit, but suppress errors."""
@@ -82,7 +82,7 @@ class Edit(search.SearchableModel):
       except DownloadError, e:
         logging.error("failed to tweet: %s", e)
       except MissingCredentials, e:
-        logging.warn('Missing credentials: %s' % e)
+        logging.warn('missing credentials: %s', e)
   
   def sanitize(self):
     return dict(
