@@ -243,6 +243,9 @@ class Handler(webapp.RequestHandler):
     if self.is_json():
       sanitized = sanitize(self.response_dict())
       json_str = json.write(sanitized)
+      callback = self.request.get('callback')
+      if re.match("^[_a-z]([_a-z0-9])*$", callback, re.IGNORECASE):
+        json_str = "%s(%s)" % (callback, json_str) # jsonp
       self.response.headers['Content-Type'] = "text/javascript; charset=UTF-8"
       self.response.out.write(json_str)
       return
