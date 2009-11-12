@@ -9,7 +9,7 @@ from google.appengine.api import users
 from google.appengine.api.urlfetch import fetch
 from google.appengine.api.urlfetch_errors import DownloadError
 
-from util import bitly, twitter
+from util import bitly, twitter, html
 from util.local import MissingCredentials
 from util.const import DATE_SHORT
 
@@ -137,8 +137,11 @@ class Edit(search.SearchableModel):
     # fetch page
     page = fetch(self.url)
     if page:
-      # test page
+      # decode content
       content = unicode(page.content, 'iso-8859-1')
+      # decode html entities
+      content = html.decode_entities(content)
+      # test page
       if self.proposal in content:
         self.close()
         return 'fixed'
