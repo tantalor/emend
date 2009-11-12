@@ -4,7 +4,8 @@ import unittest
 import sys
 from urllib import urlencode
 
-from util.handler import Handler, NotFoundException
+from util.handler import NotFoundException
+import main
 from model.site import Site
 from model.edit import Edit
 from model.user import User
@@ -41,7 +42,7 @@ def mock_edit(original="test", proposal="test", url="http://test.com"):
   )
 
 def mock_handler(page, request='/', **response):
-  handler = Handler.factory(page=page)()
+  handler = main.handler(page=page)()
   handler.initialize(Request.blank(request), Response())
   handler.response_dict(**response)
   handler.logout_url = lambda self: None
