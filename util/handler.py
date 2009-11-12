@@ -32,11 +32,6 @@ class NotFoundException(Exception):
 
 class Handler(webapp.RequestHandler):
   
-  @staticmethod
-  def factory(**kwargs):
-    """Convenience method for subclasses of Handler."""
-    return type(str(kwargs), (Handler,), kwargs)
-  
   def __init__(self):
     self._response_dict = recursivedefaultdict()
     self._url_args = None

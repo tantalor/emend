@@ -1,0 +1,84 @@
+-
+  - /iphone
+  - app.iphone
+-
+  - /about
+  - app.about
+-
+  - /admin/edit
+  - app.admin.edit
+-
+  - /admin/memclear
+  - app.admin.memclear
+-
+  - /admin/site_count
+  - app.admin.site_count
+-
+  - /admin/site_key
+  - app.admin.site_key
+-
+  - /admin/user_count
+  - app.admin.user_count
+-
+  - /admin/user_key
+  - app.admin.user_key
+-
+  - /search/edits
+  - app.search.edits
+-
+  - /search
+  - app.search.default
+-
+  - /sites
+  - app.sites.default
+-
+  - /sites/([^/]+)
+  - app.sites.detail
+-
+  - /sites/([^/]+)/edits/([^/]+)/close
+  - app.sites.edits.close
+-
+  - /sites/([^/]+)/edits/([^/]+)
+  - app.sites.edits.detail
+-
+  - /sites/([^/]+)/edits/([^/]+)/open
+  - app.sites.edits.open
+-
+  - /sites/([^/]+)/edits/([^/]+)/pingback
+  - app.sites.edits.pingback
+-
+  - /sites/([^/]+)/edits/([^/]+)/test
+  - app.sites.edits.test
+-
+  - /sites/([^/]+)/edits/([^/]+)/trackback
+  - app.sites.edits.trackback
+-
+  - /sites/([^/]+)/edits/([^/]+)/update
+  - app.sites.edits.update
+-
+  - /sites/([^/]+)/edits/([^/]+)/delete
+  - app.sites.edits.delete
+-
+  - /tasks/edits/test
+  - app.tasks.edits.test
+-
+  - /users
+  - app.users.default
+-
+  - /users/([^/]+)
+  - app.users.detail
+-
+  - /users/([^/]+)/closed
+  - app.users.closed
+-
+  - /users/([^/]+)/open
+  - app.users.open
+-
+  - /users/([^/]+)/nickname
+  - app.users.nickname
+-
+  - /*
+  - app.default
+-
+  - /.*
+  - app.not_found
