@@ -56,7 +56,6 @@ def diff_dst(parser, token):
   (_, src_key, dst_key) = token.split_contents()
   return DiffNode(src_key, dst_key, invert=True)
 
-import logging
 class DiffNode(template.django.template.Node):
   """Annotate a string with a description of string operations."""
   def __init__(self, src_key, dst_key, invert=False):
