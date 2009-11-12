@@ -67,9 +67,6 @@ class DiffNode(template.django.template.Node):
     try:
       src = template.django.template.resolve_variable(self.src_key, context)
       dst = template.django.template.resolve_variable(self.dst_key, context)
-      # utf8 encode
-      src = src.encode('utf8')
-      dst = dst.encode('utf8')
       # get opcodes and subject string (src or dst)
       subject, opcodes = self.opcodes(src, dst)
       # map opcodes to a list of spans (.same or .different)
@@ -90,9 +87,9 @@ class DiffNode(template.django.template.Node):
   @staticmethod
   def span(subject, op, i, j):
     if op == 'equal':
-      return '<span class="same">%s</span>' % subject[i:j]
+      return '<span class="same">%s</span>' % subject[i:j].encode('utf8')
     else:
-      return '<span class="different">%s</span>' % subject[i:j]
+      return '<span class="different">%s</span>' % subject[i:j].encode('utf8')
 
 
 @register.tag
