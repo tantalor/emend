@@ -47,15 +47,22 @@ class FormErrorNode(template.django.template.Node):
 
 
 @register.tag
-def diff(parser, token):
+def diff_src(parser, token):
   (_, src_key, dst_key) = token.split_contents()
   return DiffNode(src_key, dst_key)
 
+@register.tag
+def diff_dst(parser, token):
+  (_, src_key, dst_key) = token.split_contents()
+  return DiffNode(src_key, dst_key, invert=True)
+
+import logging
 class DiffNode(template.django.template.Node):
   """Annotate a string with a description of string operations."""
-  def __init__(self, src_key, dst_key):
+  def __init__(self, src_key, dst_key, invert=False):
     self.src_key = src_key
     self.dst_key = dst_key
+    self.invert = invert
   
   def render(self, context):
     try:
@@ -64,23 +71,29 @@ class DiffNode(template.django.template.Node):
       # utf8 encode
       src = src.encode('utf8')
       dst = dst.encode('utf8')
-      # sequence matcher (sensitive to spaces)
-      seq = SequenceMatcher(None, src, dst)
+      # get opcodes and subject string (src or dst)
+      subject, opcodes = self.opcodes(src, dst)
       # map opcodes to a list of spans (.same or .different)
-      spans = [DiffNode.span(src, op) for op in seq.get_opcodes()]
+      spans = [DiffNode.span(subject, op, i, j) for (op, i, j) in opcodes]
       return ''.join(spans)
     except template.django.template.VariableDoesNotExist:
       pass
     return ''
   
-  @staticmethod
-  def span(src, (op, i1, i2, j1, j2)):
-    if i1 == i2:
-      return ''
-    elif op == 'equal':
-      return '<span class="same">%s</span>' % src[i1:i2]
+  def opcodes(self, src, dst):
+    # sequence matcher (sensitive to spaces)
+    seq = SequenceMatcher(None, src, dst)
+    if self.invert:
+      return dst, [(op, j1, j2) for (op, i1, i2, j1, j2) in seq.get_opcodes() if op != 'd']
     else:
-      return '<span class="different">%s</span>' % src[i1:i2]
+      return src, [(op, i1, i2) for (op, i1, i2, j1, j2) in seq.get_opcodes() if op != 'i']
+  
+  @staticmethod
+  def span(subject, op, i, j):
+    if op == 'equal':
+      return '<span class="same">%s</span>' % subject[i:j]
+    else:
+      return '<span class="different">%s</span>' % subject[i:j]
 
 
 @register.tag
