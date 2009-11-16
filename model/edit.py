@@ -139,8 +139,8 @@ class Edit(search.SearchableModel):
     if page:
       # decode content
       content = unicode(page.content, 'iso-8859-1')
-      # decode html entities
-      content = html.decode_entities(content)
+      # decode html entities, strip tags
+      content = html.clean(content)
       # test page
       if self.proposal in content:
         self.close()
