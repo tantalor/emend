@@ -29,7 +29,7 @@
   {% if closed %}
     <ul>
       {% for edit in closed %}
-        <li><a href="{{edit.permalink}}">&ldquo;{{edit.proposal|escape}}&rdquo;</a> at <a href="{{edit.site}}">{{edit.site}}</a></li>
+        <li><a href="{{edit.permalink}}">&ldquo;{{edit.proposal|escape}}&rdquo;</a> at <a href="{{edit.site.permalink}}">{{edit.site}}</a></li>
       {% endfor %}
     </ul>
     {% if has_next_closed %}
