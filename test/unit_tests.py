@@ -9,6 +9,7 @@ import main
 from model.site import Site
 from model.edit import Edit
 from model.user import User
+from util import html
 
 from google.appengine.api import users
 from google.appengine.ext.webapp import Request, Response
@@ -107,8 +108,6 @@ class HomePageTest(unittest.TestCase):
   def testUnicodeSuggest(self):
     original = u"the original design"
     request = '/?%s' % urlencode(dict(original=original.encode('utf8')))
-    import logging
-    logging.warn(request)
     # mock handler
     import app.default
     handler = mock_handler(page=app.default, request=request)
@@ -117,3 +116,13 @@ class HomePageTest(unittest.TestCase):
       handler.get()
     except UnicodeEncodeError:
       self.fail('failed to encode unicode')
+
+class HTMLTest(unittest.TestCase):
+  def testDecodeNumericEntities(self):
+    encoded = 'It&#8217;s my birthday'
+    decoded = u'It\u2019s my birthday'
+    self.assertEquals(html.decode_entities(encoded), decoded)
+  def testClean(self):
+    encoded = '<p>From the Latin <i>emendare</i>, &ldquo;to free from fault.&rdquo;</p>'
+    decoded = u'From the Latin emendare, to free from fault.'
+    self.assertEquals(html.clean(encoded), decoded)

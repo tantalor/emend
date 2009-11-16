@@ -1,15 +1,6 @@
 import re
-
-# by no means exhaustive
-entities = {
-  u'&quot;':   u'\u0022', # double quotation mark
-  u'&ldquo;':  u'\u201c', # left double quotation mark
-  u'&rdquo;':  u'\u201d', # right double quotation mark
-  u'&amp;':    u'\u0026', # ampersand
-  u'&apos;':   u'\u0027', # apostrophe
-  u'&lt;':     u'\u003C', # less-than sign
-  u'&gt;':     u'\u003E', # greater-than sign
-}
+import htmlentitydefs
+import HTMLParser
 
 def decode_entities(html):
   # numeric entities
@@ -20,6 +11,24 @@ def decode_entities(html):
       base = 16
     html = html.replace(match, unichr(int(entity, base)))
   # predefined entities
-  for entity, codepoint in entities.iteritems():
-    html = html.replace(entity, codepoint)
+  for entity, codepoint in htmlentitydefs.name2codepoint.iteritems():
+    html = html.replace('&%s;' % entity, unichr(codepoint))
   return html
+
+class StripTags(HTMLParser.HTMLParser):
+  def __init__(self):
+    self.reset()
+    self.data = []
+  def handle_data(self, d):
+    self.data.append(d)
+  def get_text(self):
+    return ''.join(self.data)
+
+def strip_tags(html):
+  parser = StripTags()
+  parser.feed(html)
+  return parser.get_text()
+
+def clean(html):
+  """Decodes html entities and strips tags"""
+  return decode_entities(strip_tags(html))
