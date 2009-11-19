@@ -288,7 +288,10 @@ class Handler(webapp.RequestHandler):
       response.errors[key] = value
   
   def twitter_credentials(self):
-    return local.credentials('twitter')
+    try:
+      return local.credentials('twitter')
+    except local.MissingCredentials, e:
+      logging.warn('missing credentials: %s', e)
   
   def ping_blogsearch(self):
     name = 'Emend: Edit the Interwebs'
