@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-  Emend: {{handler.config.tagline}}
+  Emend{% if handler.config.tagline %}: {{handler.config.tagline}}{{% endif %}
 {% endblock %}
 
 {% block head %}
@@ -16,7 +16,9 @@
   <h1><a href="/">Emend</a></h1>
   
   <div class="alpha">
-    <h2>{{handler.config.tagline}}</h2>
+  	{% if handler.config.tagline %}
+      <h2>{{handler.config.tagline}}</h2>
+    {% endif %}
     
     <p><i>Emend</i> (verb), to improve by critical editing.</p>
     

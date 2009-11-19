@@ -2,7 +2,9 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   
   <title>Emend > Sites > {{site.domain}}</title>
-  <subtitle>{{handler.config.tagline}}</subtitle>
+  {% if handler.config.tagline %}
+    <subtitle>{{handler.config.tagline}}</subtitle>
+  {% endif %}
   <link href="{{site.permalink}}?atom" rel="self"/>
   <link href="{{site.permalink}}/"/>
   
