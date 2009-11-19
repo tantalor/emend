@@ -5,21 +5,21 @@ api_version: 1
 
 handlers:
 - url: /css
-  static_dir: css
+  static_dir: static/css
   
 - url: /js
-  static_dir: js
+  static_dir: static/js
   
 - url: /images
-  static_dir: images
+  static_dir: static/images
 
 - url: /favicon.ico
-  static_files: images/favicon.ico
-  upload: images/favicon.ico
+  static_files: static/images/favicon.ico
+  upload: static/images/favicon.ico
 
 - url: /robots.txt
-  static_files: robots.txt
-  upload: robots.txt
+  static_files: static/robots.txt
+  upload: static/robots.txt
 
 - url: /test.*
   script: gaeunit.py
