@@ -1,7 +1,7 @@
 from base64 import encodestring
 from urllib import urlencode
 
-import local
+from megaera import local
 
 from google.appengine.api import urlfetch
 

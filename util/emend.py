@@ -1,16 +1,16 @@
 import urllib
 import logging
 
-from handler import Handler
 from model.edit import Edit
 from model.site import Site
 from model.user import User
 import blogsearch
-import local
+
+from megaera import local, handler
 
 from google.appengine.api import users, memcache
 
-class Emend(Handler):
+class Emend(handler.Handler):
   def current_user(self):
     """Returns the logged-in User object."""
     user = users.get_current_user()

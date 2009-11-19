@@ -1,7 +1,6 @@
-import json
 from urllib import urlencode
 
-import local
+from megaera import local, json
 
 from google.appengine.api import urlfetch
 

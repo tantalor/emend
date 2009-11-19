@@ -7,7 +7,8 @@ from model.user import User
 
 from util.suggest import suggest
 from util.bookmarklet import bookmarklet
-from util.local import MissingCredentials
+
+from megaera.local import MissingCredentials
 
 from google.appengine.ext import db
 from google.appengine.api import memcache
