@@ -1,0 +1,3 @@
+[submodule "megaera"]
+	path = megaera
+	url = git://github.com/dodgeballcannon/megaera.git
