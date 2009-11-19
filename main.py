@@ -1,10 +1,10 @@
 import sys
 import yaml
 
-from google.appengine.ext.webapp import WSGIApplication
+from google.appengine.ext.webapp import WSGIApplication, template
 from google.appengine.ext.webapp.util import run_wsgi_app
 
-from util.handler import Handler
+from util.emend import Emend
 
 def routes():
   return yaml.load(file('routes.yaml'))
@@ -14,7 +14,7 @@ def module(name):
   return sys.modules[name]
 
 def handler(**kwargs):
-  return type(str(kwargs), (Handler,), kwargs)
+  return type(str(kwargs), (Emend,), kwargs)
 
 def application():
   return WSGIApplication([
@@ -22,11 +22,12 @@ def application():
     for (path, handler_module) in routes()
   ], debug=True)
 
+def run():
+  template.register_template_library('template')
+  run_wsgi_app(application())
+
 def main():
   run()
-
-def run():
-  run_wsgi_app(application())
 
 if __name__ == "__main__":
   main()
