@@ -1,84 +1,84 @@
 -
   - /iphone
-  - app.iphone
+  - handlers.iphone
 -
   - /about
-  - app.about
+  - handlers.about
 -
   - /admin/edit
-  - app.admin.edit
+  - handlers.admin.edit
 -
   - /admin/memclear
-  - app.admin.memclear
+  - handlers.admin.memclear
 -
   - /admin/site_count
-  - app.admin.site_count
+  - handlers.admin.site_count
 -
   - /admin/site_key
-  - app.admin.site_key
+  - handlers.admin.site_key
 -
   - /admin/user_count
-  - app.admin.user_count
+  - handlers.admin.user_count
 -
   - /admin/user_key
-  - app.admin.user_key
+  - handlers.admin.user_key
 -
   - /search/edits
-  - app.search.edits
+  - handlers.search.edits
 -
   - /search
-  - app.search.default
+  - handlers.search.default
 -
   - /sites
-  - app.sites.default
+  - handlers.sites.default
 -
   - /sites/([^/]+)
-  - app.sites.detail
+  - handlers.sites.detail
 -
   - /sites/([^/]+)/edits/([^/]+)/close
-  - app.sites.edits.close
+  - handlers.sites.edits.close
 -
   - /sites/([^/]+)/edits/([^/]+)
-  - app.sites.edits.detail
+  - handlers.sites.edits.detail
 -
   - /sites/([^/]+)/edits/([^/]+)/open
-  - app.sites.edits.open
+  - handlers.sites.edits.open
 -
   - /sites/([^/]+)/edits/([^/]+)/pingback
-  - app.sites.edits.pingback
+  - handlers.sites.edits.pingback
 -
   - /sites/([^/]+)/edits/([^/]+)/test
-  - app.sites.edits.test
+  - handlers.sites.edits.test
 -
   - /sites/([^/]+)/edits/([^/]+)/trackback
-  - app.sites.edits.trackback
+  - handlers.sites.edits.trackback
 -
   - /sites/([^/]+)/edits/([^/]+)/update
-  - app.sites.edits.update
+  - handlers.sites.edits.update
 -
   - /sites/([^/]+)/edits/([^/]+)/delete
-  - app.sites.edits.delete
+  - handlers.sites.edits.delete
 -
   - /tasks/edits/test
-  - app.tasks.edits.test
+  - handlers.tasks.edits.test
 -
   - /users
-  - app.users.default
+  - handlers.users.default
 -
   - /users/([^/]+)
-  - app.users.detail
+  - handlers.users.detail
 -
   - /users/([^/]+)/closed
-  - app.users.closed
+  - handlers.users.closed
 -
   - /users/([^/]+)/open
-  - app.users.open
+  - handlers.users.open
 -
   - /users/([^/]+)/nickname
-  - app.users.nickname
+  - handlers.users.nickname
 -
   - /*
-  - app.default
+  - handlers.default
 -
   - /.*
-  - app.not_found
+  - handlers.not_found

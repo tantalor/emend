@@ -1,4 +1,4 @@
-import app.default
+import handlers.default
 
 def post(handler, response):
   edit = handler.get_edit(required=True)

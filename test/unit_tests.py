@@ -4,7 +4,7 @@ import unittest
 import sys
 from urllib import urlencode
 
-from util.handler import NotFoundException
+from megaera.megaera import NotFoundException
 from util.emend import Emend
 import main
 from model.site import Site
@@ -65,8 +65,8 @@ class EditTest(unittest.TestCase):
     original = u"Don’t judge a proggie by it’s UI"
     edit = mock_edit(original=original, proposal=original)
     # mock handler
-    import app.sites.edits.detail
-    handler = mock_handler(page=app.sites.edits.detail, edit=edit)
+    import handlers.sites.edits.detail
+    handler = mock_handler(page=handlers.sites.edits.detail, edit=edit)
     # execute handler
     try:
       handler.get()
@@ -81,8 +81,8 @@ class EditTest(unittest.TestCase):
     url = u"http://test.com/“tell-your-girl”/"
     edit = mock_edit(url=url)
     # mock handler
-    import app.sites.edits.detail
-    handler = mock_handler(page=app.sites.edits.detail, edit=edit)
+    import handlers.sites.edits.detail
+    handler = mock_handler(page=handlers.sites.edits.detail, edit=edit)
     # execute handler
     try:
       handler.get()
@@ -110,8 +110,8 @@ class HomePageTest(unittest.TestCase):
     original = u"the original design"
     request = '/?%s' % urlencode(dict(original=original.encode('utf8')))
     # mock handler
-    import app.default
-    handler = mock_handler(page=app.default, request=request)
+    import handlers.default
+    handler = mock_handler(page=handlers.default, request=request)
     # execute handler
     try:
       handler.get()
