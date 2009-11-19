@@ -22,7 +22,7 @@ handlers:
   upload: static/robots.txt
 
 - url: /test.*
-  script: gaeunit.py
+  script: app/gaeunit.py
   
 - url: .*
-  script: main.py
+  script: app/main.py
