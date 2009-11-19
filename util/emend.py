@@ -12,7 +12,7 @@ from google.appengine.api import users, memcache
 
 class Emend(Handler):
   def current_user(self):
-    """Returns the current user"""
+    """Returns the logged-in User object."""
     user = users.get_current_user()
     if user:
       key_name = User.key_name_from_email(user.email())
@@ -28,6 +28,7 @@ class Emend(Handler):
         pass
   
   def get_site(self, required=False, create_if_missing=False):
+    """Returns the Site object given by the URL."""
     if self.response_dict().site:
       return self.response_dict().site
     if self._url_args:
@@ -45,6 +46,7 @@ class Emend(Handler):
       raise NotFoundException("site not found")
   
   def get_edit(self, required=False):
+    """Returns the Edit object given by the URL."""
     if self.response_dict().edit:
       return self.response_dict().edit
     site = self.get_site()
@@ -63,6 +65,7 @@ class Emend(Handler):
       raise NotFoundException("edit not found")
   
   def get_user(self, required=False):
+    """Returns the User object given by the URL."""
     if self.response_dict().user:
       return self.response_dict().user
     if self._url_args:
@@ -84,12 +87,14 @@ class Emend(Handler):
       raise NotFoundException("user not found")
   
   def ping_blogsearch(self):
+    """Pings Google Blog Search on behalf of Emend."""
     name = 'Emend: Edit the Interwebs'
     url = 'http://%s' % self.host()
     changesURL = '%s?atom' % url
     return blogsearch.ping(name=name, url=url, changesURL=changesURL)
   
   def twitter_credentials(self):
+    """Returns Emend's twitter credentials, if any."""
     try:
       return local.credentials('twitter')
     except local.MissingCredentials, e:
