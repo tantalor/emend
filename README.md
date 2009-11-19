@@ -2,6 +2,8 @@
 
 **Emend** is a service built on [Google App Engine][] for alerting website owners and authors of grammatical and spelling mistakes found on their site.
 
+[Google App Engine]: http://code.google.com/appengine/
+
 ## License
 
 This work is licensed under the Creative Commons Attribution-Share Alike 3.0
@@ -11,8 +13,8 @@ Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.
 
 ## Created by John Tantalo 
 
-- http://johntantalo.com
-- john.tantalo@gmail.com
+*   <http://johntantalo.com>
+*   <john.tantalo@gmail.com>
 
 ## Local configuration
 
@@ -36,5 +38,3 @@ a "login" and "apiKey" key.
 The "admin" key in the local configuration should map to a flat {key: value,
 ...} dictionary. Each item corresponds to a link in the admin section of the
 footer. The key is the inner HTML of each link and the value is the href.
-
-[Google App Engine]: http://code.google.com/appengine/
