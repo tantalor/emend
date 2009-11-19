@@ -6,7 +6,6 @@ from urllib import urlencode
 
 from megaera.megaera import NotFoundException
 from util.emend import Emend
-import main
 from model.site import Site
 from model.edit import Edit
 from model.user import User
