@@ -1,3 +1,6 @@
 [submodule "megaera"]
 	path = megaera
 	url = git://github.com/dodgeballcannon/megaera.git
+[submodule "submodules/megaera"]
+	path = submodules/megaera
+	url = git://github.com/dodgeballcannon/megaera.git
