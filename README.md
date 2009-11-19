@@ -4,18 +4,6 @@
 
 [Google App Engine]: http://code.google.com/appengine/
 
-## License
-
-This work is licensed under the Creative Commons Attribution-Share Alike 3.0
-United States License. To view a copy of this license, visit
-http://creativecommons.org/licenses/by-sa/3.0/us/ or send a letter to Creative
-Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.
-
-## Created by John Tantalo 
-
-*   <http://johntantalo.com>
-*   <john.tantalo@gmail.com>
-
 ## Local configuration
 
 Emend will look for a local configuration in "local.yaml". This file is
