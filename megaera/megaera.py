@@ -17,7 +17,7 @@ from google.appengine.ext.webapp import template, RequestHandler
 class NotFoundException(Exception):
   pass
 
-class Handler(RequestHandler):
+class Megaera(RequestHandler):
   
   def __init__(self):
     self._response_dict = recursivedefaultdict()

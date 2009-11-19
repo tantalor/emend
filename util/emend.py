@@ -6,11 +6,11 @@ from model.site import Site
 from model.user import User
 import blogsearch
 
-from megaera import local, handler
+from megaera import local, megaera
 
 from google.appengine.api import users, memcache
 
-class Emend(handler.Handler):
+class Emend(megaera.Megaera):
   def current_user(self):
     """Returns the logged-in User object."""
     user = users.get_current_user()
