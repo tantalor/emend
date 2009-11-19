@@ -5,6 +5,7 @@ import sys
 from urllib import urlencode
 
 from util.handler import NotFoundException
+from util.emend import Emend
 import main
 from model.site import Site
 from model.edit import Edit
@@ -43,7 +44,7 @@ def mock_edit(original="test", proposal="test", url="http://test.com"):
   )
 
 def mock_handler(page, request='/', **response):
-  handler = main.handler(page=page)()
+  handler = Emend.with_page(page=page)()
   handler.initialize(Request.blank(request), Response())
   handler.response_dict(**response)
   handler.logout_url = lambda self: None

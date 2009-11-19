@@ -23,6 +23,13 @@ class Handler(RequestHandler):
     self._response_dict = recursivedefaultdict()
     self._url_args = None
   
+  @classmethod
+  def with_page(cls, page):
+    if isinstance(page, str):
+      __import__(page)
+      page = sys.modules[page]
+    return type(page.__file__, (cls,), dict(page=page))
+  
   def response_dict(self, **kwargs):
     """Returns the response dictionary and sets the given values."""
     if kwargs:
