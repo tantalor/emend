@@ -9,6 +9,7 @@ import blogsearch
 from megaera import local, megaera
 
 from google.appengine.api import users, memcache
+from google.appengine.ext import db
 
 class Emend(megaera.Megaera):
   HANDLERS_BASE = '/handlers'
@@ -78,7 +79,7 @@ class Emend(megaera.Megaera):
       user = None
       try:
         user = User.get(key)
-      except BadKeyError:
+      except db.BadKeyError:
         pass
       if not user:
         user = User.get_by_key_name(key_name)
