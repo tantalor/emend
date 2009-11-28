@@ -13,34 +13,41 @@ from util import html
 
 from google.appengine.api import users
 from google.appengine.ext.webapp import Request, Response
+from google.appengine.ext import db
 
-class SiteTest(unittest.TestCase):
-  def testDomainKey(self):
-    """foo.com and www.foo.com should map to foo.com"""
-    prefix = "test_prefix"
-    self.assertEquals(
-      Site.key_name_from_domain("foo.com", prefix=prefix),
-      "%s:foo.com" % prefix)
-    self.assertEquals(
-      Site.key_name_from_domain("www.foo.com", prefix=prefix),
-      "%s:foo.com" % prefix)
+class MockModel(db.Model):
+  def put(self):
+    pass
 
-def mock_user(email="foo@bar.com"):
-  return User(key_name="test",
-    user=users.User(email=email, _auth_domain="test"))
+class MockUser(MockModel, User):
+  def __init__(self, email="foo@bar.com", **kwargs):
+    super(MockUser, self).__init__(
+      key_name="test",
+      user=users.User(
+        email=email,
+        _auth_domain="test",
+      ),
+      **kwargs
+    )
 
-def mock_site(domain="test.com", key_name="test"):
-  return Site(domain=domain, key_name=key_name)
+class MockSite(MockModel, Site):
+  def __init__(self, domain="test.com", key_name="test", **kwargs):
+    super(MockSite, self).__init__(
+      domain=domain,
+      key_name=key_name,
+      **kwargs
+    )
 
-def mock_edit(original="test", proposal="test", url="http://test.com"):
-  return Edit(
-    index=0,
-    url=url,
-    original=original,
-    proposal=proposal,
-    author=mock_user(),
-    parent=mock_site(),
-  )
+class MockEdit(MockModel, Edit):
+  def __init__(self, original="test", proposal="test", url="http://test.com"):
+    super(MockEdit, self).__init__(
+      index=0,
+      url=url,
+      original=original,
+      proposal=proposal,
+      author=MockUser(open=1),
+      parent=MockSite(open=1),
+    )
 
 def mock_handler(page, request='/', **response):
   handler = Emend.with_page(page=page)()
@@ -56,6 +63,17 @@ def mock_handler(page, request='/', **response):
     raise error
   handler.handle_error = mock_handle_error
   return handler
+
+class SiteTest(unittest.TestCase):
+  def testDomainKey(self):
+    """foo.com and www.foo.com should map to foo.com"""
+    prefix = "test_prefix"
+    self.assertEquals(
+      Site.key_name_from_domain("foo.com", prefix=prefix),
+      "%s:foo.com" % prefix)
+    self.assertEquals(
+      Site.key_name_from_domain("www.foo.com", prefix=prefix),
+      "%s:foo.com" % prefix)
 
 class EditTest(unittest.TestCase):
   def testUnicodeOriginal(self):
