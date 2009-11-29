@@ -131,6 +131,18 @@ class Edit(search.SearchableModel):
       self.author.closed += 1
       self.author.put()
   
+  def delete(self):  
+    # fiddle site/author open/closed counts
+    if self.is_open:
+      self.site.open -= 1
+      self.author.open -= 1
+    elif self.is_closed:
+      self.site.closed -= 1
+      self.author.closed -= 1
+    self.site.put()
+    self.author.put()
+    super(Edit, self).delete()
+  
   def test(self):
     # record test
     self.tested = datetime.now()
