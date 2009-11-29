@@ -15,9 +15,13 @@ jetpack.tabs.onReady(function (doc) {
         // mark edits
         var body = $('body', doc);
         $.each(response.edits, function (_, edit) {
-          var proposal = '<b class="emend" title="'+edit.original+'">'+edit.proposal+'</b>';
-          var el = $(":contains('"+edit.original+"')", body).eq(0);
-          el.html(el.html().replace(edit.original, proposal));
+          var el = $(":contains('"+edit.original+"'):last", body);
+          if (el.size()) {
+            el.html(el.html().replace(
+              edit.original,
+              '<b class="emend" title="'+edit.original+'">'+edit.proposal+'</b>'
+            ));
+          }
         });
       }
     }, 'json');
