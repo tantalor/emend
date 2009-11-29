@@ -46,7 +46,7 @@ class Emend(megaera.Megaera):
         self.response_dict(site = site) # for the template
         return site
     if required:
-      raise NotFoundException("site not found")
+      raise megaera.NotFoundException("site not found")
   
   def get_edit(self, required=False):
     """Returns the Edit object given by the URL."""
@@ -65,7 +65,7 @@ class Emend(megaera.Megaera):
         self.response_dict(edit = edit) # for the template
         return edit
     if required:
-      raise NotFoundException("edit not found")
+      raise megaera.NotFoundException("edit not found")
   
   def get_user(self, required=False):
     """Returns the User object given by the URL."""
@@ -87,7 +87,7 @@ class Emend(megaera.Megaera):
         self.response_dict(user = user) # for the template
         return user
     if required:
-      raise NotFoundException("user not found")
+      raise megaera.NotFoundException("user not found")
   
   def ping_blogsearch(self):
     """Pings Google Blog Search on behalf of Emend."""
