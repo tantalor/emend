@@ -18,8 +18,10 @@ from google.appengine.ext import db
 class MockModel(db.Model):
   def put(self):
     pass
+  def delete(self):
+    pass
 
-class MockUser(MockModel, User):
+class MockUser(User, MockModel):
   def __init__(self, email="foo@bar.com", **kwargs):
     super(MockUser, self).__init__(
       key_name="test",
@@ -30,7 +32,7 @@ class MockUser(MockModel, User):
       **kwargs
     )
 
-class MockSite(MockModel, Site):
+class MockSite(Site, MockModel):
   def __init__(self, domain="test.com", key_name="test", **kwargs):
     super(MockSite, self).__init__(
       domain=domain,
@@ -38,16 +40,23 @@ class MockSite(MockModel, Site):
       **kwargs
     )
 
-class MockEdit(MockModel, Edit):
-  def __init__(self, original="test", proposal="test", url="http://test.com"):
+class MockEdit(Edit, MockModel):
+  def __init__(self, original="test", proposal="test", url="http://test.com", **kwargs):
     super(MockEdit, self).__init__(
       index=0,
       url=url,
       original=original,
       proposal=proposal,
-      author=MockUser(open=1),
-      parent=MockSite(open=1),
+      author=MockUser(),
+      parent=MockSite(),
+      **kwargs
     )
+    if self.is_open:
+      self.site.open += 1
+      self.author.open += 1
+    if self.is_closed:
+      self.site.closed += 1
+      self.author.closed += 1
 
 def mock_handler(page, request='/', **response):
   handler = Emend.with_page(page=page)()
@@ -80,7 +89,7 @@ class EditTest(unittest.TestCase):
     """An edit with unicode characters"""
     # mock edit
     original = u"Don’t judge a proggie by it’s UI"
-    edit = mock_edit(original=original, proposal=original)
+    edit = MockEdit(original=original, proposal=original)
     # mock handler
     import handlers.sites.edits.detail
     handler = mock_handler(page=handlers.sites.edits.detail, edit=edit)
@@ -96,7 +105,7 @@ class EditTest(unittest.TestCase):
     """A URL with unicode characters"""
     # mock edit
     url = u"http://test.com/“tell-your-girl”/"
-    edit = mock_edit(url=url)
+    edit = MockEdit(url=url)
     # mock handler
     import handlers.sites.edits.detail
     handler = mock_handler(page=handlers.sites.edits.detail, edit=edit)
@@ -116,11 +125,55 @@ class EditTest(unittest.TestCase):
                 "esse cillum dolore eu fugiat nulla pariatur. Excepteur sint "
                 "occaecat cupidatat non proident, sunt in culpa qui officia "
                 "deserunt mollit anim id est laborum.")
-    edit = mock_edit(original=original, proposal=proposal)
+    edit = MockEdit(original=original, proposal=proposal)
     for max_len in (100, 120, 140, 160, 180):
       tweet = edit.as_tweet(max_len=max_len)
       if len(tweet) > max_len:
         self.fail("tweet is too long")
+  
+  def testClose(self):
+    edit = MockEdit()
+    site = edit.site
+    author = edit.author
+    site_open, site_closed = site.open, site.closed
+    author_open, author_closed = author.open, author.closed
+    edit.close()
+    self.assertEquals(site_open - 1, site.open)
+    self.assertEquals(site_closed + 1, site.closed)
+    self.assertEquals(author_open - 1, author.open)
+    self.assertEquals(author_closed + 1, author.closed)
+  
+  def testOpen(self):
+    edit = MockEdit(status="closed")
+    site = edit.site
+    author = edit.author
+    site_open, site_closed = site.open, site.closed
+    author_open, author_closed = author.open, author.closed
+    edit.open()
+    self.assertEquals(site_open + 1, site.open)
+    self.assertEquals(site_closed - 1, site.closed)
+    self.assertEquals(author_open + 1, author.open)
+    self.assertEquals(author_closed - 1, author.closed)
+  
+  def testDeleteOpen(self):
+    edit = MockEdit()
+    site = edit.site
+    author = edit.author
+    site_open = site.open
+    author_open = author.open
+    edit.delete()
+    self.assertEquals(site_open - 1, site.open)
+    self.assertEquals(author_open - 1, author.open)
+  
+  def testDeleteClosed(self):
+    edit = MockEdit(status="closed")
+    site = edit.site
+    author = edit.author
+    site_closed = site.closed
+    author_closed = author.closed
+    edit.delete()
+    self.assertEquals(site_closed - 1, site.closed)
+    self.assertEquals(author_closed - 1, author.closed)
 
 class HomePageTest(unittest.TestCase):
   def testUnicodeSuggest(self):
