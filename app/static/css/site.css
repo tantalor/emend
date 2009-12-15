@@ -96,7 +96,7 @@ form {
 
 label.field {
   display: block;
-  margin: 0 75px 10px 0;
+  margin-bottom: 10px;
 }
 
 label.field .name {
