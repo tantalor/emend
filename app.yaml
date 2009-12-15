@@ -21,6 +21,11 @@ handlers:
   static_files: app/static/robots.txt
   upload: app/static/robots.txt
 
+- url: /LICENSE
+  static_files: LICENSE
+  upload: LICENSE
+  mime_type: text/plain; charset=utf-8
+
 - url: /test.*
   script: app/gaeunit.py
   
