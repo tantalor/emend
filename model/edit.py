@@ -148,7 +148,7 @@ class Edit(search.SearchableModel):
     self.tested = datetime.now()
     self.put()
     # fetch page
-    page = fetch(self.url)
+    page = fetch(self.url.replace(' ', '%20'))
     if page:
       # decode content
       content = unicode(page.content, 'iso-8859-1')
