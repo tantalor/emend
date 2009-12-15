@@ -1,6 +1,9 @@
 import re
 import htmlentitydefs
-import HTMLParser
+import html5lib
+from html5lib import treebuilders, treewalkers
+from html5lib.tokenizer import HTMLTokenizer
+from html5lib.serializer.htmlserializer import HTMLSerializer
 
 def decode_entities(html):
   # numeric entities
@@ -15,19 +18,21 @@ def decode_entities(html):
     html = html.replace('&%s;' % entity, unichr(codepoint))
   return html
 
-class StripTags(HTMLParser.HTMLParser):
-  def __init__(self):
-    self.reset()
-    self.data = []
-  def handle_data(self, d):
-    self.data.append(d)
-  def get_text(self):
-    return ''.join(self.data)
+class StripTags(HTMLTokenizer):
+  def __iter__(self):
+    for token in super(StripTags, self).__iter__():
+      if token["type"] not in ["StartTag", "EndTag", "EmptyTag"]:
+        yield token
 
 def strip_tags(html):
-  parser = StripTags()
-  parser.feed(html)
-  return parser.get_text()
+  if html:
+    builder = treebuilders.getTreeBuilder("dom")
+    parser = html5lib.HTMLParser(tree=builder, tokenizer=StripTags)
+    tree = parser.parseFragment(html)
+    walker = treewalkers.getTreeWalker("dom")
+    stream = walker(tree)
+    serializer = HTMLSerializer()
+    return serializer.render(stream)
 
 def clean(html):
   """Decodes html entities and strips tags"""
