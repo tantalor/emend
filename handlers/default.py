@@ -15,7 +15,7 @@ from google.appengine.api import memcache
 
 def get(handler, response):
   # get params
-  response.url = handler.request.get('url');
+  response.url = handler.request.get('url')
   response.original = handler.request.get('original')
   response.proposal = handler.request.get('proposal') or response.original
   # get a suggestion
