@@ -28,7 +28,10 @@ def get(handler, response):
   # check cache
   if not handler.cached():
     # get latest edits
-    edits = list(Edit.all().order('-created').fetch(3))
+    edits = Edit.all()\
+      .filter('status =', 'open')\
+      .order('-created')\
+      .fetch(3)
     # cache these and update the response
     handler.cache(bookmarklet=bookmarklet(), edits=edits)
 
