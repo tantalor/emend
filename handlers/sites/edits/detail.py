@@ -7,6 +7,7 @@ def get(handler, response):
   next = Edit.all().\
     ancestor(edit.site).\
     filter('index >', edit.index).\
+    filter('status =', 'open').\
     order('index').\
     fetch(1)
   if next:
@@ -16,6 +17,7 @@ def get(handler, response):
   prev = Edit.all().\
     ancestor(edit.site).\
     filter('index <', edit.index).\
+    filter('status =', 'open').\
     order('-index').\
     fetch(1)
   if prev:
