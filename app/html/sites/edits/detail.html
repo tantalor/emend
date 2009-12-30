@@ -129,7 +129,12 @@
     });
   </script>
   
-  <p><a href="{{edit.site.permalink}}">More {{edit.site}} edits</a><p>
+  {% if edit.site.open %}
+    <p>
+      {{edit.site.open}} more
+      <a href="{{edit.site.permalink}}">open {{edit.site}} edit{% ifnotequal edit.site.open 1 %}s{% endifnotequal %}</a>
+    <p>
+  {% endif %}
   
   {% if prev or next %}
     <p class="prev-next">
