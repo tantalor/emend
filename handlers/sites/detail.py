@@ -1,35 +1,29 @@
-from model.site import Site
+from model.edit import Edit
 from model.edit import Edit
 
-PAGE_SIZE = 10
+PAGE_SIZE = 5
 
 def get(handler, response):
   site = handler.get_site(create_if_missing=True)
   if not site.is_saved():
     return
-  # get some edits
-  from_index = handler.request.get('from')
-  if from_index:
-    from_index = int(from_index)
-    response.prev_from = from_index + PAGE_SIZE
-    edits = Edit.all().\
-      ancestor(site).\
-      filter('index <=', from_index).\
-      order('-index').\
-      fetch(PAGE_SIZE+1)
-    # get top edit for comparison
-    top_edit = Edit.all().\
-      ancestor(site).\
-      order('-index').\
-      fetch(1)
-    if top_edit[0].index != edits[0].index:
-      response.has_prev = 1
-  else:
-    edits = Edit.all().\
-      ancestor(site).\
-      order('-index').\
-      fetch(PAGE_SIZE+1)
-  response.edits = edits[:PAGE_SIZE]
-  if len(edits) > PAGE_SIZE:
-    response.has_next = 1
-    response.next_from = edits[-1].index
+  # get some open edits
+  open_edits = Edit.all().\
+    ancestor(site).\
+    filter('status =', 'open').\
+    order('-index').\
+    fetch(PAGE_SIZE+1)
+  response.open = open_edits[:PAGE_SIZE]
+  if len(open_edits) == PAGE_SIZE+1:
+    response.has_next_open = 1
+    response.next_open_from = open_edits[PAGE_SIZE].index
+  # get some closed edits
+  closed_edits = Edit.all().\
+    ancestor(site).\
+    filter('status =', 'closed').\
+    order('-index').\
+    fetch(PAGE_SIZE+1)
+  response.closed = closed_edits[:PAGE_SIZE]
+  if len(closed_edits) == PAGE_SIZE+1:
+    response.has_next_closed = 1
+    response.next_closed_from = closed_edits[PAGE_SIZE].index

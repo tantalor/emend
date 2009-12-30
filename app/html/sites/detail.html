@@ -17,29 +17,36 @@
     </p>
   {% endif %}
   
-  <h2>Edits</h2>
-  
-  {% if edits %}
+  <h2>Most recent open edits</h2>
+      
+  {% if open %}
     <ul>
-      {% for edit in edits %}
-        <li><a href="{{edit.permalink}}">&ldquo;{{edit.proposal|escape}}&rdquo;</a> by <a href="{{edit.author.permalink}}">{{edit.author|escape}}</a></li>
+      {% for edit in open %}
+        <li><a href="{{edit.permalink}}">&ldquo;{{edit.proposal|escape}}&rdquo;</a> at <a href="{{edit.site.permalink}}">{{edit.site}}</a></li>
       {% endfor %}
     </ul>
-  
-    {% if has_prev or has_next %}
+    {% if has_next_open %}
       <p class="prev-next">
-        {% if has_prev %}
-          <a href="{{site.permalink}}?from={{prev_from}}">&larr; prev</a>
-        {% endif %}
-      
-        {% if has_prev and has_next %}|{% endif %}
-      
-        {% if has_next %}
-          <a href="{{site.permalink}}?from={{next_from}}">next &rarr;</a>
-        {% endif %}
+        <a href="{{site.permalink}}/open?from={{next_open_from}}">more open &rarr;</a>
       </p>
     {% endif %}
+  {% else %}
+    <p>No edits.</p>
+  {% endif %}
   
+  <h2>Most recent closed edits</h2>
+      
+  {% if closed %}
+    <ul>
+      {% for edit in closed %}
+        <li><a href="{{edit.permalink}}">&ldquo;{{edit.proposal|escape}}&rdquo;</a> at <a href="{{edit.site.permalink}}">{{edit.site}}</a></li>
+      {% endfor %}
+    </ul>
+    {% if has_next_closed %}
+      <p class="prev-next">
+        <a href="{{site.permalink}}/closed?from={{next_closed_from}}">more closed &rarr;</a>
+      </p>
+    {% endif %}
   {% else %}
     <p>No edits.</p>
   {% endif %}

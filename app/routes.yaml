@@ -38,6 +38,12 @@
   - /sites/([^/]+)
   - handlers.sites.detail
 -
+  - /sites/([^/]+)/open
+  - handlers.sites.open
+-
+  - /sites/([^/]+)/closed
+  - handlers.sites.closed
+-
   - /sites/([^/]+)/edits/([^/]+)/close
   - handlers.sites.edits.close
 -
