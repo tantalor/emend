@@ -135,19 +135,19 @@
         <a href="{{prev.permalink}}">&larr; {{prev.proposal|utf8|escape|truncate:32}}</a>
       {% else %}
         {% ifnotequal edit.site.open 1 %}
-          <a href="{{edit.site.permalink}}">{{edit.site.open}} open edits</a> |
+          <a href="{{edit.site.permalink}}/open">{{edit.site.open}} open edits</a> |
         {% endifnotequal %}
       {% endif %}
     
       {% if prev and next %}
-        | <a href="{{edit.site.permalink}}">{{edit.site.open}} open edits</a> |
+        | <a href="{{edit.site.permalink}}/open">{{edit.site.open}} open edits</a> |
       {% endif %}
     
       {% if next %}
         <a href="{{next.permalink}}">{{next.proposal|utf8|escape|truncate:32}} &rarr;</a>
       {% else %}
         {% ifnotequal edit.site.open 1 %}
-          | <a href="{{edit.site.permalink}}">{{edit.site.open}} open edits</a>
+          | <a href="{{edit.site.permalink}}/open">{{edit.site.open}} open edits</a>
         {% endifnotequal %}
       {% endif %}
     </p>
