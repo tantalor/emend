@@ -20,7 +20,7 @@ jQuery.fn.replace = function (from, to) {
 jetpack.tabs.onReady(function (doc) {
   if (!doc.defaultView.frameElement) {
     // search for edits to this page
-    jQuery.get('http://emend.appspot.com/search/edits?json', {
+    jQuery.get('http://www.emendapp.com/search/edits?json', {
       q: doc.location.href
     }, function (response) {
       response.edits = jQuery.grep(response.edits, function (edit) {
