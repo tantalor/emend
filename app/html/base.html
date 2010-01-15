@@ -56,8 +56,8 @@
         <p>
           <a href="/">Home</a> -
           <a href="/about">About</a> -
-          {% if handler.twitter_credentials %}
-            <a href="http://twitter.com/{{handler.twitter_credentials.username}}">Twitter</a> -
+          {% if handler.twitter_credentials.screen_name %}
+            <a href="http://twitter.com/{{handler.twitter_credentials.screen_name}}">Twitter</a> -
           {% endif %}
           <a href="/sites">Sites</a> -
           <a href="/users">Users</a> -
