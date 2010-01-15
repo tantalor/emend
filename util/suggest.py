@@ -11,7 +11,7 @@ def test():
   query = "Lunar Reconnoissance Orbiter"
   response = suggest(query=query)
   if response == 'Lunar Reconnaissance Orbiter':
-    print 'ok'
+    print 'passed'
   elif response:
     print 'failed, got "%s"' % response
   else:
@@ -21,7 +21,8 @@ def suggest(query, appid=None):
   """query should be utf8 encoded"""
   if appid is None:
     # shortcut for no-credentials case
-    return suggest(query, **local.credentials('yahoo'))
+    credentials = local.credentials('yahoo', filename="../app/local.yaml")
+    return suggest(query, **credentials)
   url = "http://search.yahooapis.com/WebSearchService/V1/spellingSuggestion"
   payload = urlencode(dict(output='json', query=query, appid=appid))
   response = urlfetch.fetch('%s?%s' % (url, payload))
