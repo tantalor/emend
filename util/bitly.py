@@ -12,14 +12,15 @@ def test():
   longUrl = "http://google.com"
   response = shorten(longUrl=longUrl)
   if 'http://bit.ly/' in response:
-    print 'ok'
+    print 'passed'
   else:
     print 'failed, got "%s"' % response
 
 def shorten(longUrl, login=None, apiKey=None):
   if login is None and apiKey is None:
     # shortcut for no-credentials case
-    return shorten(longUrl, **local.credentials('bitly'))
+    credentials = local.credentials('bitly', filename="../app/local.yaml")
+    return shorten(longUrl, **credentials)
   payload = urlencode(dict(
     longUrl=longUrl,
     login=login,
