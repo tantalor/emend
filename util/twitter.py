@@ -3,6 +3,8 @@ from urllib import urlencode
 
 from megaera import local
 
+from oauth import signed_url
+
 from google.appengine.api import urlfetch
 
 def test():
@@ -12,22 +14,18 @@ def test():
   from time import time
   status = "test %s" % int(time())
   response = tweet(status=status)
-  if '<id>' in response:
-    print 'ok'
+  if '<text>%s</text>' % status in response:
+    print 'passed'
   else:
     print 'failed, got "%s"' % response
 
-def tweet(status, username=None, password=None, source='Emend'):
-  if username is None and password is None:
+def tweet(status, **credentials):
+  if not credentials:
     # shortcut for no-credentials case
-    return tweet(status, **local.credentials('twitter'))
-  payload = urlencode(dict(status=status, source=source))
-  auth = encodestring('%s:%s' % (username, password))
-  auth = auth.rstrip() # remove trailing newline
-  headers = {'Authorization': "Basic %s" % auth}
-  url = "http://twitter.com/statuses/update.xml"
-  response = urlfetch.fetch(url,
-    payload=payload, method=urlfetch.POST, headers=headers)
+    credentials = local.credentials('twitter', filename="../app/local.yaml")
+  update_url = "http://twitter.com/statuses/update.xml"
+  fetch_url = signed_url(url=update_url, method='POST', status=status, **credentials)
+  response = urlfetch.fetch(fetch_url, method=urlfetch.POST)
   if response:
     return response.content
 
