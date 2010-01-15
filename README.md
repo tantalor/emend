@@ -13,7 +13,8 @@ optional. It will automatically be cached in memcached.
 
 Twitter credentials are read from the "twitter" key in the local
 configuration. The value should contain two keys, "prod" and "dev", which
-should each contain a "username" and "password" key.
+should each contain "oauth_consumer_key", "oauth_consumer_secret",
+"oauth_token", "oauth_token_secret", "user_id" and "screen_name" keys.
 
 ### Bitly credentials
 
