@@ -6,7 +6,7 @@ jQuery.fn.hasChild = function (el) { return jQuery(this).children().index(el) >=
 jQuery.fn.replace = function (from, to) {
   // find elements that contain the desired text
   // var els = jQuery(this).contains(from);
-  var els = jQuery(":contains('"+from.replace("'", "\\'")+"')", this);
+  var els = jQuery(':contains("'+from.replace("\"", "\\\"")+'")', this);
   return els.filter(function (i) {
       // last element or the next element isn't a child of this one
       return i == els.size()-1 || !jQuery(this).hasChild(els.get(i+1));
