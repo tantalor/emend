@@ -6,7 +6,7 @@
 
 ## Local configuration
 
-Emend will look for a local configuration in _local.yaml_. This file is
+Emend will look for a local configuration in "local.yaml". This file is
 optional. It will automatically be cached in memcached.
 
 ### Twitter configuration

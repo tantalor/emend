@@ -19,7 +19,7 @@ def test():
 def shorten(longUrl, login=None, apiKey=None):
   if login is None and apiKey is None:
     # shortcut for no-credentials case
-    credentials = local.credentials('bitly', filename="../app/local.yaml")
+    credentials = local.credentials('bitly')
     return shorten(longUrl, **credentials)
   payload = urlencode(dict(
     longUrl=longUrl,

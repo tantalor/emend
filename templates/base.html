@@ -63,23 +63,18 @@
           <a href="/users">Users</a> -
           <a href="/search">Search</a>
         </p>
-        <p>
-          {% if handler.is_admin %}
-            <p>You are an <strong>admin</strong></p>
-            <p>
-              {% for item in handler.config.admin.items %}
-                <a href="{{item.1}}">{{item.0}}</a>
-                {% if not forloop.last %}-{% endif %}
-              {% endfor %}
-            </p>
-          {% endif %}
-          {% if is_dev %}
-            <p>This is <strong>development</strong></p>
-            <p>
-              <a href="/_ah/admin/datastore">SDK Console</a>
-            <p>
-          {% endif %}
-        </p>
+        {% if handler.is_admin %}
+          <p>You are an <strong>admin</strong></p>
+          <p>
+            {% for item in handler.config.admin.items %}
+              <a href="{{item.1}}">{{item.0}}</a>
+              {% if not forloop.last %}-{% endif %}
+            {% endfor %}
+          </p>
+        {% endif %}
+        {% if is_dev %}
+          <p>This is <strong>development</strong></p>
+        {% endif %}
       </div> <!-- end area -->
     </div><!-- end footer -->    
     

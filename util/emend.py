@@ -12,7 +12,6 @@ from google.appengine.api import users, memcache
 from google.appengine.ext import db
 
 class Emend(megaera.Megaera):
-  HANDLERS_BASE = '/handlers'
   
   def current_user(self):
     """Returns the logged-in User object."""

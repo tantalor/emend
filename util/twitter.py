@@ -22,7 +22,7 @@ def test():
 def tweet(status, **credentials):
   if not credentials:
     # shortcut for no-credentials case
-    credentials = local.credentials('twitter', filename="../app/local.yaml")
+    credentials = local.credentials('twitter')
   update_url = "http://twitter.com/statuses/update.xml"
   fetch_url = signed_url(url=update_url, method='POST', status=status, **credentials)
   response = urlfetch.fetch(fetch_url, method=urlfetch.POST)

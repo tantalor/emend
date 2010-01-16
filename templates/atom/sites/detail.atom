@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  
+  <title>Emend > Sites > {{site.domain}}</title>
+  {% if handler.config.tagline %}
+    <subtitle>{{handler.config.tagline}}</subtitle>
+  {% endif %}
+  <link href="{{site.permalink}}?atom" rel="self"/>
+  <link href="{{site.permalink}}/"/>
+  
+  {% if edits %} 
+    <updated>{{edits.0.created.isoformat}}</updated>
+    
+    {% for edit in edits %}
+      <entry>
+        <title>"{{edit.proposal|escape}}"</title>
+        <link href="{{edit.permalink}}"/>
+        <updated>{{edit.created.isoformat}}</updated>
+        <id>tag:{{handler.host}}:{{edit.key}}</id>
+        <summary>
+          According to {{edit.author|escape}}, "{{edit.original|escape}}" should be "{{edit.proposal|escape}}" on {{edit.site}}.
+        </summary>
+      </entry>
+    {% endfor %}
+    
+  {% endif %}
+  
+</feed>

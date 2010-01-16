@@ -5,21 +5,21 @@ api_version: 1
 
 handlers:
 - url: /css
-  static_dir: app/static/css
+  static_dir: static/css
   
 - url: /js
-  static_dir: app/static/js
+  static_dir: static/js
   
 - url: /images
-  static_dir: app/static/images
+  static_dir: static/images
 
 - url: /favicon.ico
-  static_files: app/static/images/favicon.ico
-  upload: app/static/images/favicon.ico
+  static_files: static/images/favicon.ico
+  upload: static/images/favicon.ico
 
 - url: /robots.txt
-  static_files: app/static/robots.txt
-  upload: app/static/robots.txt
+  static_files: static/robots.txt
+  upload: static/robots.txt
 
 - url: /LICENSE
   static_files: LICENSE
@@ -27,7 +27,7 @@ handlers:
   mime_type: text/plain; charset=utf-8
 
 - url: /test.*
-  script: app/gaeunit.py
+  script: gaeunit.py
   
 - url: .*
-  script: app/main.py
+  script: main.py
