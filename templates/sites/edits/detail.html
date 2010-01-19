@@ -47,25 +47,6 @@
     <span class="fakelink click-trackback">Trackback</span>
   </p>
   
-  <script type="text/javascript" charset="utf-8">
-    $('.click-trackback').click(function ()
-    {
-      var el = $(this);
-      el.text('Sending trackback...');
-      $.post("{{edit.permalink}}/trackback", {json: 1}, function (response)
-      {
-        if (response.success)
-        {
-          alert('Success!');
-        } else if (response.error)
-        {
-          alert("Sorry, something went wrong.\n\n"+response.error);
-        }
-        el.text('Trackback');
-      }, 'json');
-    });
-  </script>
-  
   {% if prev or next %}
     <p class="prev-next">
       {% if prev %}

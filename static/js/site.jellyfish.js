@@ -83,5 +83,18 @@ Jellyfish(function () {
         el.text('Pingback');
       }, 'json');
     });
+    /* trackback */
+    this.sting('.click-trackback/click', function () {
+      var el = $(this);
+      el.text('Sending trackback...');
+      $.post(permalink()+"/trackback", {json: 1}, function (response) {
+        if (response.success) {
+          alert('Success!');
+        } else if (response.error) {
+          alert("Sorry, something went wrong.\n\n"+response.error);
+        }
+        el.text('Trackback');
+      }, 'json');
+    });
   });
 });
