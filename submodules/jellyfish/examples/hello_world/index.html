@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <title>Hello World</title>
+  <script src="../../vendor/jquery-1.3.2.min.js"></script>
+  <script src="../../lib/jellyfish.js"></script>
+  <script>
+  $(document).jellyfish(function () {
+
+    this.bloom('/', function () {
+
+      this.sting("#click_me/click", function (evt) {
+        $("#output").html("You clicked me!");
+      });
+
+    });
+
+  });
+  </script>
+
+</head>
+<body>
+  <div id="container">
+    <button id="click_me">Click Me</button>
+    <span id="output"></span>
+  </div>
+</body>
+</html>
