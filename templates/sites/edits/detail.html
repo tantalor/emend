@@ -1,5 +1,9 @@
 {% extends "../../base.html" %}
 
+{% block head %}
+  <link rel="canonical" href="{{edit.permalink}}">
+{% endblock %}
+
 {% block title %}
   Emend > {{site.domain}} > {{edit.proposal|utf8|escape|truncate:32}}
 {% endblock %}
@@ -27,35 +31,6 @@
   
   {% if edit.can_edit and edit.is_open %}
     <p><span class="fakelink click-close">Change to &ldquo;fixed&rdquo;</span></p>
-    <script type="text/javascript" charset="utf-8">
-      $('.click-close').click(function ()
-      {
-        $.post("{{edit.permalink}}/test", {json: 1}, function (response)
-        {
-          if (response.status == 'fixed') {
-            alert("Thanks!");
-            window.location.reload();
-          } else {
-            var again;
-            if (response.status == 'unfixed') {
-              again = confirm("Looks like it hasn't been fixed yet, change it anyway?");
-            } else if (response.status == 'uncertain') {
-              again = confirm("I couldn't tell if it was fixed, change it anyway?");
-            } else if (response.error)
-            {
-              alert("An error occured: "+response.error);
-            }
-            if (again) {
-              $.post("{{edit.permalink}}/close", {json: 1}, function ()
-              {
-                alert("Thanks!");
-                window.location.reload();
-              });
-            }
-          }
-        }, 'json');
-      });
-    </script>
   {% endif %}
   
   {% if edit.can_edit and edit.is_closed %}
