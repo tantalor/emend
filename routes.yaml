@@ -86,6 +86,9 @@
   - /users/([^/]+)/nickname
   - handlers.users.nickname
 -
+  - /widgets
+  - handlers.widgets
+-
   - /*
   - handlers.default
 -
