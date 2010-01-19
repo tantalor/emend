@@ -3,6 +3,8 @@
     <title>{% block title %}Emend{% endblock %}</title>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
     <script type="text/javascript" charset="utf-8" src="/js/site.jquery.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/js/jellyfish.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/js/site.jellyfish.js"></script>
     <link type="text/css" rel="stylesheet" href="/css/site.css">
     <link media="only screen and (max-device-width: 480px)" href="/css/iphone.css" type="text/css" rel="stylesheet">
     <link rel="icon" href="/favicon.ico" />
@@ -22,31 +24,11 @@
         <div class="user-box">
           {% if handler.current_user %}
             <p>
-              You are <a href="{{handler.current_user.permalink}}">{{handler.current_user|escape}}</a> -
+              You are <a id="current-user" href="{{handler.current_user.permalink}}">{{handler.current_user|escape}}</a> -
               <span class="fakelink change-nickname">Change nickname</span> -
               <a href="{{handler.logout_url}}">Log out</a>
+              <input type="hidden" id="current-user-permalink" value="{{handler.current_user.permalink}}">
             </p>
-            <script type="text/javascript" charset="utf-8">
-              $('.change-nickname').click(function ()
-              {
-                var current = "{{handler.current_user|escape}}";
-                var nickname = prompt("What nickname would you like?", current);
-                if (nickname == current)
-                {
-                  alert("Okay, your nickname hasn't changed.");
-                } else if (nickname)
-                {
-                  var request = {
-                    nickname: nickname,
-                    json: 1
-                  };
-                  $.post("{{handler.current_user.permalink}}/nickname", request, function (response)
-                  {
-                    alert("Great! Your new nickname is \""+response.user.nickname+"\".");
-                  }, 'json');
-                }
-              });
-            </script>
           {% else %}
             <p>
               <a href="{{handler.login_url}}">Log in now</a> with your Google Account

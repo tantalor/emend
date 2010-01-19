@@ -1,3 +1,0 @@
-[submodule "vendor/jqunit-spec"]
-	path = vendor/jqunit-spec
-	url = git://github.com/quirkey/jqunit-spec.git
