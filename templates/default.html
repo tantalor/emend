@@ -43,12 +43,6 @@
             <span>
              May we suggest <span class="fakelink click-suggestion">{{suggestion}}</span>?
             </span>
-            <script type="text/javascript" charset="utf-8">
-              $('.click-suggestion').click(function ()
-              {
-                $('[name=proposal]').val($(this).text());
-              });
-            </script>
           {% endif %}  
           <textarea name="proposal">{{proposal}}</textarea>
           {% form_error proposal %}

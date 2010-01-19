@@ -1,5 +1,7 @@
 Jellyfish(function () {
+  /* all pages */
   this.bloom('*', function () {
+    /* change nickname */
     this.sting('.change-nickname/click', function ()
     {
       var current = $('#current-user');
@@ -20,6 +22,14 @@ Jellyfish(function () {
           current.text(response.user.nickname);
         }, 'json');
       }
+    });
+  });
+  /* home page */
+  this.bloom('/', function () {
+    /* suggestion */
+    this.sting('.click-suggestion/click', function ()
+    {
+      $('[name=proposal]').val($(this).text());
     });
   });
 });
