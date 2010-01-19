@@ -58,34 +58,26 @@ Jellyfish(function () {
       }, 'json');
     });
     /* open edit */
-    this.sting('.click-open/click', function ()
-    {
-      $.post(permalink()+"/open", {json: 1}, function ()
-      {
+    this.sting('.click-open/click', function () {
+      $.post(permalink()+"/open", {json: 1}, function () {
         alert("Thanks!");
         window.location.reload();
       });
     });
     /* delete edit */
-    this.sting('.click-delete/click', function ()
-    {
-      if (confirm("Are you sure?"))
-      {
+    this.sting('.click-delete/click', function () {
+      if (confirm("Are you sure?")) {
         $.postTo(permalink()+"/delete");
       }
     });
     /* pingback */
-    this.sting('.click-pingback/click', function ()
-    {
+    this.sting('.click-pingback/click', function () {
       var el = $(this);
       el.text('Sending pingback...');
-      $.post(permalink()+"/pingback", {json: 1}, function (response)
-      {
-        if (response.success)
-        {
+      $.post(permalink()+"/pingback", {json: 1}, function (response) {
+        if (response.success) {
           alert('Success!');
-        } else if (response.error)
-        {
+        } else if (response.error) {
           alert("Sorry, something went wrong.\n\n"+response.error);
         }
         el.text('Pingback');
