@@ -48,25 +48,6 @@
   </p>
   
   <script type="text/javascript" charset="utf-8">
-    $('.click-pingback').click(function ()
-    {
-      var el = $(this);
-      el.text('Sending pingback...');
-      $.post("{{edit.permalink}}/pingback", {json: 1}, function (response)
-      {
-        if (response.success)
-        {
-          alert('Success!');
-        } else if (response.error)
-        {
-          alert("Sorry, something went wrong.\n\n"+response.error);
-        }
-        el.text('Pingback');
-      }, 'json');
-    });
-  </script>
-  
-  <script type="text/javascript" charset="utf-8">
     $('.click-trackback').click(function ()
     {
       var el = $(this);
