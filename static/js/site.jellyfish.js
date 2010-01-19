@@ -57,5 +57,14 @@ Jellyfish(function () {
         }
       }, 'json');
     });
+    /* open edit */
+    this.sting('.click-open/click', function ()
+    {
+      $.post(permalink()+"/open", {json: 1}, function ()
+      {
+        alert("Thanks!");
+        window.location.reload();
+      });
+    });
   });
 });

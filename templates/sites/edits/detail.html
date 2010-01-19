@@ -35,16 +35,6 @@
   
   {% if edit.can_edit and edit.is_closed %}
     <p><span class="fakelink click-open">Change back to &ldquo;unfixed&rdquo;</span></p>
-    <script type="text/javascript" charset="utf-8">
-      $('.click-open').click(function ()
-      {
-        $.post("{{edit.permalink}}/open", {json: 1}, function ()
-        {
-          alert("Thanks!");
-          window.location.reload();
-        });
-      });
-    </script>
   {% endif %}
   
   {% if edit.can_edit %}
