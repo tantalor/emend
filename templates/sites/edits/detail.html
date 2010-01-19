@@ -40,15 +40,6 @@
   {% if edit.can_edit %}
     <p><a href="{{edit.permalink}}/update">Update this</a></p>
     <p><span class="fakelink click-delete">Delete this</span></p>
-    <script type="text/javascript" charset="utf-8">
-      $('.click-delete').click(function ()
-      {
-        if (confirm("Are you sure?"))
-        {
-          $.postTo("{{edit.permalink}}/delete");
-        }
-      });
-    </script>
   {% endif %}
   
   <p>

@@ -66,5 +66,13 @@ Jellyfish(function () {
         window.location.reload();
       });
     });
+    /* delete edit */
+    this.sting('.click-delete/click', function ()
+    {
+      if (confirm("Are you sure?"))
+      {
+        $.postTo(permalink()+"/delete");
+      }
+    });
   });
 });
