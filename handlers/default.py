@@ -9,11 +9,17 @@ from util.suggest import suggest
 from util.bookmarklet import bookmarklet
 
 from megaera.local import MissingCredentials
+from megaera.env import is_dev
 
 from google.appengine.ext import db
 from google.appengine.api import memcache
 
+from os import environ
+
 def get(handler, response):
+  # redirect to emendapp.com
+  if not is_dev() and environ['HTTP_HOST'] == 'emend.appspot.com':
+    return handler.redirect('http://www.emendapp.com?'+environ['QUERY_STRING'])
   # get params
   response.url = handler.request.get('url')
   response.original = handler.request.get('original')
