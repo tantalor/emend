@@ -9,7 +9,6 @@ from util.emend import Emend
 from model.site import Site
 from model.edit import Edit
 from model.user import User
-from util import html
 
 from google.appengine.api import users
 from google.appengine.ext.webapp import Request, Response
@@ -187,22 +186,3 @@ class HomePageTest(unittest.TestCase):
       handler.get()
     except UnicodeEncodeError:
       self.fail('failed to encode unicode')
-
-class HTMLTest(unittest.TestCase):
-  def testDecodeNumericEntities(self):
-    """Decode numeric entities to unicode code points."""
-    encoded = 'It&#8217;s my birthday'
-    decoded = u'It\u2019s my birthday'
-    self.assertEquals(html.decode_entities(encoded), decoded)
-  
-  def testStripTags(self):
-    """Strip all tags."""
-    encoded = '<p>This</table> <script>is <foo>bad</html> html.<body>'
-    decoded = u'This is bad html.'
-    self.assertEquals(html.strip_tags(encoded), decoded)
-  
-  def testClean(self):
-    """Strip all tags and decode html entities to unicode code points."""
-    encoded = '<p>From the Latin <i>emendare</i>, &#x201c;to free from fault.&rdquo;</p>'
-    decoded = u'From the Latin emendare, \u201cto free from fault.\u201d'
-    self.assertEquals(html.clean(encoded), decoded)

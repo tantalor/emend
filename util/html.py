@@ -5,6 +5,7 @@ from html5lib import treebuilders, treewalkers
 from html5lib.tokenizer import HTMLTokenizer
 from html5lib.serializer.htmlserializer import HTMLSerializer
 
+
 def decode_entities(html):
   # numeric entities
   matches = re.findall("(&\#(x?)([0-9a-f]+);)", html, re.IGNORECASE)
