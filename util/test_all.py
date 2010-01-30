@@ -1,3 +1,4 @@
+from test_bitly import *
 from test_blogsearch import *
 from test_html import *
 from test_oauth import *

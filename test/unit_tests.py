@@ -10,9 +10,10 @@ from model.site import Site
 from model.edit import Edit
 from model.user import User
 
+from util.test_bitly import TestBitly
+from util.test_blogsearch import TestBlogsearch
 from util.test_html import HTMLTest
 from util.test_oauth import TestOAuth
-from util.test_blogsearch import TestBlogsearch
 from util.test_suggest import TestSuggest
 
 from google.appengine.api import users

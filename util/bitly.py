@@ -5,16 +5,6 @@ from megaera import local, json
 
 from google.appengine.api import urlfetch
 
-def test():
-  import stubs
-  stubs.all()
-  # canonical test
-  longUrl = "http://google.com"
-  response = shorten(longUrl=longUrl)
-  if 'http://bit.ly/' in response:
-    print 'passed'
-  else:
-    print 'failed, got "%s"' % response
 
 def shorten(longUrl, login=None, apiKey=None):
   if login is None and apiKey is None:
@@ -36,6 +26,3 @@ def shorten(longUrl, login=None, apiKey=None):
         return data['results'][longUrl]['shortUrl']
     except json.ReadException:
       pass
-
-if __name__ == '__main__':
-  test();
