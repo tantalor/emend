@@ -4,7 +4,7 @@ import unittest
 import sys
 from urllib import urlencode
 
-from megaera.megaera import NotFoundException
+from util.megaera.megaera import NotFoundException
 from util.emend import Emend
 from model.site import Site
 from model.edit import Edit
