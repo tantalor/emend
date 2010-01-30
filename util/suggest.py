@@ -4,18 +4,6 @@ from megaera import local, json
 
 from google.appengine.api import urlfetch
 
-def test():
-  import stubs
-  stubs.all()
-  # canonical test
-  query = "Lunar Reconnoissance Orbiter"
-  response = suggest(query=query)
-  if response == 'Lunar Reconnaissance Orbiter':
-    print 'passed'
-  elif response:
-    print 'failed, got "%s"' % response
-  else:
-    print 'failed, got no suggestion'
 
 def suggest(query, appid=None):
   """query should be utf8 encoded"""
@@ -35,6 +23,3 @@ def suggest(query, appid=None):
           return result
     except json.ReadException:
       pass
-
-if __name__ == '__main__':
-  test()
