@@ -7,3 +7,6 @@
 [submodule "submodules/jellyfish"]
 	path = submodules/jellyfish
 	url = git://github.com/h3h/jellyfish.git
+[submodule "submodules/megeara"]
+	path = submodules/megeara
+	url = git@github.com:dodgeballcannon/megaera.git
