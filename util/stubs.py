@@ -23,12 +23,3 @@ def all():
     return True
   except:
     pass
-
-def test():
-  if all():
-    print 'ok'
-  else:
-    print 'failed'
-
-if __name__ == '__main__':
-  test()
