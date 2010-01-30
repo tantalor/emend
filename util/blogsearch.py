@@ -8,6 +8,3 @@ def ping(name, url, changesURL, ping_url='http://blogsearch.google.com/ping'):
   response = urlfetch.fetch('%s?%s' % (ping_url, payload))
   if response:
     return response.content
-
-if __name__ == '__main__':
-  test();
