@@ -3,7 +3,7 @@
 	url = git://github.com/dodgeballcannon/megaera.git
 [submodule "submodules/megaera"]
 	path = submodules/megaera
-	url = git://github.com/dodgeballcannon/megaera.git
+	url = git@github.com:dodgeballcannon/megaera.git
 [submodule "submodules/jellyfish"]
 	path = submodules/jellyfish
 	url = git://github.com/h3h/jellyfish.git
