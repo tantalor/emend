@@ -72,17 +72,6 @@ def mock_handler(page, request='/', **response):
   handler.handle_error = mock_handle_error
   return handler
 
-class SiteTest(unittest.TestCase):
-  def testDomainKey(self):
-    """foo.com and www.foo.com should map to foo.com"""
-    prefix = "test_prefix"
-    self.assertEquals(
-      Site.key_name_from_domain("foo.com", prefix=prefix),
-      "%s:foo.com" % prefix)
-    self.assertEquals(
-      Site.key_name_from_domain("www.foo.com", prefix=prefix),
-      "%s:foo.com" % prefix)
-
 class EditTest(unittest.TestCase):
   def testUnicodeOriginal(self):
     """An edit with unicode characters"""
