@@ -8,7 +8,7 @@ class TestBitly(unittest.TestCase):
   def setUp(self):
     stubs.all()
 
-  def testShorten(self):
+  def test_shorten(self):
     longUrl = "http://google.com"
     response = shorten(longUrl=longUrl)
     expected = "http://bit.ly/1BArVh"

@@ -8,7 +8,7 @@ class TestBlogsearch(unittest.TestCase):
   def setUp(self):
     stubs.all()
 
-  def testPing(self):
+  def test_ping(self):
     response = ping(
       name='Official Google Blog',
       url='http://googleblog.blogspot.com',
