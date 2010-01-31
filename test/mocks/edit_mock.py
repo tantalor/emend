@@ -1,6 +1,6 @@
-from test.mocks.model_mock import MockModel
-from test.mocks.site_mock import MockSite
-from test.mocks.user_mock import MockUser
+from model_mock import MockModel
+from site_mock import MockSite
+from user_mock import MockUser
 from model.edit import Edit
 
 
