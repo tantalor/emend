@@ -1,5 +1,6 @@
-from html import decode_entities, strip_tags, clean
 import unittest
+
+from util.html import decode_entities, strip_tags, clean
 
 
 class HTMLTest(unittest.TestCase):

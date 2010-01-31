@@ -1,7 +1,7 @@
 import unittest
 
-import stubs
-from suggest import suggest
+from util import stubs
+from util.suggest import suggest
 
 
 class TestSuggest(unittest.TestCase):

@@ -1,5 +1,7 @@
-from oauth import signed_url
 import unittest
+
+from util.oauth import signed_url
+
 
 class TestOAuth(unittest.TestCase):
   def test_oauth(self):
