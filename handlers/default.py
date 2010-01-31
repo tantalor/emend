@@ -16,7 +16,7 @@ from os import environ
 
 def get(handler, response):
   # redirect to emendapp.com
-  if not is_dev() and environ['HTTP_HOST'] == 'emend.appspot.com':
+  if not is_dev() and environ.get('HTTP_HOST') == 'emend.appspot.com':
     return handler.redirect('http://www.emendapp.com?'+environ['QUERY_STRING'])
   # get params
   response.url = handler.request.get('url')
