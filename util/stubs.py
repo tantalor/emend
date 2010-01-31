@@ -4,22 +4,20 @@ from google.appengine.api.memcache import memcache_stub
 from megaera import env
 
 def urlfetch():
-  if not env.is_dev():
+  if env.server_software():
     return
   apiproxy_stub_map.apiproxy = apiproxy_stub_map.APIProxyStubMap() 
   apiproxy_stub_map.apiproxy.RegisterStub('urlfetch', 
     urlfetch_stub.URLFetchServiceStub())
-  
+
 def memcache():
-  if not env.is_dev():
+  if env.server_software():
     return
   apiproxy_stub_map.apiproxy.RegisterStub('memcache', 
     memcache_stub.MemcacheServiceStub())
 
 def all():
-  try:
-    urlfetch()
-    memcache()
-    return True
-  except:
-    pass
+  if env.server_software():
+    return
+  from google.appengine.tools import dev_appserver_main, dev_appserver
+  dev_appserver.SetupStubs('emend', **dev_appserver_main.DEFAULT_ARGS)
