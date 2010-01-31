@@ -22,7 +22,7 @@ class Site(db.Model):
     return self.domain
   
   def permalink(self):
-    host = environ['HTTP_HOST']
+    host = environ.get('HTTP_HOST')
     return "http://%s/sites/%s" % (host, self.domain)
   
   def sanitize(self):

@@ -20,7 +20,7 @@ class User(db.Model):
       return True
   
   def permalink(self, shareable=False):
-    host = environ['HTTP_HOST']
+    host = environ.get('HTTP_HOST')
     if self.can_edit() and not shareable:
       key = self.user.email()
     else:
