@@ -4,7 +4,7 @@
 import unittest
 from urllib import urlencode
 
-from test.mocks.handler import mock_handler
+from test.mocks.handler_mock import mock_handler
 from util import stubs
 
 
