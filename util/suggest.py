@@ -9,7 +9,7 @@ def suggest(query, appid=None):
   """query should be utf8 encoded"""
   if appid is None:
     # shortcut for no-credentials case
-    credentials = local.credentials('yahoo')
+    credentials = local.config_get('yahoo')
     return suggest(query, **credentials)
   url = "http://search.yahooapis.com/WebSearchService/V1/spellingSuggestion"
   payload = urlencode(dict(output='json', query=query, appid=appid))

@@ -7,7 +7,6 @@ from model.user import User
 
 from util.suggest import suggest
 from util.bookmarklet import bookmarklet
-from util.megaera.local import MissingCredentials
 from util.megaera.env import is_dev
 
 from google.appengine.ext import db
@@ -28,7 +27,7 @@ def get(handler, response):
     query = response.original.encode('utf8')
     try:
       response.suggestion = suggest(query)
-    except MissingCredentials, e:
+    except KeyError, e:
       logging.warn('Missing credentials: %s', e)
   # check cache
   if not handler.cached():

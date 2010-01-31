@@ -6,10 +6,9 @@ from util.megaera import local
 from google.appengine.api import urlfetch
 
 def blog_name():
-  config = local.config()
-  if 'tagline' in config:
-    return 'Emend: %s' % local.config()['tagline']
-  else:
+  try:
+    return 'Emend: %s' % local.config_get('tagline')
+  except KeyError:
     return 'Emend'
 
 def post(handler, response):

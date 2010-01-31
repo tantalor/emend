@@ -9,7 +9,7 @@ from google.appengine.api import urlfetch
 def shorten(longUrl, login=None, apiKey=None):
   if login is None and apiKey is None:
     # shortcut for no-credentials case
-    credentials = local.credentials('bitly')
+    credentials = local.config_get('bitly')
     return shorten(longUrl, **credentials)
   payload = urlencode(dict(
     longUrl=longUrl,

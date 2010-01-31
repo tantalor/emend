@@ -11,7 +11,6 @@ from google.appengine.api.urlfetch_errors import DownloadError
 
 from util import bitly, twitter, html
 from util.const import DATE_SHORT
-from util.megaera.local import MissingCredentials
 
 class Edit(search.SearchableModel):
   index = db.IntegerProperty(required=True)
@@ -70,7 +69,7 @@ class Edit(search.SearchableModel):
       return bitly.shorten(self.permalink())
     except DownloadError, e:
       logging.error("failed to shorten: %s", e)
-    except MissingCredentials, e:
+    except KeyError, e:
       logging.warn('missing credentials: %s', e)
   
   def tweet(self):
@@ -81,7 +80,7 @@ class Edit(search.SearchableModel):
         return twitter.tweet(status)
       except DownloadError, e:
         logging.error("failed to tweet: %s", e)
-      except MissingCredentials, e:
+      except KeyError, e:
         logging.warn('missing credentials: %s', e)
   
   def sanitize(self):

@@ -98,6 +98,6 @@ class Emend(megaera.Megaera):
   def twitter_credentials(self):
     """Returns Emend's twitter credentials, if any."""
     try:
-      return local.credentials('twitter')
-    except local.MissingCredentials, e:
+      return local.config_get('twitter')
+    except KeyError, e:
       logging.warn('missing credentials: %s', e)
