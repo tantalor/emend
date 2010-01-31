@@ -8,11 +8,11 @@ from test.mocks.handler import mock_handler
 from util import stubs
 
 
-class HomePageTest(unittest.TestCase):
+class TestHomepage(unittest.TestCase):
   def setUp(self):
     stubs.all()
     
-  def testUnicodeSuggest(self):
+  def test_unicode_suggest(self):
     original = u"the original design"
     request = '/?%s' % urlencode(dict(original=original.encode('utf8')))
     # mock handler
