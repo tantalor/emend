@@ -1,8 +1,8 @@
 import unittest
 from time import time
 
-from util import stubs
-from util.twitter import tweet, untweet
+from emend import stubs
+from emend.twitter import tweet, untweet
 
 
 class TestTwitter(unittest.TestCase):

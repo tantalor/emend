@@ -1,6 +1,6 @@
 import unittest
 
-from util.oauth import signed_url
+from emend.oauth import signed_url
 
 
 class TestOAuth(unittest.TestCase):

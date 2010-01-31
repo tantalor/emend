@@ -9,8 +9,8 @@ from google.appengine.api import users
 from google.appengine.api.urlfetch import fetch
 from google.appengine.api.urlfetch_errors import DownloadError
 
-from util import bitly, twitter, html
-from util.const import DATE_SHORT
+from emend import bitly, twitter, html
+from emend.const import DATE_SHORT
 
 class Edit(search.SearchableModel):
   index = db.IntegerProperty(required=True)

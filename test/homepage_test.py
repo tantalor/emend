@@ -5,7 +5,7 @@ import unittest
 from urllib import urlencode
 
 from mocks.handler_mock import mock_handler
-from util import stubs
+from emend import stubs
 
 
 class TestHomepage(unittest.TestCase):

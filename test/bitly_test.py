@@ -1,7 +1,7 @@
 import unittest
 
-from util import stubs
-from util.bitly import shorten
+from emend import stubs
+from emend.bitly import shorten
 
 
 class TestBitly(unittest.TestCase):

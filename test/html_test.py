@@ -1,6 +1,6 @@
 import unittest
 
-from util.html import decode_entities, strip_tags, clean
+from emend.html import decode_entities, strip_tags, clean
 
 
 class TestHTML(unittest.TestCase):

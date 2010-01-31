@@ -5,7 +5,7 @@ import unittest
 import handlers.sites.edits.detail
 from mocks.edit_mock import MockEdit
 from mocks.handler_mock import mock_handler
-from util import stubs
+from emend import stubs
 
 class TestEdit(unittest.TestCase):
   def setUp(self):

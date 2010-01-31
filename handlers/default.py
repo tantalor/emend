@@ -5,8 +5,8 @@ from model.site import Site
 from model.edit import Edit
 from model.user import User
 
-from util.suggest import suggest
-from util.bookmarklet import bookmarklet
+from emend.suggest import suggest
+from emend.bookmarklet import bookmarklet
 from megaera.env import is_dev
 
 from google.appengine.ext import db

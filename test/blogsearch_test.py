@@ -1,7 +1,7 @@
 import unittest
 
-from util import stubs
-from util.blogsearch import ping
+from emend import stubs
+from emend.blogsearch import ping
 
 
 class TestBlogsearch(unittest.TestCase):
