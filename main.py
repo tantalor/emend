@@ -3,14 +3,14 @@ import yaml
 from google.appengine.ext.webapp import WSGIApplication, template
 from google.appengine.ext.webapp.util import run_wsgi_app
 
-from util.emend import Emend
+from util.request_handler import EmendRequestHandler
 
 def routes():
   return yaml.load(file('routes.yaml'))
 
 def application():
   return WSGIApplication([
-    (path, Emend.with_page(page))
+    (path, EmendRequestHandler.with_page(page))
     for (path, page) in routes()
   ], debug=True)
 

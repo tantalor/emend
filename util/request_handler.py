@@ -6,12 +6,13 @@ from model.site import Site
 from model.user import User
 import blogsearch
 
-from megaera import local, megaera
+from megaera import local
+from megaera.request_handler import MegaeraRequestHandler
 
 from google.appengine.api import users, memcache
 from google.appengine.ext import db
 
-class Emend(megaera.Megaera):
+class EmendRequestHandler(MegaeraRequestHandler):
   
   def current_user(self):
     """Returns the logged-in User object."""
