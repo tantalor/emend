@@ -179,16 +179,3 @@ class EditTest(unittest.TestCase):
     edit.delete()
     self.assertEquals(site_closed - 1, site.closed)
     self.assertEquals(author_closed - 1, author.closed)
-
-class HomePageTest(unittest.TestCase):
-  def testUnicodeSuggest(self):
-    original = u"the original design"
-    request = '/?%s' % urlencode(dict(original=original.encode('utf8')))
-    # mock handler
-    import handlers.default
-    handler = mock_handler(page=handlers.default, request=request)
-    # execute handler
-    try:
-      handler.get()
-    except UnicodeEncodeError:
-      self.fail('failed to encode unicode')
