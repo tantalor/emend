@@ -117,7 +117,7 @@ class Megaera(RequestHandler):
   
   def host(self):
     """Returns the current host's name."""
-    return os.environ['HTTP_HOST']
+    return os.environ.get('HTTP_HOST')
   
   def cache_key(self, page=None):
     """Returns the cache key of the given page or the current page."""
