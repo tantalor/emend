@@ -7,7 +7,7 @@ from model.user import User
 
 from util.suggest import suggest
 from util.bookmarklet import bookmarklet
-from util.megaera.env import is_dev
+from megaera.env import is_dev
 
 from google.appengine.ext import db
 from google.appengine.api import memcache

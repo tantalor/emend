@@ -1,7 +1,7 @@
 import logging
 
 from ext.tblib import TrackBack
-from util.megaera import local
+from megaera import local
 
 from google.appengine.api import urlfetch
 
