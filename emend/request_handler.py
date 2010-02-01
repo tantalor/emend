@@ -4,7 +4,6 @@ import logging
 from model.edit import Edit
 from model.site import Site
 from model.user import User
-import blogsearch
 
 from megaera import local
 from megaera.request_handler import MegaeraRequestHandler
@@ -88,14 +87,7 @@ class EmendRequestHandler(MegaeraRequestHandler):
         return user
     if required:
       raise megaera.NotFoundException("user not found")
-  
-  def ping_blogsearch(self):
-    """Pings Google Blog Search on behalf of Emend."""
-    name = 'Emend: Edit the Interwebs'
-    url = 'http://%s' % self.host()
-    changesURL = '%s?atom' % url
-    return blogsearch.ping(name=name, url=url, changesURL=changesURL)
-  
+    
   def twitter_credentials(self):
     """Returns Emend's twitter credentials, if any."""
     try:

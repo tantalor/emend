@@ -1,15 +1,10 @@
 import logging
 
 from ext.tblib import TrackBack
-from megaera import local
+from emend.site_name import site_name
 
 from google.appengine.api import urlfetch
 
-def blog_name():
-  try:
-    return 'Emend: %s' % local.config_get('tagline')
-  except KeyError:
-    return 'Emend'
 
 def post(handler, response):
   edit = handler.get_edit(required=True)
@@ -17,7 +12,7 @@ def post(handler, response):
     title = 'Emend > Sites > %s > %s' % (edit.site.domain, edit.original)
     excerpt = edit.as_tweet().encode('utf8')
     url = edit.permalink()
-    tb = TrackBack(title=title, excerpt=excerpt, url=url, blog_name=blog_name())
+    tb = TrackBack(title=title, excerpt=excerpt, url=url, blog_name=site_name())
     tb.autodiscover(edit.url)
     if tb.ping() == 1:
       response.error = "Didn't find a trackback URI."

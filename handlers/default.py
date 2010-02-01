@@ -7,6 +7,8 @@ from model.user import User
 
 from emend.suggest import suggest
 from emend.bookmarklet import bookmarklet
+from emend.site_name import site_name
+from emend import blogsearch
 from megaera.env import is_dev
 
 from google.appengine.ext import db
@@ -107,9 +109,13 @@ def post(handler, response):
   # fiddle user's count
   edit.author.open += 1
   edit.author.put()
-  
-  # notifications
+    
+  # tweet
   edit.tweet()
-  handler.ping_blogsearch()
+  
+  # ping blogsearch
+  host_url = 'http://%s' % handler.host()
+  changes_url = '%s?atom' % host_url
+  blogsearch.ping(name=site_name(), url=host_url, changesURL=changes_url)
   
   handler.redirect(edit.permalink())
