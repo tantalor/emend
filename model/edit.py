@@ -158,10 +158,18 @@ class Edit(search.SearchableModel):
     content = self.page_content()
     if content:
       # test page
-      if self.proposal in content:
-        self.close()
-        return 'fixed'
-      elif self.original in content:
-        return 'unfixed'
+      if self.proposal in self.original:
+        if self.original in content:
+          return 'unfixed'
+        elif self.proposal in content:
+          return 'fixed'
+        else:
+          return 'uncertain'
       else:
-        return 'uncertain'
+        if self.proposal in content:
+          self.close()
+          return 'fixed'
+        elif self.original in content:
+          return 'unfixed'
+        else:
+          return 'uncertain'

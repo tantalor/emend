@@ -133,6 +133,13 @@ class TestEdit(unittest.TestCase):
       return "pirate ninja robot"
     edit.page_content = mock_content
     self.assertEquals(edit.test(), "unfixed")
+  
+  def test_substring_uncertain(self):
+    edit = MockEdit(original="ninja robot", proposal="ninja")
+    def mock_content():
+      return "spam eggs"
+    edit.page_content = mock_content
+    self.assertEquals(edit.test(), "uncertain")
 
 
 if __name__ == "__main__":
