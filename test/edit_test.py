@@ -98,6 +98,41 @@ class TestEdit(unittest.TestCase):
     edit.delete()
     self.assertEquals(site_closed - 1, site.closed)
     self.assertEquals(author_closed - 1, author.closed)
+  
+  def test_fixed(self):
+    edit = MockEdit(original="zombie", proposal="ninja")
+    def mock_content():
+      return "pirate ninja robot"
+    edit.page_content = mock_content
+    self.assertEquals(edit.test(), "fixed")
+  
+  def test_unfixed(self):
+    edit = MockEdit(original="ninja", proposal="zombie")
+    def mock_content():
+      return "pirate ninja robot"
+    edit.page_content = mock_content
+    self.assertEquals(edit.test(), "unfixed")
+  
+  def test_uncertain(self):
+    edit = MockEdit(original="spam", proposal="eggs")
+    def mock_content():
+      return "pirate ninja robot"
+    edit.page_content = mock_content
+    self.assertEquals(edit.test(), "uncertain")
+  
+  def test_substring_fixed(self):
+    edit = MockEdit(original="ninja robot", proposal="ninja")
+    def mock_content():
+      return "pirate ninja"
+    edit.page_content = mock_content
+    self.assertEquals(edit.test(), "fixed")
+  
+  def test_substring_unfixed(self):
+    edit = MockEdit(original="ninja robot", proposal="ninja")
+    def mock_content():
+      return "pirate ninja robot"
+    edit.page_content = mock_content
+    self.assertEquals(edit.test(), "unfixed")
 
 
 if __name__ == "__main__":
