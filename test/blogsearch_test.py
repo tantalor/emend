@@ -1,7 +1,6 @@
 import unittest
 
-from emend import stubs
-from emend.blogsearch import ping
+from emend import stubs, blogsearch
 
 
 class TestBlogsearch(unittest.TestCase):
@@ -9,7 +8,7 @@ class TestBlogsearch(unittest.TestCase):
     stubs.all()
 
   def test_ping(self):
-    response = ping(
+    response = blogsearch.ping(
       name='Official Google Blog',
       url='http://googleblog.blogspot.com',
       changesURL='http://googleblog.blogspot.com/atom.xml')

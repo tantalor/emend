@@ -1,4 +1,4 @@
-from emend.request_handler import EmendRequestHandler
+from emend import EmendRequestHandler
 
 from google.appengine.ext.webapp import Request, Response
 

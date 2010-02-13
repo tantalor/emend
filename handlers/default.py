@@ -3,10 +3,7 @@ import logging
 
 from model import Site, Edit, User
 
-from emend.suggest import suggest
-from emend.bookmarklet import bookmarklet
-from emend.site_name import site_name
-from emend import blogsearch
+from emend import suggest, bookmarklet, site_name, blogsearch
 from megaera.env import is_dev
 
 from google.appengine.ext import db

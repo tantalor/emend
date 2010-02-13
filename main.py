@@ -3,7 +3,7 @@ import yaml
 from google.appengine.ext.webapp import WSGIApplication, template
 from google.appengine.ext.webapp.util import run_wsgi_app
 
-from emend.request_handler import EmendRequestHandler
+from emend import EmendRequestHandler
 
 def routes():
   return yaml.load(file('routes.yaml'))

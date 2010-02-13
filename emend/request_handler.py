@@ -3,8 +3,7 @@ import logging
 
 from model import Edit, Site, User
 
-from megaera import local
-from megaera.request_handler import MegaeraRequestHandler, NotFoundException
+from megaera import local, MegaeraRequestHandler, NotFoundException
 
 from google.appengine.api import users, memcache
 from google.appengine.ext import db
