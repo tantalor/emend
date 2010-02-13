@@ -141,17 +141,23 @@ class Edit(search.SearchableModel):
     self.author.put()
     super(Edit, self).delete()
   
-  def test(self):
-    # record test
-    self.tested = datetime.now()
-    self.put()
-    # fetch page
+  def page_content(self):
     page = fetch(self.url.replace(' ', '%20'))
     if page:
       # decode content
       content = unicode(page.content, 'iso-8859-1')
       # decode html entities, strip tags
       content = html.clean(content)
+      return content
+      
+  
+  def test(self):
+    # record test
+    self.tested = datetime.now()
+    self.put()
+    # fetch page
+    content = self.page_content()
+    if content:
       # test page
       if self.proposal in content:
         self.close()
