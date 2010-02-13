@@ -1,9 +1,7 @@
 import urllib
 import logging
 
-from model.edit import Edit
-from model.site import Site
-from model.user import User
+from model import Edit, Site, User
 
 from megaera import local
 from megaera.request_handler import MegaeraRequestHandler, NotFoundException

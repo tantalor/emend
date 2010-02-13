@@ -3,8 +3,7 @@
 import unittest
 
 import handlers.sites.edits.detail
-from mocks.edit_mock import MockEdit
-from mocks.handler_mock import mock_handler
+from mocks import MockEdit, mock_handler
 from emend import stubs
 
 class TestEdit(unittest.TestCase):

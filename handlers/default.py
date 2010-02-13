@@ -1,9 +1,7 @@
 from urlparse import urlparse
 import logging
 
-from model.site import Site
-from model.edit import Edit
-from model.user import User
+from model import Site, Edit, User
 
 from emend.suggest import suggest
 from emend.bookmarklet import bookmarklet

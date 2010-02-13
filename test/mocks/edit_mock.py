@@ -1,7 +1,7 @@
 from model_mock import MockModel
 from site_mock import MockSite
 from user_mock import MockUser
-from model.edit import Edit
+from model import Edit
 
 
 class MockEdit(Edit, MockModel):

@@ -1,4 +1,4 @@
-from model.edit import Edit
+from model import Edit
 
 def get(handler, response):
   edit = handler.get_edit(required=True)

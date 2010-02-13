@@ -1,4 +1,4 @@
-from model.user import User
+from model import User
 
 def post(handler, response):
   user = handler.get_user(required=True)

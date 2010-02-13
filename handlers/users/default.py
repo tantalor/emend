@@ -1,4 +1,4 @@
-from model.user import User
+from model import User
 
 def get(handler, response):
   response.users = User.all().\

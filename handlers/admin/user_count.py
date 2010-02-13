@@ -1,5 +1,4 @@
-from model.edit import Edit
-from model.user import User
+from model import Edit, User
 
 def get(handler, response):
   if not handler.is_admin():

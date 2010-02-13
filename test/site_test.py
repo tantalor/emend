@@ -1,6 +1,6 @@
 import unittest
 
-from model.site import Site
+from model import Site
 
 
 class TestSite(unittest.TestCase):

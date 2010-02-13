@@ -1,4 +1,4 @@
-from model.site import Site
+from model import Site
 PAGE_SIZE = 10
 
 def get(handler, response):

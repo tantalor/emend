@@ -1,4 +1,4 @@
-from model.edit import Edit
+from model import Edit
 
 from google.appengine.api.urlfetch_errors import DownloadError
 

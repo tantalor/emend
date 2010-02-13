@@ -1,5 +1,5 @@
 from model_mock import MockModel
-from model.user import User
+from model import User
 
 from google.appengine.api import users
 

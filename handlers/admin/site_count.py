@@ -1,5 +1,4 @@
-from model.site import Site
-from model.edit import Edit
+from model import Site, Edit
 
 def get(handler, response):
   if not handler.is_admin():
