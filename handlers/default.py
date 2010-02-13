@@ -12,7 +12,6 @@ from emend import blogsearch
 from megaera.env import is_dev
 
 from google.appengine.ext import db
-from google.appengine.api import memcache
 
 from os import environ
 
