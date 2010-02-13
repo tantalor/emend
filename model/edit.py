@@ -149,7 +149,6 @@ class Edit(search.SearchableModel):
       # decode html entities, strip tags
       content = html.clean(content)
       return content
-      
   
   def test(self):
     # record test
