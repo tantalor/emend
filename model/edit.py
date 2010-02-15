@@ -11,6 +11,7 @@ from google.appengine.api.urlfetch_errors import DownloadError
 
 from emend import bitly, twitter, html
 from emend.const import DATE_SHORT
+from ext.pretty_timedelta import pretty_timedelta
 
 class Edit(search.SearchableModel):
   index = db.IntegerProperty(required=True)
@@ -149,6 +150,10 @@ class Edit(search.SearchableModel):
       # decode html entities, strip tags
       content = html.clean(content)
       return content
+  
+  def created_pretty_timedelta(self):
+    now = datetime.now()
+    return pretty_timedelta(now - self.created)
   
   def test(self):
     # record test

@@ -26,15 +26,21 @@ def get(handler, response):
       response.suggestion = suggest(query)
     except KeyError, e:
       logging.warn('Missing credentials: %s', e)
-  # get canonical URL
   if response.url:
+    # get canonical URL
     try:
       response.url = canonical_url(response.url) or response.url
     except:
       pass
-  # check cache
+    # lookup latest edit for the URL
+    local_edits = Edit.all().\
+      filter('url =', response.url).\
+      order('-created').\
+      fetch(1)
+    if local_edits:
+      response.local_edit = local_edits[0]
+  # get latest edits and bookmarklet (cached)
   if not handler.cached():
-    # get latest edits
     edits = Edit.all()\
       .filter('status =', 'open')\
       .order('-created')\
