@@ -4,13 +4,14 @@ from google.appengine.ext.webapp import template
 
 register = template.create_template_register()
 
+from logging import warn
 
 @register.filter
 def truncate(value, length, suffix='&hellip;'):
   length = int(length)
   value = str(value)
   if len(value) > length:
-    return value[:length]+suffix
+    return value[:length].decode('utf8', 'ignore')+suffix
   else:
     return value
 
