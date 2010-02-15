@@ -3,12 +3,13 @@ import logging
 
 from model import Site, Edit, User
 
-from emend import suggest, bookmarklet, site_name, blogsearch
+from emend import suggest, bookmarklet, site_name, blogsearch, canonical_url
 from megaera.env import is_dev
 
 from google.appengine.ext import db
 
 from os import environ
+
 
 def get(handler, response):
   # redirect to emendapp.com
@@ -25,6 +26,12 @@ def get(handler, response):
       response.suggestion = suggest(query)
     except KeyError, e:
       logging.warn('Missing credentials: %s', e)
+  # get canonical URL
+  if response.url:
+    try:
+      response.url = canonical_url(response.url) or response.url
+    except:
+      pass
   # check cache
   if not handler.cached():
     # get latest edits
