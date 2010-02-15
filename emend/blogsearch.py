@@ -1,4 +1,4 @@
-from google.appengine.api import urlfetch, apiproxy_stub_map, urlfetch_stub
+from google.appengine.api import urlfetch
 
 from urllib import urlencode
 
