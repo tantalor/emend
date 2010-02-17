@@ -11,7 +11,7 @@ from google.appengine.api.urlfetch_errors import DownloadError
 
 from emend import bitly, twitter, html
 from emend.const import DATE_SHORT
-from pretty_timedelta import pretty_timedelta
+from pretty_timedelta import pretty_datetime_from_now
 
 class Edit(search.SearchableModel):
   index = db.IntegerProperty(required=True)
@@ -152,8 +152,7 @@ class Edit(search.SearchableModel):
       return content
   
   def created_pretty_timedelta(self):
-    now = datetime.now()
-    return pretty_timedelta(self.created - now)
+    return pretty_datetime_from_now(self.created)
   
   def test(self):
     # record test
