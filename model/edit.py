@@ -153,7 +153,7 @@ class Edit(search.SearchableModel):
   
   def created_pretty_timedelta(self):
     now = datetime.now()
-    return pretty_timedelta(now - self.created)
+    return pretty_timedelta(self.created - now)
   
   def test(self):
     # record test
