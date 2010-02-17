@@ -1,4 +1,4 @@
-from model import User
+from emend import User
 
 def post(handler, response):
   user = handler.get_user(required=True)

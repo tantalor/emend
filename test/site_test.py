@@ -1,6 +1,6 @@
 import unittest
 
-from model import Site
+from emend import Site
 
 
 class TestSite(unittest.TestCase):

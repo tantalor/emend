@@ -1,7 +1,7 @@
 from urlparse import urlparse
 import logging
 
-from model import Site, Edit, User
+from emend import Site, Edit, User
 
 from emend import suggest, bookmarklet, site_name, blogsearch, canonical_url
 from megaera.env import is_dev

@@ -1,5 +1,5 @@
 from urlparse import urlparse
-from model import Site
+from emend import Site
 
 def get(handler, response):
   edit = handler.get_edit(required=True)

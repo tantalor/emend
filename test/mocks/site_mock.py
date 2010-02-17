@@ -1,5 +1,5 @@
 from model_mock import MockModel
-from model import Site
+from emend import Site
 
 
 class MockSite(Site, MockModel):

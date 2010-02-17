@@ -1,4 +1,4 @@
-from model import Edit
+from emend import Edit
 
 import logging
 

@@ -1,5 +1,5 @@
 import re
-from model import Edit
+from emend import Edit
 
 PAGE_SIZE = 10
 

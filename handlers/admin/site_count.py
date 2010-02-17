@@ -1,4 +1,4 @@
-from model import Site, Edit
+from emend import Site, Edit
 
 def get(handler, response):
   if not handler.is_admin():

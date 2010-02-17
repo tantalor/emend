@@ -12,6 +12,7 @@ class EmendRequestHandler(MegaeraRequestHandler):
   
   def current_user(self):
     """Returns the logged-in User object."""
+    memcache.flush_all()
     user = users.get_current_user()
     if user:
       key_name = User.key_name_from_email(user.email())

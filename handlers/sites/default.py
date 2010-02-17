@@ -1,4 +1,4 @@
-from model import Site
+from emend import Site
 PAGE_SIZE = 10
 
 def get(handler, response):

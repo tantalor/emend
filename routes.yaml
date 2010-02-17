@@ -14,6 +14,9 @@
   - /admin/memclear
   - handlers.admin.memclear
 -
+  - /admin/memflush
+  - handlers.admin.memflush
+-
   - /admin/site_count
   - handlers.admin.site_count
 -

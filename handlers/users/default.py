@@ -1,4 +1,4 @@
-from model import User
+from emend import User
 
 def get(handler, response):
   response.users = User.all().\

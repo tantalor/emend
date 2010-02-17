@@ -1,4 +1,4 @@
-from model import Site, Edit
+from emend import Site, Edit
 
 def get(handler, response):
   """Enforce key_name_from_domain compatibility 
