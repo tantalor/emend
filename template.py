@@ -4,7 +4,12 @@ from google.appengine.ext.webapp import template
 
 register = template.create_template_register()
 
-from logging import warn
+from os import environ
+from urllib import quote
+
+
+def escape(s):
+  return quote(str(s), safe='~')
 
 @register.filter
 def truncate(value, length, suffix='&hellip;'):
@@ -24,6 +29,17 @@ def strip(value):
 @register.filter
 def utf8(value):
   return value.encode('utf8')
+
+
+@register.filter
+def on_path(value):
+  query_string = environ.get('QUERY_STRING')
+  if query_string:
+    path_info = environ.get('PATH_INFO')
+    escaped_query = query_string.replace('&', '&amp;')
+    return "%s?%s&amp;%s" % (path_info, escaped_query, escape(value))
+  else:
+    return "?%s" % value
 
 
 @register.tag
