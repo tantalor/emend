@@ -1,15 +1,17 @@
 from difflib import SequenceMatcher
+from os import environ
+from urllib import quote
 
 from google.appengine.ext.webapp import template
 
 register = template.create_template_register()
 
-from os import environ
-from urllib import quote
-
+def install():
+  template.django.template.builtins.append(register)
 
 def escape(s):
   return quote(str(s), safe='~')
+
 
 @register.filter
 def truncate(value, length, suffix='&hellip;'):
