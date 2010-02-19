@@ -73,15 +73,18 @@ Megaera also automatically exposes `handler` (the request handler) and `is_dev` 
 
 Megaera knows how to cache your handler's output. `MegaeraRequestHandler.cache()` accepts arbitrary keyword parameters to cache indefinitely, keyed by the current handler and with optional `time` time-to-live and `vary` parameters. `MegaeraRequestHandler.cached()` will return `True` if there exists a cached value for the current handler and optional `vary` parameter.
 
-    def get(handler, response):
-      if not handler.cached():
-        # cache the following
-        foo_data = fetch_foo_from_datastore()
-        bar_data = fetch_bar_from_datastore
-        # sets response.foo and response.bar
-        handler.cache(foo=foo_data, bar=bar_data, time=60)
+    from google.appengine.api import users
 
-The `vary` parameter can be used to key the cache by a variable local to the handler such as an object.
+    def get(handler, response):
+      user = users.get_current_user()
+      if not handler.cached(vary=user):
+        # cache the following, vary by user
+        foo = fetch_foo_from_datastore()
+        bar = fetch_bar_from_datastore()
+        # sets response.foo and response.bar
+        handler.cache(foo=foo, bar=bar, vary=user, time=60)
+
+The `vary` parameter can be used to key the cache by some local value, e.g., the current user.
 
 ## Megeara Configuration
 

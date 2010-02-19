@@ -10,6 +10,7 @@ from recursivedefaultdict import recursivedefaultdict
 import env
 import json
 import local
+from to_xml import to_xml
 
 from google.appengine.api import users, memcache
 from google.appengine.api.datastore_errors import NeedIndexError
@@ -111,6 +112,10 @@ class MegaeraRequestHandler(RequestHandler):
   def is_yaml(self):
     """Returns if the current request is for YAML."""
     return self.has_param('yaml')
+  
+  def is_xml(self):
+    """Returns if the current request is for XML."""
+    return self.has_param('xml')
   
   def is_atom(self):
     """Returns if the current request is for Atom."""
@@ -216,6 +221,12 @@ class MegaeraRequestHandler(RequestHandler):
       yaml_str = yaml.safe_dump(sanitized, default_flow_style=False)
       self.response.headers['Content-Type'] = "text/plain; charset=UTF-8"
       self.response.out.write(yaml_str)
+      return;
+    if self.is_xml():
+      sanitized = sanitize(self.response_dict())
+      xml_str = to_xml(obj=sanitized, tag="response")
+      self.response.headers['Content-Type'] = "text/xml; charset=UTF-8"
+      self.response.out.write(xml_str)
       return;
     if not path:
       path = self.default_template(ext=base)
