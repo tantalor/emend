@@ -6,9 +6,6 @@ from google.appengine.ext.webapp import template
 
 register = template.create_template_register()
 
-def install():
-  template.django.template.builtins.append(register)
-
 def escape(s):
   return quote(str(s), safe='~')
 

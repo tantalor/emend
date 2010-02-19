@@ -1,9 +1,9 @@
 import yaml
 
-from google.appengine.ext.webapp import WSGIApplication
+from google.appengine.ext.webapp import WSGIApplication, template
 from google.appengine.ext.webapp.util import run_wsgi_app
 
-from emend import EmendRequestHandler, template
+from emend import EmendRequestHandler
 
 def routes():
   return yaml.load(file('routes.yaml'))
@@ -15,7 +15,7 @@ def application():
   ], debug=True)
 
 def main():
-  template.install()
+  template.register_template_library('emend.template')
   run_wsgi_app(application())
 
 if __name__ == "__main__":
