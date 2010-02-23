@@ -39,6 +39,9 @@ def get(handler, response):
       edits = edits[1:]
   if len(edits) > PAGE_SIZE:
     response.from_key = edits[PAGE_SIZE].key()
+  elif to_key:
+    response.from_key = edits[-1].key()
+    edits = edits[:-1]
   # for output
   response.edits = edits[:PAGE_SIZE]
 
