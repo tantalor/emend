@@ -17,7 +17,7 @@ def get(handler, response):
   if re.match('^http://', query):
     edits = search_by_url(query, from_edit)
   else:
-    edits = []#search_by_query(query, from_edit)
+    edits = search_by_query(query, from_edit)
   # for output
   response.edits = edits[:PAGE_SIZE]
   # check for more results  
