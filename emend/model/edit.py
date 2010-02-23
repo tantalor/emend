@@ -148,7 +148,7 @@ class Edit(search.SearchableModel):
     page = fetch(self.url.replace(' ', '%20'))
     if page:
       # decode content
-      content = unicode(page.content, 'iso-8859-1')
+      content = unicode(page.content, 'utf8')
       # decode html entities, strip tags
       content = html.clean(content)
       return content
@@ -165,11 +165,7 @@ class Edit(search.SearchableModel):
     if content:
       # remove comments
       comment = u"“%s” should be “%s”" % (self.original, self.proposal)
-      print comment
-      print content
-      if comment in content:
-        print "removed comment"
-        content = content.replace(comment, '')
+      content = content.replace(comment, '')
       # test page
       if self.proposal in self.original:
         if self.original in content:
