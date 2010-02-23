@@ -8,6 +8,14 @@ def get(handler, response):
   query = handler.request.get('q')
   status = handler.request.get('status')
   response.query = query
+  response.status = status
+  # default heading
+  if status == "open":
+    response.default_heading = "Open edits"
+  elif status == "closed":
+    response.default_heading = "Closed edits"
+  else:
+    response.default_heading = "All edits"
   # from edit
   from_key = handler.request.get('from')
   if from_key:

@@ -1,12 +1,12 @@
 {% extends "../base.html" %}
 
 {% block title %}
-  Emend > Search > {{query|escape}}
+  Emend > Search > {{query|default:default_heading|escape}}
 {% endblock %}
 
 
 {% block content %}
-  <h1><a href="/">Emend</a> > <a href="/search">Search</a> > {{query|default:"All edits"|escape}}</h1>
+  <h1><a href="/">Emend</a> > <a href="/search">Search</a> > {{query|default:default_heading|escape}}</h1>
   
   <h2>Search results</h2>
   
@@ -22,7 +22,7 @@
   
     {% if has_next %}
       <p class="prev-next">
-        <a href="/search/edits?q={{query}}&amp;from={{next_from}}">next &rarr;</a>
+        <a href="/search/edits?status={{status}}&amp;q={{query}}&amp;from={{next_from}}">next &rarr;</a>
       </p>
     {% endif %}
   {% else %}
