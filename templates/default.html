@@ -83,6 +83,11 @@
           </li>
         {% endfor %}
       </ul>
+      {% if has_next %}
+        <p style="text-align:right">
+          <a href="/search/edits?status=open&amp;from={{next_from}}">more open edits &rarr;</a>
+        </p>
+      {% endif %}
     {% else %}
       <p>No edits.</p>
     {% endif %}

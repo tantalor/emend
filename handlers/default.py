@@ -11,6 +11,9 @@ from google.appengine.ext import db
 from os import environ
 
 
+PAGE_SIZE = 3
+
+
 def get(handler, response):
   # redirect to emendapp.com
   if not is_dev() and environ.get('HTTP_HOST') == 'emend.appspot.com':
@@ -44,9 +47,18 @@ def get(handler, response):
     edits = Edit.all()\
       .filter('status =', 'open')\
       .order('-created')\
-      .fetch(3)
+      .fetch(PAGE_SIZE+1)
+    has_next, next_from = None, None
+    if len(edits) > PAGE_SIZE:
+      has_next = 1
+      next_from = edits[PAGE_SIZE].key()
     # cache these and update the response
-    handler.cache(bookmarklet=bookmarklet(), edits=edits)
+    handler.cache(
+      bookmarklet=bookmarklet(),
+      edits=edits[:PAGE_SIZE],
+      has_next=has_next,
+      next_from=next_from,
+    )
 
 def post(handler, response):
   if not handler.current_user():
