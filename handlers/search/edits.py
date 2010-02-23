@@ -6,6 +6,7 @@ PAGE_SIZE = 10
 
 def get(handler, response):
   query = handler.request.get('q')
+  status = handler.request.get('status')
   response.query = query
   # from edit
   from_key = handler.request.get('from')
@@ -15,9 +16,9 @@ def get(handler, response):
     from_edit = None
   # get some edits
   if re.match('^http://', query):
-    edits = search_by_url(query, from_edit)
+    edits = search_by_url(query, from_edit=from_edit, status=status)
   else:
-    edits = search_by_query(query, from_edit)
+    edits = search_by_query(query, from_edit=from_edit, status=status)
   # for output
   response.edits = edits[:PAGE_SIZE]
   # check for more results  
@@ -26,29 +27,20 @@ def get(handler, response):
     response.next_from = edits[PAGE_SIZE].key()
 
 
-def search_by_query(query, from_edit):
+def search(query, from_edit=None, status=None):
+  if status:
+    query = query.filter('status =', status)
   if from_edit:
-    return Edit.all().\
-      search(query).\
-      order('-created').\
-      filter('created <=', from_edit.created).\
-      fetch(PAGE_SIZE+1)
+    query = query.order('-created').\
+      filter('created <=', from_edit.created)
   else:
-    return Edit.all().\
-      search(query).\
-      order('-created').\
-      fetch(PAGE_SIZE+1)
+    query = query.order('-created')
+  return query.fetch(PAGE_SIZE+1)
 
 
-def search_by_url(url, from_edit):
-  if from_edit:
-    return Edit.all().\
-      filter('url =', url).\
-      filter('created <=', from_edit.created).\
-      order('-created').\
-      fetch(PAGE_SIZE+1)
-  else:
-    return Edit.all().\
-      filter('url =', url).\
-      order('-created').\
-      fetch(PAGE_SIZE+1)
+def search_by_query(query, **kwargs):
+  return search(Edit.all().search(query), **kwargs)
+
+
+def search_by_url(url, **kwargs):
+  return search(Edit.all().filter('url =', url), **kwargs)
