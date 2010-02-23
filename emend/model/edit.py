@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import logging
 from datetime import datetime
 
@@ -161,6 +163,13 @@ class Edit(search.SearchableModel):
     # fetch page
     content = self.page_content()
     if content:
+      # remove comments
+      comment = u"“%s” should be “%s”" % (self.original, self.proposal)
+      print comment
+      print content
+      if comment in content:
+        print "removed comment"
+        content = content.replace(comment, '')
       # test page
       if self.proposal in self.original:
         if self.original in content:
