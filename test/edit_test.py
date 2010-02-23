@@ -4,7 +4,8 @@ import unittest
 
 import handlers.sites.edits.detail
 from mocks import MockEdit, mock_handler
-from emend import stubs
+from emend import stubs, html
+
 
 class TestEdit(unittest.TestCase):
   def setUp(self):
@@ -137,6 +138,27 @@ class TestEdit(unittest.TestCase):
     edit = MockEdit(original="ninja robot", proposal="ninja")
     def mock_content():
       return "spam eggs"
+    edit.page_content = mock_content
+    self.assertEquals(edit.test(), "uncertain")
+  
+  def test_fixed_with_comment(self):
+    edit = MockEdit(original="zombie", proposal="ninja")
+    def mock_content():
+      return html.clean("pirate ninja robot &ldquo;zombie&rdquo; should be &ldquo;ninja&rdquo;")
+    edit.page_content = mock_content
+    self.assertEquals(edit.test(), "fixed")
+  
+  def test_unfixed_with_comment(self):
+    edit = MockEdit(original="ninja", proposal="zombie")
+    def mock_content():
+      return html.clean("pirate ninja robot &ldquo;ninja&rdquo; should be &ldquo;zombie&rdquo;")
+    edit.page_content = mock_content
+    self.assertEquals(edit.test(), "unfixed")
+  
+  def test_uncertain_with_comment(self):
+    edit = MockEdit(original="spam", proposal="eggs")
+    def mock_content():
+      return html.clean("pirate ninja robot &ldquo;spam&rdquo; should be &ldquo;eggs&rdquo;")
     edit.page_content = mock_content
     self.assertEquals(edit.test(), "uncertain")
 
