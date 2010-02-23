@@ -3,6 +3,7 @@ from emend import Edit
 
 PAGE_SIZE = 10
 
+
 def get(handler, response):
   query = handler.request.get('q')
   response.query = query
@@ -19,10 +20,11 @@ def get(handler, response):
     edits = []#search_by_query(query, from_edit)
   # for output
   response.edits = edits[:PAGE_SIZE]
-  
+  # check for more results  
   if len(edits) > PAGE_SIZE:
     response.has_next = 1
     response.next_from = edits[PAGE_SIZE].key()
+
 
 def search_by_query(query, from_edit):
   if from_edit:
