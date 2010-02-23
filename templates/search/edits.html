@@ -20,9 +20,17 @@
       {% endfor %}
     </ul>
   
-    {% if has_next %}
+    {% if to_key or from_key %}
       <p class="prev-next">
-        <a href="/search/edits?status={{status}}&amp;q={{query}}&amp;from={{next_from}}">next &rarr;</a>
+        {% if to_key %}
+          <a href="/search/edits?status={{status}}&amp;q={{query}}&amp;to={{to_key}}">&larr; prev</a>
+        {% endif %}
+        {% if to_key and from_key %}
+          |
+        {% endif %}
+        {% if from_key %}
+          <a href="/search/edits?status={{status}}&amp;q={{query}}&amp;from={{from_key}}">next &rarr;</a>
+        {% endif %}
       </p>
     {% endif %}
   {% else %}
