@@ -27,7 +27,7 @@ def strip(value):
 
 @register.filter
 def utf8(value):
-  return value.encode('utf8')
+  return unicode(value).encode('utf8')
 
 
 @register.filter
