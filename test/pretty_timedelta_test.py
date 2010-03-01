@@ -1,1 +1,1 @@
-../submodules/pretty_timedelta/pretty_timedelta_test.py
+../submodules/pretty_timedelta/test.py
