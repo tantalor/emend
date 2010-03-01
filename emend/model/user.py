@@ -44,5 +44,5 @@ class User(db.Model):
   
   def sanitize(self):
     return dict(
-      nickname=str(self)
+      nickname=unicode(self)
     )
