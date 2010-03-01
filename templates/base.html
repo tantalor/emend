@@ -27,7 +27,7 @@
         <div class="user-box">
           {% if handler.current_user %}
             <p>
-              You are <a id="current-user" href="{{handler.current_user.permalink}}">{{handler.current_user|escape}}</a> -
+              You are <a id="current-user" href="{{handler.current_user.permalink}}">{{handler.current_user|utf8|escape}}</a> -
               <span class="fakelink change-nickname">Change nickname</span> -
               <a href="{{handler.logout_url}}">Log out</a>
               <input type="hidden" id="current-user-permalink" value="{{handler.current_user.permalink}}">

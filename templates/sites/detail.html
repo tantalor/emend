@@ -22,7 +22,12 @@
   {% if open %}
     <ul>
       {% for edit in open %}
-        <li><a href="{{edit.permalink}}">&ldquo;{{edit.proposal|escape}}&rdquo;</a> at <a href="{{edit.site.permalink}}">{{edit.site}}</a></li>
+        <li>
+          <a href="{{edit.permalink}}">&ldquo;{{edit.original|utf8|escape}}&rdquo;
+            should be &ldquo;{{edit.proposal|utf8|escape}}&rdquo;</a> by
+          <a href="{{edit.author.permalink}}">{{edit.author|utf8|escape}}</a>
+          {{edit.created_pretty_timedelta}}
+        </li>
       {% endfor %}
     </ul>
     {% if has_next_open %}
@@ -39,7 +44,12 @@
   {% if closed %}
     <ul>
       {% for edit in closed %}
-        <li><a href="{{edit.permalink}}">&ldquo;{{edit.proposal|escape}}&rdquo;</a> at <a href="{{edit.site.permalink}}">{{edit.site}}</a></li>
+        <li>
+          <a href="{{edit.permalink}}">&ldquo;{{edit.original|utf8|escape}}&rdquo;
+            should be &ldquo;{{edit.proposal|utf8|escape}}&rdquo;</a> by
+          <a href="{{edit.author.permalink}}">{{edit.author|utf8|escape}}</a>
+          {{edit.created_pretty_timedelta}}
+        </li>
       {% endfor %}
     </ul>
     {% if has_next_closed %}

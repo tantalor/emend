@@ -27,9 +27,9 @@
     {% if local_edit %}
       <h2>Latest <a href="{{local_edit.site.permalink}}">{{local_edit.site}}</a> edit</h2>
       <ul><li>
-        <a href="{{local_edit.permalink}}">&ldquo;{{local_edit.original}}&rdquo;
-          should be &ldquo;{{local_edit.proposal}}&rdquo;</a> by
-        <a href="{{local_edit.author.permalink}}">{{local_edit.author}}</a>
+        <a href="{{local_edit.permalink}}">&ldquo;{{local_edit.original|utf8|escape}}&rdquo;
+          should be &ldquo;{{local_edit.proposal|utf8|escape}}&rdquo;</a> by
+        <a href="{{local_edit.author.permalink}}">{{local_edit.author|utf8|escape}}</a>
         {{local_edit.created_pretty_timedelta}}
       </li></ul>
     {% endif %}
@@ -77,8 +77,9 @@
       <ul>
         {% for edit in edits %}
           <li>
-            <a href="{{edit.permalink}}">&ldquo;{{edit.proposal|utf8|escape|truncate:32}}&rdquo;</a>
-            by <a href="{{edit.author.permalink}}">{{edit.author|escape}}</a>
+            <a href="{{edit.permalink}}">&ldquo;{{edit.original|utf8|escape|truncate:32}}&rdquo;
+              should be &ldquo;{{edit.proposal|utf8|escape|truncate:32}}&rdquo;</a>
+            by <a href="{{edit.author.permalink}}">{{edit.author|utf8|escape}}</a>
             {{edit.created_pretty_timedelta}}
           </li>
         {% endfor %}

@@ -18,7 +18,7 @@
         <updated>{{edit.created.isoformat}}</updated>
         <id>tag:{{handler.host}}:{{edit.key}}</id>
         <summary>
-          According to {{edit.author|escape}}, "{{edit.original|escape}}" should be "{{edit.proposal|escape}}" on {{edit.site}}.
+          According to {{edit.author|utf8|escape}}, "{{edit.original|utf8|escape}}" should be "{{edit.proposal|utf8|escape}}" on {{edit.site}}.
         </summary>
       </entry>
     {% endfor %}

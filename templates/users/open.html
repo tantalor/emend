@@ -11,7 +11,10 @@
     <ul>
       {% for edit in edits %}
         <li>
-          <a href="{{edit.permalink}}">&ldquo;{{edit.proposal|escape}}&rdquo;</a> at <a href="{{edit.site.permalink}}">{{edit.site}}</a>
+          <a href="{{edit.permalink}}">&ldquo;{{edit.original|utf8|escape}}&rdquo;
+            should be &ldquo;{{edit.proposal|utf8|escape}}&rdquo;</a>
+          at <a href="{{edit.site.permalink}}">{{edit.site|escape}}</a>
+          {{edit.created_pretty_timedelta}}  
         </li>
       {% endfor %}
     </ul>
