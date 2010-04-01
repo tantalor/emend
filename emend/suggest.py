@@ -17,7 +17,7 @@ def suggest(query, appid=None):
   if response:
     try:
       data = json.read(response.content)
-      if data['ResultSet']:
+      if data and data['ResultSet']:
         result = data['ResultSet']['Result']
         if result != 'None':
           return result
