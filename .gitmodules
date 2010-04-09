@@ -3,7 +3,7 @@
 	url = git@github.com:dodgeballcannon/megaera.git
 [submodule "vendor/jellyfish"]
 	path = vendor/jellyfish
-	url = git://github.com/h3h/jellyfish.git
+	url = git://github.com/dodgeballcannon/jellyfish.git
 [submodule "vendor/pretty_timedelta"]
 	path = vendor/pretty_timedelta
 	url = git://github.com/dodgeballcannon/pretty_timedelta.git
