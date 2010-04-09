@@ -8,12 +8,12 @@ from user import User
 
 from google.appengine.ext import db, search
 from google.appengine.api import users
-from google.appengine.api.urlfetch import fetch
 from google.appengine.api.urlfetch_errors import DownloadError
 
 from emend import bitly, twitter, html
 from emend.const import DATE_SHORT
 from pretty_timedelta import pretty_datetime_from_now
+from megaera.fetch import fetch_decode
 
 class Edit(search.SearchableModel):
   index = db.IntegerProperty(required=True)
@@ -145,13 +145,10 @@ class Edit(search.SearchableModel):
     super(Edit, self).delete()
   
   def page_content(self):
-    page = fetch(self.url.replace(' ', '%20'))
-    if page:
-      # decode content
-      content = unicode(page.content, 'utf8')
+    content = fetch_decode(self.url)
+    if content:
       # decode html entities, strip tags
-      content = html.clean(content)
-      return content
+      return html.clean(content)
   
   def created_pretty_timedelta(self):
     return pretty_datetime_from_now(self.created)

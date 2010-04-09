@@ -2,6 +2,9 @@ from google.appengine.api import urlfetch, memcache
 
 import re
 
+from megaera.fetch import fetch_decode
+
+
 __canonical_re__ = re.compile('<link rel=["\']canonical["\'][^>]*href=["\']([^\'"]*)["\']')
 
 
@@ -12,10 +15,8 @@ def canonical_url(url):
   if cached:
     return cached
   # fetch conent
-  response = urlfetch.fetch(url.replace(' ', '%20'))
-  if response:
-    # decode content
-    html = unicode(response.content, 'iso-8859-1')
+  html = fetch_decode(url)
+  if html:
     # extract canonical url
     _url = canonical_url_in_html(html)
     if _url:
