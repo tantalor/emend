@@ -1,1 +1,1 @@
-../../submodules/jellyfish/lib/jellyfish.js
+../../vendor/jellyfish/lib/jellyfish.js

@@ -1,9 +1,9 @@
-[submodule "submodules/megaera"]
-	path = submodules/megaera
+[submodule "vendor/megaera"]
+	path = vendor/megaera
 	url = git@github.com:dodgeballcannon/megaera.git
-[submodule "submodules/jellyfish"]
-	path = submodules/jellyfish
+[submodule "vendor/jellyfish"]
+	path = vendor/jellyfish
 	url = git://github.com/h3h/jellyfish.git
-[submodule "submodules/pretty_timedelta"]
-	path = submodules/pretty_timedelta
+[submodule "vendor/pretty_timedelta"]
+	path = vendor/pretty_timedelta
 	url = git://github.com/dodgeballcannon/pretty_timedelta.git

@@ -1,1 +1,1 @@
-../submodules/megaera/test/megaera_test.py
+../vendor/megaera/test/megaera_test.py

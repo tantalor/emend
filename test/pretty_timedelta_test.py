@@ -1,1 +1,1 @@
-../submodules/pretty_timedelta/test.py
+../vendor/pretty_timedelta/test.py
