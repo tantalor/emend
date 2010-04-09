@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from difflib import SequenceMatcher
 from os import environ
 from urllib import quote
@@ -9,13 +11,14 @@ register = template.create_template_register()
 def escape(s):
   return quote(str(s), safe='~')
 
+from logging import warn
 
 @register.filter
-def truncate(value, length, suffix='&hellip;'):
+def truncate(value, length, suffix=u'…'):
   length = int(length)
   value = str(value)
   if len(value) > length:
-    return value[:length].decode('utf8', 'ignore')+suffix
+    return value[:length]+suffix
   else:
     return value
 

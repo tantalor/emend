@@ -5,13 +5,13 @@
 {% endblock %}
 
 {% block title %}
-  Emend > {{site.domain}} > {{edit.proposal|utf8|escape|truncate:32}}
+  Emend > {{site.domain}} > {{edit.proposal|truncate:32|utf8|escape}}
 {% endblock %}
 
 {% block content %}
-  <h1><a href="/">Emend</a> > <a href="/sites">Sites</a> > <a href="/sites/{{site.domain}}">{{site.domain}}</a> > {{edit.proposal|utf8|escape|truncate:32}}</h1>
+  <h1><a href="/">Emend</a> > <a href="/sites">Sites</a> > <a href="/sites/{{site.domain}}">{{site.domain}}</a> > {{edit.proposal|truncate:32|utf8|escape}}</h1>
   
-  <p>According to <a href="{{edit.author.permalink}}">{{edit.author|utf8|escape}}</a>, &ldquo;{{edit.original|utf8|escape}}&rdquo; should be &ldquo;{{edit.proposal|utf8|escape}}&rdquo; on <a href="{{edit.url|utf8}}">{{edit.url|utf8|truncate:45}}</a>.<p>
+  <p>According to <a href="{{edit.author.permalink}}">{{edit.author|utf8|escape}}</a>, &ldquo;{{edit.original|utf8|escape}}&rdquo; should be &ldquo;{{edit.proposal|utf8|escape}}&rdquo; on <a href="{{edit.url|utf8}}">{{edit.url|truncate:45|utf8|escape}}</a>.<p>
     
   <p>This was first noticed on <abbr title="{{edit.created.isoformat}}">{{edit.created_short}}</abbr>, about {{edit.created_pretty_timedelta}}.</p>
   
@@ -50,7 +50,7 @@
   {% if prev or next %}
     <p class="prev-next">
       {% if prev %}
-        <a href="{{prev.permalink}}">&larr; {{prev.proposal|utf8|escape|truncate:32}}</a>
+        <a href="{{prev.permalink}}">&larr; {{prev.proposal|truncate:32|utf8|escape}}</a>
       {% else %}
         {% ifnotequal edit.site.open 1 %}
           <a href="{{edit.site.permalink}}/open">{{edit.site.open}} open edits</a> |
@@ -62,7 +62,7 @@
       {% endif %}
     
       {% if next %}
-        <a href="{{next.permalink}}">{{next.proposal|utf8|escape|truncate:32}} &rarr;</a>
+        <a href="{{next.permalink}}">{{next.proposal|truncate:32|utf8|escape}} &rarr;</a>
       {% else %}
         {% ifnotequal edit.site.open 1 %}
           | <a href="{{edit.site.permalink}}/open">{{edit.site.open}} open edits</a>
