@@ -27,32 +27,32 @@
         <div class="user-box">
           {% if handler.current_user %}
             <p>
-              You are <a id="current-user" href="{{handler.current_user.permalink}}">{{handler.current_user|utf8|escape}}</a> -
-              <span class="fakelink change-nickname">Change nickname</span> -
-              <a href="{{handler.logout_url}}">Log out</a>
+              You are <a tabindex="100" id="current-user" href="{{handler.current_user.permalink}}">{{handler.current_user|utf8|escape}}</a> -
+              <span tabindex="101" class="fakelink change-nickname">Change nickname</span> -
+              <a tabindex="102" href="{{handler.logout_url}}">Log out</a>
               <input type="hidden" id="current-user-permalink" value="{{handler.current_user.permalink}}">
             </p>
           {% else %}
             <p>
-              <a href="{{handler.login_url}}">Log in now</a> with your Google Account
+              <a tabindex="103" href="{{handler.login_url}}">Log in now</a> with your Google Account
             </p>
           {% endif %}
         </div><!-- end user-box -->
         <p>
-          <a href="/">Home</a> -
-          <a href="/about">About</a> -
+          <a tabindex="120" href="/">Home</a> -
+          <a tabindex="121" href="/about">About</a> -
           {% if handler.twitter_credentials.screen_name %}
-            <a href="http://twitter.com/{{handler.twitter_credentials.screen_name}}">Twitter</a> -
+            <a tabindex="122" href="http://twitter.com/{{handler.twitter_credentials.screen_name}}">Twitter</a> -
           {% endif %}
-          <a href="/sites">Sites</a> -
-          <a href="/users">Users</a> -
-          <a href="/search">Search</a>
+          <a tabindex="123" href="/sites">Sites</a> -
+          <a tabindex="124" href="/users">Users</a> -
+          <a tabindex="125" href="/search">Search</a>
         </p>
         {% if handler.is_admin %}
           <p>You are an <strong>admin</strong></p>
           <p>
             {% for item in handler.config.admin.items %}
-              <a href="{{item.1}}">{{item.0}}</a>
+              <a tabindex="{{forloop.counter0|add:150}}" href="{{item.1}}">{{item.0}}</a>
               {% if not forloop.last %}-{% endif %}
             {% endfor %}
           </p>

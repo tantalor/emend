@@ -39,26 +39,26 @@
       <form action="/" method="post">
         <label class="field">
           <span class="name">URL</span>
-          <input type="url" class="text" name="url" value="{{url}}"/>
+          <input type="url" class="text" name="url" value="{{url}}" tabindex="10"/>
           {% form_error url %}
         </label>
         <label class="field">
           <span class="name">Original</span>
-          <textarea name="original">{{original}}</textarea>
+          <textarea name="original" tabindex="11">{{original}}</textarea>
           {% form_error original %}
         </label>
         <label class="field">
           <span class="name">Proposal</span>
           {% if suggestion %}
             <span>
-             May we suggest <span class="fakelink click-suggestion">{{suggestion}}</span>?
+             May we suggest <span tabindex="12" class="fakelink click-suggestion">{{suggestion}}</span>?
             </span>
           {% endif %}  
-          <textarea name="proposal">{{proposal}}</textarea>
+          <textarea tabindex="13" name="proposal">{{proposal}}</textarea>
           {% form_error proposal %}
         </label>
         <label class="field buttons">
-          <input type="submit" value="Submit proposal"/>
+          <input type="submit" value="Submit proposal" tabindex="14"/>
         </label>
       </form>
     {% else %}
@@ -94,15 +94,15 @@
     {% endif %}
     
     <h2>More neat stuff</h2>    
-    <p>Browse the <a href="/sites">list of sites</a></p>
-    <p>Try to <a href="/search">search for an edit</a></p
+    <p>Browse the <a tabindex="50" href="/sites">list of sites</a></p>
+    <p>Try to <a tabindex="51" href="/search">search for an edit</a></p
     {% if handler.twitter_credentials.screen_name %}
-      <p>Follow <a href="http://twitter.com/{{handler.twitter_credentials.screen_name}}">Emend on Twitter</a></p>
+      <p>Follow <a tabindex="52" href="http://twitter.com/{{handler.twitter_credentials.screen_name}}">Emend on Twitter</a></p>
     {% endif %}
-    <p>Use <a href="/iphone">Emend on iPhone</a></p>
-    <p>Try the <a href="/jetpack">Emend Jetpack</a></p>
-    <p>Add an <a href="/widgets">Emend widget</a></p>
-    <p>Bookmarklet: <a href="javascript:({{bookmarklet}})()">Emend</a></p>
+    <p>Use <a tabindex="53" href="/iphone">Emend on iPhone</a></p>
+    <p>Try the <a tabindex="54" href="/jetpack">Emend Jetpack</a></p>
+    <p>Add an <a tabindex="55" href="/widgets">Emend widget</a></p>
+    <p>Bookmarklet: <a tabindex="56" href="javascript:({{bookmarklet}})()">Emend</a></p>
   </div>
   <div class="cleaner"></div>
 {% endblock %}
