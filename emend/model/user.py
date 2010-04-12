@@ -1,4 +1,5 @@
 from os import environ
+from hashlib import md5
 
 from google.appengine.ext import db
 from google.appengine.api import users, memcache
@@ -36,6 +37,11 @@ class User(db.Model):
   
   def invalidate(self):
     memcache.set(self.key().name(), self)
+  
+  def gravatar(self):
+    gravatar = "http://www.gravatar.com/avatar"
+    email_hash = md5(self.user.email())
+    return "%s/%s" % (gravatar, email_hash.hexdigest())
   
   @staticmethod
   def key_name_from_email(email, prefix="user"):

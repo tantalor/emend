@@ -139,3 +139,10 @@ label.field textarea {
 .diff.proposal .different {
   background: #ADA;
 }
+
+/* gravater */
+
+.gravatar {
+  position: relative;
+  top: 3px;  
+}
