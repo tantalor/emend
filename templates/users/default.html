@@ -13,6 +13,7 @@
     <ul>
       {% for user in users %}
         <li>
+          <img class="gravatar" src="{{user.gravatar}}?s=18">
           <a href="{{user.permalink}}">{{user|escape}}</a>
           {% counts user %}
         </li>
