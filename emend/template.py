@@ -16,7 +16,6 @@ from logging import warn
 @register.filter
 def truncate(value, length, suffix=u'…'):
   length = int(length)
-  value = str(value)
   if len(value) > length:
     return value[:length]+suffix
   else:
