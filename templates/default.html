@@ -76,10 +76,11 @@
     {% if edits %}
       <ul>
         {% for edit in edits %}
-          <li>
+          <li class="blank">
+            <img class="gravatar" src="{{edit.author.gravatar}}?s=18">
             <a href="{{edit.permalink}}">&ldquo;{{edit.original|truncate:32|utf8|escape}}&rdquo;
               should be &ldquo;{{edit.proposal|truncate:32|utf8|escape}}&rdquo;</a>
-            by <img class="gravatar" src="{{edit.author.gravatar}}?s=18">&nbsp;<a href="{{edit.author.permalink}}">{{edit.author|utf8|escape}}</a>
+            by <a href="{{edit.author.permalink}}">{{edit.author|utf8|escape}}</a>
             {{edit.created_pretty_timedelta}}
           </li>
         {% endfor %}

@@ -53,6 +53,10 @@ p {
   text-align: center;
 }
 
+li.blank {
+  list-style-type: none;
+}
+
 /* links */
 
 span.fakelink,
@@ -145,4 +149,8 @@ label.field textarea {
 .gravatar {
   position: relative;
   top: 3px;  
+}
+
+.gravatar.right {
+  float: right;
 }

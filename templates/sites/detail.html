@@ -22,10 +22,11 @@
   {% if open %}
     <ul>
       {% for edit in open %}
-        <li>
+        <li class="blank">
+          <img class="gravatar" src="{{edit.author.gravatar}}?s=18">
           <a href="{{edit.permalink}}">&ldquo;{{edit.original|utf8|escape}}&rdquo;
             should be &ldquo;{{edit.proposal|utf8|escape}}&rdquo;</a> by
-          <img class="gravatar" src="{{edit.author.gravatar}}?s=18">&nbsp;<a href="{{edit.author.permalink}}">{{edit.author|utf8|escape}}</a>
+          <a href="{{edit.author.permalink}}">{{edit.author|utf8|escape}}</a>
           {{edit.created_pretty_timedelta}}
         </li>
       {% endfor %}
