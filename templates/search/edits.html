@@ -13,7 +13,7 @@
   {% if edits %}
     <ul>
       {% for edit in edits %}
-        <li class="blank">
+        <li class="gravatar">
           <img class="gravatar" src="{{edit.author.gravatar}}?s=18">
           <a href="{{edit.permalink}}">&ldquo;{{edit.original|utf8|escape}}&rdquo;
             should be &ldquo;{{edit.proposal|utf8|escape}}&rdquo;</a>

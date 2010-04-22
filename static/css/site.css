@@ -53,10 +53,6 @@ p {
   text-align: center;
 }
 
-li.blank {
-  list-style-type: none;
-}
-
 /* links */
 
 span.fakelink,
@@ -146,11 +142,20 @@ label.field textarea {
 
 /* gravater */
 
-.gravatar {
+li.gravatar {
+  list-style-type: none;
   position: relative;
-  top: 3px;  
+  margin-left: 15px;
 }
 
-.gravatar.right {
+li.gravatar img.gravatar {
+  position: absolute;
+  top: 1px;
+  left: -25px;  
+}
+
+img.gravatar.right {
   float: right;
 }
+
+
