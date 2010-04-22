@@ -1,3 +1,7 @@
+body {
+  font-size: 1.2em;
+}
+
 .no-iphone {
   display: none;
 }
@@ -7,6 +11,8 @@
   float: none;
   width: auto;
   margin: 0;
+  border: 0;
+  padding: 0;
 }
 
 form {
