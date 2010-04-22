@@ -13,6 +13,11 @@ li.gravatar img.gravatar {
   left: -1.65em;
 }
 
+img.gravatar.feature {
+  height: 72px;
+  width: 72px;
+}
+
 .no-iphone {
   display: none;
 }

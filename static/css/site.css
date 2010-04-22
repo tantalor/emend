@@ -158,8 +158,11 @@ li.gravatar img.gravatar {
   left: -1.4em;
 }
 
-img.gravatar.right {
+img.gravatar.feature {
   float: right;
+  width: 48px;
+  height: 48px;
+  margin: 0 0 10px 10px;
 }
 
 
