@@ -33,12 +33,12 @@ body {
 
 h1 {
   color: #333;
-  margin: 0;
+  margin: 0 0 20px;
   border-bottom: solid 1px #AAA;
 }
 
 h2 {
-  margin: 20px 0 0 0;
+  margin: 0;
 }
 
 h3 {
@@ -73,12 +73,14 @@ a:hover {
 
 .cols-2-1 .alpha {
   float: left;
-  width: 380px;
+  width: 340px;
   margin-right: 20px;
 }
 
 .cols-2-1 .beta {
   float: left;
+  border-left: solid 1px #AAA;
+  padding-left: 39px;
   width: 200px;
 }
 
