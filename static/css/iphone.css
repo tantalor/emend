@@ -2,6 +2,13 @@ body {
   font-size: 1.2em;
 }
 
+li.gravatar img.gravatar { 
+  width: 1.2em;
+  height: 1.2em;
+  top: .3em;
+  left: -1.65em;
+}
+
 .no-iphone {
   display: none;
 }

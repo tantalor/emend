@@ -23,7 +23,7 @@
     <ul>
       {% for edit in open %}
         <li class="gravatar">
-          <img class="gravatar" src="{{edit.author.gravatar}}?s=18">
+          <img class="gravatar" src="{{edit.author.gravatar}}?s=24">
           <a href="{{edit.permalink}}">&ldquo;{{edit.original|utf8|escape}}&rdquo;
             should be &ldquo;{{edit.proposal|utf8|escape}}&rdquo;</a> by
           <a href="{{edit.author.permalink}}">{{edit.author|utf8|escape}}</a>
@@ -46,7 +46,7 @@
     <ul>
       {% for edit in closed %}
         <li class="gravatar">
-          <img class="gravatar" src="{{edit.author.gravatar}}?s=18">
+          <img class="gravatar" src="{{edit.author.gravatar}}?s=24">
           <a href="{{edit.permalink}}">&ldquo;{{edit.original|utf8|escape}}&rdquo;
             should be &ldquo;{{edit.proposal|utf8|escape}}&rdquo;</a> by
           <a href="{{edit.author.permalink}}">{{edit.author|utf8|escape}}</a>

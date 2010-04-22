@@ -152,8 +152,10 @@ li.gravatar {
 
 li.gravatar img.gravatar {
   position: absolute;
-  top: 1px;
-  left: -25px;  
+  width: 1em;
+  height: 1em;
+  top: .15em;
+  left: -1.4em;
 }
 
 img.gravatar.right {
