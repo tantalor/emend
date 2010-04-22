@@ -2,6 +2,10 @@ body {
   font-size: 1.2em;
 }
 
+.area {
+  overflow: hidden;
+}
+
 li.gravatar img.gravatar { 
   width: 1.2em;
   height: 1.2em;
