@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block content %}
-  <h1><a href="/">Emend</a> > <a href="/sites">Sites</a> > <a href="/sites/{{site.domain}}">{{site.domain}}</a> > {{edit.proposal|truncate:32|utf8|escape}}</h1>
+  <h1><a href="/">Emend</a> > <a href="/sites">Sites</a> > <a href="/sites/{{site.domain}}">{{site.domain}}</a> > {{edit.proposal|truncate:28|utf8|escape}}</h1>
   
   <p><img class="gravatar right" src="{{edit.author.gravatar}}?s=48">According to <a href="{{edit.author.permalink}}">{{edit.author|utf8|escape}}</a>, &ldquo;{{edit.original|utf8|escape}}&rdquo; should be &ldquo;{{edit.proposal|utf8|escape}}&rdquo; on <a href="{{edit.url|utf8}}">{{edit.url|truncate:45|utf8|escape}}</a>.<p>
     
