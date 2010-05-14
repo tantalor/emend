@@ -9,6 +9,7 @@ class User(db.Model):
   nickname = db.StringProperty()
   open = db.IntegerProperty(required=True, default=0)
   closed = db.IntegerProperty(required=True, default=0)
+  created = db.DateTimeProperty(auto_now_add=True)
   
   def __str__(self):
     return self.nickname or self.user.nickname()
