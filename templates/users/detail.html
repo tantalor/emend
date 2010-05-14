@@ -54,6 +54,8 @@
   {% if user.can_edit %}
     <h2>Other stuff</h2>
     
+    <p>Join on <abbr title="{{user.created.isoformat}}">{{user.created_short}}</abbr>, about {{user.created_pretty_timedelta}}.</p>
+    
     <p><a href="{{user.shareable_permalink}}">Shareable permalink</a></p>
   {% endif %}
 {% endblock %}
