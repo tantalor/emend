@@ -5,13 +5,12 @@ def get(handler, response):
     return handler.not_found(status=403)
   # reset counts
   for user in User.all():
-    user.open = 0
-    user.closed = 0
+    user.open = Edit.all().\
+      filter('author =', user).\
+      filter('status =', 'open').\
+      count()
+    user.closed = Edit.all().\
+      filter('author =', user).\
+      filter('status =', 'closed').\
+      count()
     user.put()
-  # count up open and closed
-  for edit in Edit.all():
-    if edit.closed:
-      edit.author.closed += 1
-    else:
-      edit.author.open += 1
-    edit.author.put()
