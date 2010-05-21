@@ -11,9 +11,12 @@
     <h2>Search edits</h2>
 
     <form action="/search/edits" method="get">
+      <label class="field" for="q">
+        <span class="name">Query</span>
+        <input type="search" class="text" name="q" id="q" value=""/>
+      </label>
       <label class="field buttons">
-        <input type="search" class="text" name="q" value=""/>
-        <input type="submit" value="Search"/>
+        <input type="submit" value="Search" class="awesome grey button"/>
       </label>
     </form>
   </div>

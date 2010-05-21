@@ -34,7 +34,7 @@
       </li></ul>
     {% endif %}
     
-    <h2>Make a new edit</h2>
+    <h2>Propose an edit</h2>
     {% if handler.current_user %}
       <form action="/" method="post">
         <label class="field">
@@ -58,7 +58,7 @@
           {% form_error proposal %}
         </label>
         <label class="field buttons">
-          <input type="submit" value="Submit proposal" tabindex="14"/>
+          <input type="submit" value="Submit proposal" tabindex="14" class="awesome grey button"/>
         </label>
       </form>
     {% else %}
