@@ -13,4 +13,5 @@ def get(handler, response):
       filter('author =', user).\
       filter('status =', 'closed').\
       count()
+    user.edits = user.open + user.closed
     user.put()
