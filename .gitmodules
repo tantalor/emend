@@ -1,12 +1,12 @@
 [submodule "vendor/megaera"]
 	path = vendor/megaera
-	url = git@github.com:dodgeballcannon/megaera.git
+	url = git://github.com/tantalor/megaera.git
 [submodule "vendor/jellyfish"]
 	path = vendor/jellyfish
-	url = git://github.com/dodgeballcannon/jellyfish.git
+	url = git://github.com/tantalor/jellyfish.git
 [submodule "vendor/pretty_timedelta"]
 	path = vendor/pretty_timedelta
-	url = git://github.com/dodgeballcannon/pretty_timedelta.git
+	url = git://github.com/tantalor/pretty_timedelta.git
 [submodule "vendor/awesome-buttons"]
 	path = vendor/awesome-buttons
 	url = git://github.com/gr2m/awesome-buttons.git
