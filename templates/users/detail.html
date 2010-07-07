@@ -7,7 +7,7 @@
 {% block content %}
   <h1><a href="/">Emend</a> > <a href="/users">Users</a> > {{user|utf8|escape}}</h1>
   
-  <h2><img class="gravatar feature" src="{{user.gravatar}}?s=72">Most recent open edits</h2>
+  <h2><span class="feature">{{user.gravatar72}}</span>Most recent open edits</h2>
       
   {% if open %}
     <ul>

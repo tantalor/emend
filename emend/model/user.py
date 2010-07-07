@@ -3,6 +3,7 @@ from hashlib import md5
 
 from google.appengine.ext import db
 from google.appengine.api import users, memcache
+from google.appengine.ext.webapp import template
 
 from emend.const import DATE_SHORT
 from pretty_timedelta import pretty_datetime_from_now
@@ -44,10 +45,18 @@ class User(db.Model):
   def invalidate(self):
     memcache.set(self.key().name(), self)
   
-  def gravatar(self):
+  def gravatar_url(self):
     gravatar = "http://www.gravatar.com/avatar"
     email_hash = md5(self.user.email())
     return "%s/%s" % (gravatar, email_hash.hexdigest())
+  
+  def gravatar(self, size=24):
+    return template.render('templates/sections/gravatar.html',
+      dict(
+        user=self,
+        size=size,
+      ),
+    )
   
   def created_pretty_timedelta(self):
     return pretty_datetime_from_now(self.created)

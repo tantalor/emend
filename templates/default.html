@@ -77,7 +77,7 @@
       <ul>
         {% for edit in edits %}
           <li class="gravatar">
-            <img class="gravatar" src="{{edit.author.gravatar}}?s=24">
+            {{edit.author.gravatar}}
             <a href="{{edit.permalink}}">&ldquo;{{edit.original|truncate:32|utf8|escape}}&rdquo;
               should be &ldquo;{{edit.proposal|truncate:32|utf8|escape}}&rdquo;</a>
             by <a href="{{edit.author.permalink}}">{{edit.author|utf8|escape}}</a>

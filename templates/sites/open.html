@@ -11,7 +11,7 @@
     <ul>
       {% for edit in edits %}
         <li class="gravatar">
-          <img class="gravatar" src="{{edit.author.gravatar}}?s=24">
+          {{edit.author.gravatar}}
           <a href="{{edit.permalink}}">&ldquo;{{edit.proposal|escape}}&rdquo;</a>
           by <a href="{{edit.author.permalink}}">{{edit.author|utf8|escape}}</a>
           {{edit.created_pretty_timedelta}}  

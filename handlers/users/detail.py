@@ -4,6 +4,7 @@ PAGE_SIZE=5
 
 def get(handler, response):
   user = handler.get_user(required=True)
+  user.gravatar72 = user.gravatar(size=72)
   # get some open edits
   open_edits = Edit.all().\
     filter('author =', user).\

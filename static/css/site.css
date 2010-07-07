@@ -164,11 +164,13 @@ li.gravatar img.gravatar {
   left: -1.5em;
 }
 
-img.gravatar.feature {
+.feature img.gravatar {
   float: right;
   width: 48px;
   height: 48px;
   margin: 0 0 10px 10px;
 }
 
-
+a img.gravatar {
+  border: none;
+}

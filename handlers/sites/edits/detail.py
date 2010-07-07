@@ -3,6 +3,8 @@ from emend import Edit
 def get(handler, response):
   edit = handler.get_edit(required=True)
   
+  edit.author.gravatar72 = edit.author.gravatar(size=72)
+  
   # next
   next = Edit.all().\
     ancestor(edit.site).\
