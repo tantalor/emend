@@ -5,9 +5,6 @@
   - /about
   - handlers.about
 -
-  - /jetpack
-  - handlers.jetpack
--
   - /admin/edit
   - handlers.admin.edit
 -
