@@ -93,11 +93,11 @@ a:hover {
 /* lists */
 
 ul {
-  padding-left: 20px;
+  padding-left: 1em;
 }
 
 ul li {
-  margin: 10px 0;
+  margin: .5em 0;
 }
 
 /* forms and fields */
@@ -153,7 +153,7 @@ label.field textarea {
 li.gravatar {
   list-style-type: none;
   position: relative;
-  margin-left: 15px;
+  margin-left: .5em;
 }
 
 li.gravatar img.gravatar {
@@ -161,7 +161,7 @@ li.gravatar img.gravatar {
   width: 1em;
   height: 1em;
   top: .15em;
-  left: -1.4em;
+  left: -1.5em;
 }
 
 img.gravatar.feature {
