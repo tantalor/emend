@@ -4,7 +4,7 @@
 Engine](http://code.google.com/appengine/) for alerting website owners and
 authors of grammatical and spelling mistakes found on their site.
 
-Emend uses [Megaera](http://github.com/dodgeballcannon/megaera/) to handle the
+Emend uses [Megaera](http://github.com/tantalor/megaera/) to handle the
 dirty work.
 
 ## Local configuration
