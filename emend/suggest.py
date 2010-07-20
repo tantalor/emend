@@ -4,8 +4,16 @@ from megaera import local, json
 
 from google.appengine.api import urlfetch
 
+def suggest(query, **kwargs):
+  return yahoo_suggest(query, **kwargs) or\
+    apostrophe_s_suggest(query)
 
-def suggest(query, appid=None):
+def apostrophe_s_suggest(query):
+  removed_apostrophe = query.replace("'s", 's')
+  if len(removed_apostrophe) != len(query):
+    return removed_apostrophe
+
+def yahoo_suggest(query, appid=None):
   """query should be utf8 encoded"""
   if appid is None:
     # shortcut for no-credentials case
