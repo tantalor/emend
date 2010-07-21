@@ -102,7 +102,7 @@
     {% endif %}
     <p>Use <a tabindex="53" href="/iphone">Emend on iPhone</a></p>
     <p>Add an <a tabindex="55" href="/widgets">Emend blog widget</a></p>
-    <p>Bookmarklet: <a tabindex="56" href="javascript:({{bookmarklet}})()">Emend</a></p>
+    <p>Bookmarklet: <a tabindex="56" href="javascript:{% filter urlencode %}({{bookmarklet}})(){% endfilter %}">Emend</a></p>
   </div>
   <div class="cleaner"></div>
 {% endblock %}
