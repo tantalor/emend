@@ -24,9 +24,8 @@ def get(handler, response):
   response.proposal = handler.request.get('proposal') or response.original
   # get a suggestion
   if response.original:
-    query = response.original.encode('utf8')
     try:
-      response.suggestion = suggest(query)
+      response.suggestion = suggest(response.original)
     except KeyError, e:
       logging.warn('Missing credentials: %s', e)
   if response.url:
