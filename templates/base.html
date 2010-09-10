@@ -43,6 +43,9 @@
         <p>
           <a tabindex="120" href="/">Home</a> -
           <a tabindex="121" href="/about">About</a> -
+          {% if handler.config.contact.admin %}
+            <a tabindex="126" href="mailto:{{handler.config.contact.admin}}">Contact</a> -
+          {% endif %}
           {% if handler.twitter_credentials.screen_name %}
             <a tabindex="122" href="http://twitter.com/{{handler.twitter_credentials.screen_name}}">Twitter</a> -
           {% endif %}
