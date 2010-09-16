@@ -63,10 +63,10 @@
       </form>
     {% else %}
       <p>
-        Please <a href="{{handler.login_url}}">log in</a> with your Google Account first.
+        Please <a href="{{handler.login_url|escape}}">log in</a> with your Google Account first.
       </p>
       <p class="no-iphone">
-        <object width="340" height="304"><param name="allowfullscreen" value="true" /><param name="allowscriptaccess" value="always" /><param name="movie" value="http://vimeo.com/moogaloop.swf?clip_id=12869068&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=0&amp;show_portrait=0&amp;color=dd3333&amp;fullscreen=1" /><embed src="http://vimeo.com/moogaloop.swf?clip_id=12869068&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=0&amp;show_portrait=0&amp;color=dd3333&amp;fullscreen=1" type="application/x-shockwave-flash" allowfullscreen="true" allowscriptaccess="always" width="340" height="304"></embed></object>
+        <object width="340" height="304" type="application/video"><param name="allowfullscreen" value="true" /><param name="allowscriptaccess" value="always" /><param name="movie" value="http://vimeo.com/moogaloop.swf?clip_id=12869068&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=0&amp;show_portrait=0&amp;color=dd3333&amp;fullscreen=1" /><embed src="http://vimeo.com/moogaloop.swf?clip_id=12869068&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=0&amp;show_portrait=0&amp;color=dd3333&amp;fullscreen=1" type="application/x-shockwave-flash" allowfullscreen="true" allowscriptaccess="always" width="340" height="304"></object>
       </p>
     {% endif %}
   </div>
@@ -94,9 +94,9 @@
       <p>No edits.</p>
     {% endif %}
     
-    <h2>More neat stuff</h2>    
+    <h2>More neat stuff</h2>
     <p>Browse the <a tabindex="50" href="/sites">list of sites</a></p>
-    <p>Try to <a tabindex="51" href="/search">search for an edit</a></p
+    <p>Try to <a tabindex="51" href="/search">search for an edit</a></p>
     {% if handler.twitter_credentials.screen_name %}
       <p>Follow <a tabindex="52" href="http://twitter.com/{{handler.twitter_credentials.screen_name}}">Emend on Twitter</a></p>
     {% endif %}

@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
   <head>
     <title>{% block title %}Emend{% endblock %}</title>
@@ -10,10 +11,11 @@
     <link type="text/css" rel="stylesheet" href="/css/awesome-buttons.css">
     <link media="only screen and (max-device-width: 480px)" href="/css/iphone.css" type="text/css" rel="stylesheet">
     <link rel="icon" href="/favicon.ico" />
-    <link rel="alternate" type="json" href="{{"json"|on_path}}" />
-    <link rel="alternate" type="yaml" href="{{"yaml"|on_path}}" />
-    <link rel="alternate" type="xml" href="{{"xml"|on_path}}" />
+    <link rel="alternate" type="text/json" href="{{"json"|on_path}}" />
+    <link rel="alternate" type="text/yaml" href="{{"yaml"|on_path}}" />
+    <link rel="alternate" type="text/xml" href="{{"xml"|on_path}}" />
     <meta name="viewport" content="width=630">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
     
     {% block head %}{% endblock %}
     
@@ -31,12 +33,12 @@
             <p>
               You are <a tabindex="100" id="current-user" href="{{handler.current_user.permalink}}">{{handler.current_user|utf8|escape}}</a> -
               <span tabindex="101" class="fakelink change-nickname">Change nickname</span> -
-              <a tabindex="102" href="{{handler.logout_url}}">Log out</a>
+              <a tabindex="102" href="{{handler.logout_url|escape}}">Log out</a>
               <input type="hidden" id="current-user-permalink" value="{{handler.current_user.permalink}}">
             </p>
           {% else %}
             <p>
-              <a tabindex="103" href="{{handler.login_url}}">Log in now</a> with your Google Account
+              <a tabindex="103" href="{{handler.login_url|escape}}">Log in now</a> with your Google Account
             </p>
           {% endif %}
         </div><!-- end user-box -->
