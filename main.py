@@ -8,11 +8,14 @@ from emend import EmendRequestHandler
 def routes():
   return yaml.load(file('routes.yaml'))
 
-def application():
-  return WSGIApplication([
+def handlers():
+  return [(path, handler) for (path, handler) in [
     (path, EmendRequestHandler.with_page(page))
     for (path, page) in routes()
-  ], debug=True)
+  ] if handler]
+
+def application():
+  return WSGIApplication(handlers(), debug=True)
 
 def main():
   template.register_template_library('emend.template')
