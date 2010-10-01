@@ -28,6 +28,10 @@ handlers:
 
 - url: /test.*
   script: gaeunit.py
-  
+
+- url: /console.*
+  script: $PYTHON_LIB/google/appengine/ext/admin
+  login: admin
+
 - url: .*
   script: main.py
