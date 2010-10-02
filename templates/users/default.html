@@ -19,6 +19,14 @@
         </li>
       {% endfor %}
     </ul>
+  
+    {% if from_key %}
+      <p class="prev-next">
+        {% if from_key %}
+          <a href="/users?from={{from_key}}">next &rarr;</a>
+        {% endif %}
+      </p>
+    {% endif %}
   {% else %}
     <p>No users</p>
   {% endif %}
