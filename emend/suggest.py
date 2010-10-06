@@ -16,15 +16,21 @@ def suggest(query, **kwargs):
   """accepts unicode, returns unicode"""
   if type(query) is not unicode:
     raise TypeError
-  return yahoo_suggest(query, **kwargs) or\
-    apostrophe_s_suggest(query)
+  suggest_functions = [
+    yahoo_suggest,
+    apostrophe_s_suggest,
+  ]
+  for function in suggest_functions:
+    suggestion = function(query, **kwargs)
+    if suggestion:
+      return suggestion
 
-def apostrophe_s_suggest(query):
+def apostrophe_s_suggest(query, **kwargs):
   """query should be unicode"""
   if __APOSTROPHE_S_RE_.search(query):
     return __APOSTROPHE_S_RE_.sub('s', query)
 
-def yahoo_suggest(query, appid=None):
+def yahoo_suggest(query, appid=None, **kwargs):
   if appid is None:
     # shortcut for no-credentials case
     credentials = local.config_get('yahoo')
