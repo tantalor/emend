@@ -24,14 +24,11 @@ def suggest(query, **kwargs):
     a_vowel_sound_suggest,
   ]
   for function in suggest_functions:
-    suggestion = function(query, **kwargs)
-    if suggestion:
-      return suggestion
+    query = function(query, **kwargs) or query
+  return query
 
 def apostrophe_s_suggest(query, **kwargs):
-  """query should be unicode"""
-  if __APOSTROPHE_S_RE_.search(query):
-    return __APOSTROPHE_S_RE_.sub('s', query)
+  return __APOSTROPHE_S_RE_.sub('s', query)
 
 def a_vowel_sound_suggest(query, **kwargs):
   def repl(m):

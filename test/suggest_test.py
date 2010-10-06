@@ -37,6 +37,12 @@ class TestSuggest(unittest.TestCase):
     expected = u"an ant"
     suggestion = suggest(query=query)
     self.assertEquals(suggestion, expected)
+  
+  def test_combination(self):
+    query = u"it's a ant"
+    expected = u"its an ant"
+    suggestion = suggest(query=query)
+    self.assertEquals(suggestion, expected)
 
 
 if __name__ == "__main__":
