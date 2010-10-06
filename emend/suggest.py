@@ -23,9 +23,11 @@ def suggest(query, **kwargs):
     apostrophe_s_suggest,
     a_vowel_sound_suggest,
   ]
+  suggestion = query
   for function in suggest_functions:
-    query = function(query, **kwargs) or query
-  return query
+    suggestion = function(suggestion, **kwargs) or query
+  if suggestion != query:
+    return suggestion
 
 def apostrophe_s_suggest(query, **kwargs):
   return __APOSTROPHE_S_RE_.sub('s', query)
