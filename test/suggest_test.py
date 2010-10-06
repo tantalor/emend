@@ -43,6 +43,9 @@ class TestSuggest(unittest.TestCase):
     expected = u"its an ant"
     suggestion = suggest(query=query)
     self.assertEquals(suggestion, expected)
+  
+  def test_no_suggestion(self):
+    self.assertEquals(suggest(query=u'nothing to suggest'), None)
 
 
 if __name__ == "__main__":
