@@ -11,6 +11,8 @@ from google.appengine.api import urlfetch
 
 __APOSTROPHE_S_RE_ = re.compile(u"['’]s")
 
+__A_VOWEL_SOUND__ = re.compile(u"a ([aeiouh])")
+
 
 def suggest(query, **kwargs):
   """accepts unicode, returns unicode"""
@@ -19,6 +21,7 @@ def suggest(query, **kwargs):
   suggest_functions = [
     yahoo_suggest,
     apostrophe_s_suggest,
+    a_vowel_sound_suggest,
   ]
   for function in suggest_functions:
     suggestion = function(query, **kwargs)
@@ -29,6 +32,11 @@ def apostrophe_s_suggest(query, **kwargs):
   """query should be unicode"""
   if __APOSTROPHE_S_RE_.search(query):
     return __APOSTROPHE_S_RE_.sub('s', query)
+
+def a_vowel_sound_suggest(query, **kwargs):
+  def repl(m):
+    return ' '.join(['an', m.group(1)])
+  return __A_VOWEL_SOUND__.sub(repl, query)
 
 def yahoo_suggest(query, appid=None, **kwargs):
   if appid is None:

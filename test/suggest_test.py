@@ -31,6 +31,12 @@ class TestSuggest(unittest.TestCase):
     expected = u"in my 20s"
     suggestion = suggest(query=query)
     self.assertEquals(suggestion, expected)
+  
+  def test_a_vowel_sound(self):
+    query = u"a ant"
+    expected = u"an ant"
+    suggestion = suggest(query=query)
+    self.assertEquals(suggestion, expected)
 
 
 if __name__ == "__main__":
