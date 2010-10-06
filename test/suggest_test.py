@@ -8,7 +8,8 @@ from emend import stubs, suggest
 
 class TestSuggest(unittest.TestCase):
   def setUp(self):
-    stubs.all()
+    stubs.urlfetch()
+    stubs.memcache()
   
   def test_ascii_fails(self):
     self.failUnlessRaises(TypeError, lambda: suggest('ascii'))
