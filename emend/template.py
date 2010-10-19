@@ -3,6 +3,7 @@
 from difflib import SequenceMatcher
 from os import environ
 from urllib import quote
+from rfc3339 import datetimetostr as datetime_to_rfc3339
 
 from google.appengine.ext.webapp import template
 
@@ -30,6 +31,11 @@ def strip(value):
 @register.filter
 def utf8(value):
   return unicode(value).encode('utf8')
+
+
+@register.filter
+def rfc3339(datetime):
+  return datetime_to_rfc3339(datetime)
 
 
 @register.filter
