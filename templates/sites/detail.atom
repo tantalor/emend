@@ -15,6 +15,7 @@
     {% for edit in open %}
       <entry>
         <title>"{{edit.proposal|escape}}"</title>
+        <author>{{edit.author|utf8|escape}}</author>
         <link href="{{edit.permalink}}"/>
         <updated>{{edit.created|rfc3339}}</updated>
         <id>tag:{{handler.host}},2010:{{edit.key}}</id>
