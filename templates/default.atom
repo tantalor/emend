@@ -7,7 +7,7 @@
   {% endif %}
   <link href="http://{{handler.host}}/?atom" rel="self"/>
   <link href="http://{{handler.host}}/"/>
-  <id>tag:{{handler.host}}</id>
+  <id>tag:{{handler.host}},2010:</id>
   
   {% if edits %} 
     <updated>{{edits.0.created|rfc3339}}</updated>
@@ -17,7 +17,7 @@
         <title>"{{edit.proposal|escape}}"</title>
         <link href="{{edit.permalink}}"/>
         <updated>{{edit.created|rfc3339}}</updated>
-        <id>tag:{{handler.host}}:{{edit.key}}</id>
+        <id>tag:{{handler.host}},2010:{{edit.key}}</id>
         <summary>
           According to {{edit.author|utf8|escape}}, "{{edit.original|utf8|escape}}" should be "{{edit.proposal|utf8|escape}}" on {{edit.site}}.
         </summary>
