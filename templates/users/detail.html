@@ -53,7 +53,7 @@
   
   <h2>Other stuff</h2>
   
-  <p>Joined on <abbr title="{{user.created.isoformat}}">{{user.created_short}}</abbr>, about {{user.created_pretty_timedelta}}.</p>
+  <p>Joined on <abbr title="{{user.created|rfc3339}}">{{user.created_short}}</abbr>, about {{user.created_pretty_timedelta}}.</p>
     
   {% if user.can_edit %}
     <p><a href="{{user.shareable_permalink}}">Shareable permalink</a></p>
