@@ -17,6 +17,7 @@
         <title>"{{edit.proposal|escape}}"</title>
         <author>
           <name>{{edit.author|utf8|escape}}</name>
+          <uri>{{edit.author.permalink|escape}}</uri>
         </author>
         <link href="{{edit.permalink}}"/>
         <updated>{{edit.created|rfc3339}}</updated>
