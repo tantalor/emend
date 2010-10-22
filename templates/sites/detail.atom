@@ -21,8 +21,10 @@
         <link href="{{edit.permalink}}"/>
         <updated>{{edit.created|rfc3339}}</updated>
         <id>tag:{{handler.host}},2010:{{edit.key}}</id>
-        <summary>
-          "{{edit.original|utf8|escape}}" should be "{{edit.proposal|utf8|escape}}" on {{edit.site}}
+        <summary type="xhtml">
+          <div xmlns="http://www.w3.org/1999/xhtml">
+            <p>&#8220;{{edit.original|utf8|escape}}&#8221; should be &#8220;{{edit.proposal|utf8|escape}}&#8221; on <a href="{{edit.url|escape}}">{{edit.url|escape|cut:"http://"}}</a></p>
+          </div>
         </summary>
       </entry>
     {% endfor %}
