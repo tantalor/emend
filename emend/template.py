@@ -114,7 +114,7 @@ class DiffNode(template.django.template.Node):
     if op == 'equal':
       return '<span class="same">%s</span>' % subject[i:j].encode('utf8')
     else:
-      return '<span class="different">%s</span>' % subject[i:j].encode('utf8')
+      return '<strong class="different">%s</strong>' % subject[i:j].encode('utf8')
 
 
 @register.tag
