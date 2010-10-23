@@ -3,6 +3,7 @@
 from difflib import SequenceMatcher
 from os import environ
 from urllib import quote
+import cgi
 from rfc3339 import datetimetostr as datetime_to_rfc3339
 
 from google.appengine.ext.webapp import template
@@ -89,8 +90,8 @@ class DiffNode(template.django.template.Node):
   
   def render(self, context):
     try:
-      src = template.django.template.resolve_variable(self.src_key, context)
-      dst = template.django.template.resolve_variable(self.dst_key, context)
+      src = cgi.escape(template.django.template.resolve_variable(self.src_key, context))
+      dst = cgi.escape(template.django.template.resolve_variable(self.dst_key, context))
       # get opcodes and subject string (src or dst)
       subject, opcodes = self.opcodes(src, dst)
       # map opcodes to a list of spans (.same or .different)
