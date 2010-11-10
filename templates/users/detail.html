@@ -4,10 +4,15 @@
   Emend > {{user|utf8|escape}}
 {% endblock %}
 
+{% block header %}
+  > <a href="/users">Users</a> > {{user|utf8|escape}}
+{% endblock %}
+
 {% block content %}
-  <h1><a href="/">Emend</a> > <a href="/users">Users</a> > {{user|utf8|escape}}</h1>
-  
-  <h2><span class="feature">{{user.gravatar72}}</span>Most recent open edits</h2>
+<div class="twelvecol">  
+  <h2 class="first">
+    <span class="feature">{{user.gravatar72}}</span>Most recent open edits
+  </h2>
       
   {% if open %}
     <ul>
@@ -58,4 +63,5 @@
   {% if user.can_edit %}
     <p><a href="{{user.shareable_permalink}}">Shareable permalink</a></p>
   {% endif %}
+</div>
 {% endblock %}

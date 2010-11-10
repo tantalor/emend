@@ -4,11 +4,13 @@
   Emend > Search > {{query|default:default_heading|escape}}
 {% endblock %}
 
+{% block header %}
+  > <a href="/search">Search</a> > {{query|default:default_heading|escape}}
+{% endblock %}
 
 {% block content %}
-  <h1><a href="/">Emend</a> > <a href="/search">Search</a> > {{query|default:default_heading|escape}}</h1>
-  
-  <h2>Search results</h2>
+<div class="twelvecol">
+  <h2 class="first">Search results</h2>
   
   {% if edits %}
     <ul>
@@ -39,4 +41,5 @@
   {% else %}
     <p>No edits matched your query.</p>
   {% endif %}
+</div>
 {% endblock %}

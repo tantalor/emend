@@ -1,7 +1,11 @@
 {% extends "base.html" %}
 
+{% block header %}
+  > Not Found
+{% endblock %}
+
 {% block content %}
-  <div style="text-align: center">
+  <div class="twelvecol" style="text-align: center">
     <img src="/images/errors/{{status}}.jpg">
   </div>
 {% endblock %}

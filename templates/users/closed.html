@@ -4,9 +4,12 @@
   Emend > {{user|escape}} > Closed edits
 {% endblock %}
 
+{% block header %}
+  > <a href="/users">Users</a> > <a href="{{user.permalink}}">{{user|escape}}</a> > Closed edits
+{% endblock %}
+
 {% block content %}
-  <h1><a href="/">Emend</a> > <a href="/users">Users</a> > <a href="{{user.permalink}}">{{user|escape}}</a> > Closed edits</h1>
-  
+<div class="twelvecol">  
   {% if edits %}
     <ul>
       {% for edit in edits %}
@@ -30,5 +33,5 @@
   {% else %}
     <p>No closed edits.</p>
   {% endif %}
-  
+</div>
 {% endblock %}

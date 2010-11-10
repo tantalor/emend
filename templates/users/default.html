@@ -4,10 +4,13 @@
   Emend > Users
 {% endblock %}
 
-{% block content %}
-  <h1><a href="/">Emend</a> > Users</h1>
+{% block header %}
+  > Users
+{% endblock %}
 
-  <h2>Most active users</h2>
+{% block content %}
+<div class="twelvecol">
+  <h2 class="first">Most active users</h2>
 
   {% if users %}
     <ul>
@@ -30,4 +33,5 @@
   {% else %}
     <p>No users</p>
   {% endif %}
+</div>
 {% endblock %}

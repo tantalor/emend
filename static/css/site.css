@@ -1,29 +1,39 @@
 /* content, footer */
 
 body {
-  margin: 0;
   background: #333;
   font-family: "Vollkorn", Arial;
-  text-align: center;
+}
+
+.row {
+  max-width: 767px;
+}
+
+a {
+  border-bottom: none;
+}
+
+#header {
+  padding-bottom: 20px;
+  padding-top: 20px;
+}
+
+#header h1 {
+  color: #333;
+  border-bottom: solid 1px #AAA;
 }
 
 #content {
   color: #333;
   background: #FFF;
+  padding-bottom: 20px;
 }
 
 #footer {
   color: #EEE;
+  background: #333;
+  padding-top: 20px;
 }
-
-.area {
-  width: 600px;
-  margin: 0 auto;
-  text-align: left;
-  padding: 15px 0;
-}
-
-/* general */
 
 .cleaner {
   clear: both;
@@ -31,22 +41,22 @@ body {
   overflow: hidden;
 }
 
-h1 {
-  color: #333;
-  margin: 0 0 20px;
-  border-bottom: solid 1px #AAA;
-}
-
 h2 {
   margin: 0;
+  padding-top: 1em;
 }
 
 h3 {
-  margin: 20px 0 0 0;
+  margin: 2em 0 0 0;
+  padding-top: 1em;
+}
+
+h2.first, h3.first {
+  padding-top: 0;
 }
 
 p {
-  margin: 10px 0
+  margin: .5em 0
 }
 
 .center {
@@ -75,21 +85,6 @@ a:hover {
   cursor: pointer;
 }
 
-/* columns */
-
-.cols-2-1 .alpha {
-  float: left;
-  width: 340px;
-  margin-right: 20px;
-}
-
-.cols-2-1 .beta {
-  float: left;
-  border-left: solid 1px #AAA;
-  padding-left: 39px;
-  width: 200px;
-}
-
 /* lists */
 
 ul {
@@ -103,7 +98,7 @@ ul li {
 /* forms and fields */
 
 form {
-  margin-top: 20px;
+  
 }
 
 label.field {
@@ -120,7 +115,7 @@ label.field input.text,
 label.field textarea {
   border: solid 1px #999;
   padding: 3px;
-  width: 300px;
+  width: 100%;
   vertical-align: text-top;
 }
 
@@ -173,4 +168,64 @@ li.gravatar img.gravatar {
 
 a img.gravatar {
   border: none;
+}
+
+/* mobile */
+
+@media handheld, only screen and (max-width: 767px) {
+
+body {
+  line-height: normal;
+}
+
+#header h1 {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+li.gravatar img.gravatar { 
+  width: 1.2em;
+  height: 1.2em;
+  top: .3em;
+  left: -1.65em;
+}
+
+img.gravatar.feature {
+  height: 72px;
+  width: 72px;
+}
+
+.no-iphone {
+  display: none;
+}
+
+.cols-2-1 .alpha,
+.cols-2-1 .beta {
+  float: none;
+  width: auto;
+  margin: 0;
+  border: 0;
+  padding: 0;
+}
+
+form {
+  margin-left: 0; 
+}
+
+label.field input.text,
+label.field textarea {
+  width: 100%;
+/*  font-size: 2em;*/
+}
+
+label.buttons input {
+  font-size: 1.5em;
+}
+
+}
+
+/* Retina */
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2) { 
+
 }

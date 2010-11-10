@@ -7,27 +7,36 @@
     <script type="text/javascript" charset="utf-8" src="/js/jellyfish.js"></script>
     <script type="text/javascript" charset="utf-8" src="/js/site.jellyfish.js"></script>
     <link  href="http://fonts.googleapis.com/css?family=Vollkorn" rel="stylesheet" type="text/css">
+  	<meta name="viewport" content="width=device-width" />
+  	<link rel="stylesheet" href="/css/1140.css" type="text/css" media="screen" />
+  	<!--[if lte IE 9]>
+  	<link rel="stylesheet" href="/css/ie.css" type="text/css" media="screen" />
+  	<![endif]-->
+  	<link rel="stylesheet" href="/css/mobile.css" media="handheld, only screen and (max-width: 767px)" />
     <link type="text/css" rel="stylesheet" href="/css/site.css">
     <link type="text/css" rel="stylesheet" href="/css/awesome-buttons.css">
-    <link media="only screen and (max-device-width: 480px)" href="/css/iphone.css" type="text/css" rel="stylesheet">
     <link rel="icon" href="/favicon.ico" />
     <link rel="alternate" type="text/json" href="{{"json"|on_path}}" />
     <link rel="alternate" type="text/yaml" href="{{"yaml"|on_path}}" />
     <link rel="alternate" type="text/xml" href="{{"xml"|on_path}}" />
-    <meta name="viewport" content="width=630">
+    
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
     
     {% block head %}{% endblock %}
     
   </head>
   <body>
-    <div id="content" class="{% block content_class %}{% endblock %}">
-      <div class="area">
+    <div id="content" class="container">
+      <div id="header" class="row">
+        <h1><a href="/">Emend</a>{% block header %}{% endblock %}</h1>
+      </div>
+      <div class="row">
         {% block content %}{% endblock %}
       </div>
     </div>
-    <div id="footer">
-      <div class="area">
+    <div id="footer" class="container">
+      <div class="row">
+        <div class="twelvecol last">
         <div class="user-box">
           {% if handler.current_user %}
             <p>
@@ -41,7 +50,7 @@
               <a tabindex="103" href="{{handler.login_url|escape}}">Log in now</a> with your Google Account
             </p>
           {% endif %}
-        </div><!-- end user-box -->
+        </div>
         <p>
           <a tabindex="120" href="/">Home</a> -
           <a tabindex="121" href="/about">About</a> -
@@ -67,8 +76,9 @@
         {% if is_dev %}
           <p>This is <strong>development</strong></p>
         {% endif %}
-      </div> <!-- end area -->
-    </div><!-- end footer -->    
+      </div>
+      </div>
+    </div>
     
     {% if not is_dev %}
       <!-- google analytics -->

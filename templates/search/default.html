@@ -4,11 +4,13 @@
   Emend > Search
 {% endblock %}
 
+{% block header %}
+  > Search
+{% endblock %}
+
 {% block content %}
-  <h1><a href="/">Emend</a> > Search</h1>
-  
-  <div class="alpha">
-    <h2>Search edits</h2>
+<div class="fourcol">
+    <h2 class="first">Search edits</h2>
 
     <form action="/search/edits" method="get">
       <label class="field" for="q">
@@ -20,5 +22,5 @@
       </label>
     </form>
   </div>
-  <div class="cleaner"></div>
+</div>
 {% endblock %}

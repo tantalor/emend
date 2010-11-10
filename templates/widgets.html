@@ -4,10 +4,13 @@
   Emend > Widgets
 {% endblock %}
 
+{% block header %}
+  > Widgets
+{% endblock %}
+
 {% block content %}
-  <h1><a href="/">Emend</a> > Widgets</h1>
-  
-  <h2>Edit widget</h2>
+<div class="twelvecol">
+  <h2 class="first">Edit widget</h2>
   
   <p>Copy the widget code below to your blog or what-have-you.</p>
   
@@ -16,7 +19,7 @@
   <p>When no text is selected, the user will be prompted to select a portion of the page in need of correction.</p>
   
   <h3>Source code</h3>
-  <textarea id="edit-widget" style="width: 100%; height: 7em;">{{edit_widget}}</textarea>
+  <textarea id="edit-widget" style="width: 90%; height: 7em;">{{edit_widget}}</textarea>
   <script type="text/javascript" charset="utf-8">
     $(function()
     {
@@ -30,5 +33,5 @@
   <h3>Sample</h3>
   
   {{edit_widget}}
-  
+</div>
 {% endblock %}

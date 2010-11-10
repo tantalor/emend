@@ -8,17 +8,20 @@
   <link href="{{site.permlink}}?atom" type="application/rss+xml" rel="alternate" title="{{site}} RSS Feed" />
 {% endblock %}
 
+{% block header %}
+  > <a href="/sites">Sites</a> > {{site.domain}}
+{% endblock %}
+
 {% block content %}
-  <h1><a href="/">Emend</a> > <a href="/sites">Sites</a> > {{site.domain}}</h1>
-  
+<div class="twelvecol">
   {% if not site.is_saved %}
     <p>
       This site hasn't had any edits yet.
     </p>
   {% endif %}
+
+  <h2 class="first">Most recent open edits</h2>
   
-  <h2>Most recent open edits</h2>
-      
   {% if open %}
     <ul>
       {% for edit in open %}
@@ -39,9 +42,9 @@
   {% else %}
     <p>No edits.</p>
   {% endif %}
-  
+
   <h2>Most recent closed edits</h2>
-      
+  
   {% if closed %}
     <ul>
       {% for edit in closed %}
@@ -62,4 +65,5 @@
   {% else %}
     <p>No edits.</p>
   {% endif %}
+</div>
 {% endblock %}

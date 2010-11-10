@@ -4,9 +4,12 @@
   Emend > {{site.domain}} > Open edits
 {% endblock %}
 
-{% block content %}
-  <h1><a href="/">Emend</a> > <a href="/sites">Sites</a> > <a href="/sites/{{site.domain}}">{{site.domain}}</a> > Open edits</h1>
+{% block header %}
+  > <a href="/sites">Sites</a> > <a href="/sites/{{site.domain}}">{{site.domain}}</a> > Open edits
+{% endblock %}
 
+{% block content %}
+<div class="twelvecol">
   {% if edits %}
     <ul>
       {% for edit in edits %}
@@ -30,5 +33,5 @@
   {% else %}
     <p>No open edits.</p>
   {% endif %}
-  
+</div>
 {% endblock %}

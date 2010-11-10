@@ -8,22 +8,16 @@
   <link href="/?atom" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed" />
 {% endblock %}
 
-{% block content_class %}
-  cols-2-1
-{% endblock %}
-
 {% block content %}
-  <h1><a href="/">Emend</a></h1>
-  
-  <div class="alpha">
+  <div class="sixcol">
   	{% if handler.config.tagline %}
-      <h2>{{handler.config.tagline}}</h2>
+      <h2 class="first">{{handler.config.tagline}}</h2>
     {% endif %}
-    
+  
     <p><i>Emend</i> (verb), to improve by critical editing.</p>
-    
+  
     <p>From the Latin <i>emendare</i>, &ldquo;to free from fault.&rdquo;</p>
-    
+  
     {% if local_edit %}
       <h2>Latest <a href="{{local_edit.site.permalink}}">{{local_edit.site}}</a> edit</h2>
       <ul><li>
@@ -33,7 +27,7 @@
         {{local_edit.created_pretty_timedelta}}
       </li></ul>
     {% endif %}
-    
+  
     <h2>Propose an edit</h2>
     {% if handler.current_user %}
       <form action="/" method="post">
@@ -70,9 +64,9 @@
       </p>
     {% endif %}
   </div>
-  
-  <div class="beta">
-    <h2>Latest open edits</h2>
+
+  <div class="sixcol last">
+    <h2 class="first">Latest open edits</h2>
     {% if edits %}
       <ul>
         {% for edit in edits %}
@@ -93,7 +87,7 @@
     {% else %}
       <p>No edits.</p>
     {% endif %}
-    
+  
     <h2>More neat stuff</h2>
     <p>Browse the <a tabindex="50" href="/sites">list of sites</a></p>
     <p>Try to <a tabindex="51" href="/search">search for an edit</a></p>
@@ -104,5 +98,4 @@
     <p>Add an <a tabindex="55" href="/widgets">Emend blog widget</a></p>
     <p>Bookmarklet: <a tabindex="56" href="javascript:{% filter urlencode %}({{bookmarklet}})(){% endfilter %}">Emend</a></p>
   </div>
-  <div class="cleaner"></div>
 {% endblock %}

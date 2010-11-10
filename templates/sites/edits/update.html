@@ -4,9 +4,12 @@
   Emend > {{site.domain}} > {{edit.proposal|truncate:32|utf8|escape}} > Update
 {% endblock %}
 
+{% block header %}
+  > <a href="/sites">Sites</a> > <a href="/sites/{{site.domain}}">{{site.domain}}</a> > <a href="{{edit.permalink}}">{{edit.proposal|truncate:28|utf8|escape}}</a> > Update
+{% endblock %}
+
 {% block content %}
-  <h1><a href="/">Emend</a> > <a href="/sites">Sites</a> > <a href="/sites/{{site.domain}}">{{site.domain}}</a> > <a href="{{edit.permalink}}">{{edit.proposal|truncate:28|utf8|escape}}</a> > Update</h1>
-  
+<div class="twelvecol">  
   <form action="{{edit.permalink}}/update" method="post">
     <label class="field">
       <span class="name">URL</span>
@@ -26,5 +29,6 @@
     <label class="field buttons">
       <input type="submit" value="Submit proposal" class="awesome grey button"/>
     </label>
-  </form>  
+  </form>
+</div>
 {% endblock %}

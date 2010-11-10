@@ -1,7 +1,11 @@
 {% extends "base.html" %}
 
+{% block header %}
+  > Error
+{% endblock %}
+
 {% block content %}
-  <div style="width: 444px; margin: 0 auto; font-family: Courier, Courier New">
+  <div class="twelvecol" style="width: 444px; margin: 0 auto; font-family: Courier, Courier New">
     <img src="/images/errors/500.jpg">
     <p><strong>{{error_type|escape}}: {{error|escape}}</strong></p>
     {% for line in tb_formatted %}

@@ -8,9 +8,12 @@
   Emend > {{site.domain}} > {{edit.proposal|truncate:32|utf8|escape}}
 {% endblock %}
 
+{% block header %}
+  > <a href="/sites">Sites</a> > <a href="/sites/{{site.domain}}">{{site.domain}}</a> > {{edit.proposal|truncate:28|utf8|escape}}
+{% endblock %}
+
 {% block content %}
-  <h1><a href="/">Emend</a> > <a href="/sites">Sites</a> > <a href="/sites/{{site.domain}}">{{site.domain}}</a> > {{edit.proposal|truncate:28|utf8|escape}}</h1>
-  
+<div class="twelvecol">
   <p><span class="feature">{{edit.author.gravatar72}}</span>According to <a href="{{edit.author.permalink}}">{{edit.author|utf8|escape}}</a>, &ldquo;{{edit.original|utf8|escape}}&rdquo; should be &ldquo;{{edit.proposal|utf8|escape}}&rdquo; on <a href="{{edit.url|utf8}}">{{edit.url|truncate:45|utf8|escape}}</a>.<p>
     
   <p>This was first noticed on <abbr title="{{edit.created|rfc3339}}">{{edit.created_short}}</abbr>, about {{edit.created_pretty_timedelta}}.</p>
@@ -70,4 +73,5 @@
       {% endif %}
     </p>
   {% endif %}
+</div>
 {% endblock %}

@@ -4,10 +4,14 @@
   Emend > Sites
 {% endblock %}
 
-{% block content %}
-  <h1><a href="/">Emend</a> > Sites</h1>
+{% block header %}
+  > Sites
+{% endblock %}
 
-  <h2>Most popular sites</h2>
+{% block content %}
+<div class="twelvecol">
+  
+  <h2 class="first">Most popular sites</h2>
 
   {% if sites %}
     <ul>
@@ -21,19 +25,19 @@
   {% else %}
     <p>No sites</p>
   {% endif %}
-  
+
   {% if has_prev or has_next %}
     <p class="prev-next">
       {% if has_prev %}
         <a href="/sites?from={{prev_from}}">&larr; prev</a>
       {% endif %}
-    
+
       {% if has_prev and has_next %}|{% endif %}
-    
+
       {% if has_next %}
         <a href="/sites?from={{next_from}}">next &rarr;</a>
       {% endif %}
     </p>
   {% endif %}
+</div>
 {% endblock %}
-
