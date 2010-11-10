@@ -137,10 +137,12 @@ label.field textarea {
 
 .diff.original .different {
   background: #FAA;
+  font-weight: normal;
 }
 
 .diff.proposal .different {
   background: #ADA;
+  font-weight: normal;
 }
 
 /* gravater */
