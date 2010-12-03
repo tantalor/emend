@@ -2,7 +2,7 @@ import logging
 import xmlrpclib
 from xml.parsers import expat
 
-from ext.pingback import pingback
+from pblib import pingback
 
 from google.appengine.api import urlfetch
 

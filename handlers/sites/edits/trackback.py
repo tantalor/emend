@@ -1,6 +1,6 @@
 import logging
 
-from ext.tblib import TrackBack
+from tblib import TrackBack
 from emend import site_name
 
 from google.appengine.api import urlfetch
