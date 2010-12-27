@@ -3,12 +3,13 @@ import logging
 
 from model import Edit, Site, User
 
-from megaera import local, MegaeraRequestHandler, NotFoundException
+import megaera
+from megaera import local, NotFoundException
 
 from google.appengine.api import users, memcache
 from google.appengine.ext import db
 
-class EmendRequestHandler(MegaeraRequestHandler):
+class RequestHandler(megaera.RequestHandler):
   
   def current_user(self):
     """Returns the logged-in User object."""
