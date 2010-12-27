@@ -1,5 +1,6 @@
 from os import environ
 from hashlib import md5
+from re import sub
 
 from google.appengine.ext import db
 from google.appengine.api import users, memcache
@@ -18,7 +19,9 @@ class User(db.Model):
   created_short = property(fget=lambda self: self.created.strftime(DATE_SHORT))
   
   def __str__(self):
-    return self.nickname or self.user.nickname()
+    """Returns the users nickname."""
+    user_nickname = sub('@.*$', '', self.user.nickname()) # obscure domain
+    return self.nickname or user_nickname
   
   def can_edit(self):
     user = users.get_current_user()
