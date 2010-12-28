@@ -133,18 +133,6 @@ label.field textarea {
   text-align: center;
 }
 
-/* diff */
-
-.diff.original .different {
-  background: #FAA;
-  font-weight: normal;
-}
-
-.diff.proposal .different {
-  background: #ADA;
-  font-weight: normal;
-}
-
 /* gravater */
 
 li.gravatar {

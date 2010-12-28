@@ -95,7 +95,7 @@ class DiffNode(template.django.template.Node):
       # get opcodes and subject string (src or dst)
       subject, opcodes = self.opcodes(src, dst)
       # map opcodes to a list of spans (.same or .different)
-      spans = [DiffNode.span(subject, op, i, j) for (op, i, j) in opcodes]
+      spans = [self.span(subject, op, i, j) for (op, i, j) in opcodes]
       return ''.join(spans)
     except template.django.template.VariableDoesNotExist:
       pass
@@ -109,12 +109,13 @@ class DiffNode(template.django.template.Node):
     else:
       return src, [(op, i1, i2) for (op, i1, i2, j1, j2) in seq.get_opcodes() if op != 'i']
   
-  @staticmethod
-  def span(subject, op, i, j):
+  def span(self, subject, op, i, j):
     if op == 'equal':
-      return '<span class="same">%s</span>' % subject[i:j].encode('utf8')
+      return subject[i:j].encode('utf8')
     else:
-      return '<strong class="different">%s</strong>' % subject[i:j].encode('utf8')
+      return '<span style="background-color:#%s">%s</span>' % (
+        'ada' if self.invert else 'faa',
+        subject[i:j].encode('utf8'))
 
 
 @register.tag
