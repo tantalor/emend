@@ -68,6 +68,9 @@
   - /widgets
   - handlers.widgets
 -
+  - /sections/diff
+  - handlers.sections.diff
+-
   - /*
   - handlers.default
 -

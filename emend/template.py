@@ -70,6 +70,18 @@ class FormErrorNode(template.django.template.Node):
       pass
     return ''
 
+@register.filter
+def diff(src, dst):
+  def ops():
+    seq = SequenceMatcher(None, src, dst)
+    for (op, i1, i2, j1, j2) in seq.get_opcodes():
+      if op[0] == 'd':
+        yield '<span style="background-color:#faa">%s</span>' % src[i1:i2]
+      elif op[0] == 'i':
+        yield '<span style="background-color:#ada">%s</span>' % dst[j1:j2]
+      else:
+        yield src[i1:i2]
+  return ''.join(s.encode('utf8') for s in ops())
 
 @register.tag
 def diff_src(parser, token):
