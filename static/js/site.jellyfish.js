@@ -22,10 +22,28 @@ Jellyfish(function () {
   });
   /* home page */
   this.bloom('/', function () {
+    function diff () {
+      var original = $('[name=original]').val();
+      var proposal = $('[name=proposal]').val();
+      if (original && proposal && original != proposal) {
+        $('#diff').load('/sections/diff',
+          'src='+encodeURIComponent(original)+'&'+
+          'dst='+encodeURIComponent(proposal),
+          function () {
+            $('#diff-container').show();
+          }
+        );
+      } else {
+        $('#diff-container').hide();
+      }
+    }
     /* suggestion */
     this.sting('.click-suggestion/click', function () {
       $('[name=proposal]').val($(this).text());
+      diff();
     });
+    /* diff */
+    this.sting('[name=proposal]/keyup', diff);
   });
   /* edit detail */
   this.bloom('/sites/:site/edits/:index', function () {

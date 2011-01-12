@@ -22,6 +22,7 @@ def get(handler, response):
   response.url = handler.request.get('url')
   response.original = handler.request.get('original')
   response.proposal = handler.request.get('proposal') or response.original
+  response.original_eq_proposal = response.proposal == response.original
   # get a suggestion
   if response.original:
     try:

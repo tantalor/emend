@@ -51,6 +51,14 @@
           <textarea tabindex="13" name="proposal">{{proposal}}</textarea>
           {% form_error proposal %}
         </label>
+        <label id="diff-container" class="field" {% if original_eq_proposal %}style="display:none"{% endif %}>
+          <span class="name">Diff</span>
+          <span id="diff">
+            {% if original and proposal and not original_eq_proposal %}
+              {{original|diff:proposal}}
+            {% endif %}
+          </span>
+        </label>
         <label class="field buttons">
           <input type="submit" value="Submit proposal" tabindex="14" class="awesome grey button"/>
         </label>
