@@ -79,6 +79,10 @@ def diff(src, dst):
         yield '<span style="background-color:#faa">%s</span>' % src[i1:i2]
       elif op[0] == 'i':
         yield '<span style="background-color:#ada">%s</span>' % dst[j1:j2]
+      elif op[0] == 'r':
+        yield '<span style="background-color:#faa">%s</span>'\
+              '<span style="background-color:#ada">%s</span>'\
+              % (src[i1:i2], dst[j1:j2])
       else:
         yield src[i1:i2]
   return ''.join(s.encode('utf8') for s in ops())
