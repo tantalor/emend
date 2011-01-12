@@ -37,20 +37,14 @@ def a_vowel_sound_suggest(query, **kwargs):
     return ' '.join(['an', m.group(1)])
   return __A_VOWEL_SOUND__.sub(repl, query)
 
-def yahoo_suggest(query, appid=None, **kwargs):
-  if appid is None:
-    # shortcut for no-credentials case
-    credentials = local.config_get('yahoo')
-    return suggest(query, **credentials)
-  url = "http://search.yahooapis.com/WebSearchService/V1/spellingSuggestion"
-  payload = urlencode(dict(output='json', query=query.encode('utf8'), appid=appid))
-  response = urlfetch.fetch('%s?%s' % (url, payload))
+def yahoo_suggest(query, **kwargs):
+  url = "http://query.yahooapis.com/v1/public/yql"
+  yql = "select * from search.spelling where query='%s'" % query.replace("'", "\\'").encode('utf8')
+  response = urlfetch.fetch('%s?%s' % (url, urlencode(dict(format='json', q=yql))))
   if response:
     try:
       data = json.read(response.content)
-      if data and data['ResultSet']:
-        result = data['ResultSet']['Result']
-        if result != 'None':
-          return result
+      if data and 'query' in data and data['query']['results']:
+        return data['query']['results']['suggestion']
     except json.ReadException:
       pass
