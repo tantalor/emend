@@ -153,6 +153,9 @@ class Edit(search.SearchableModel):
   def created_pretty_timedelta(self):
     return pretty_datetime_from_now(self.created)
   
+  def modified_pretty_timedelta(self):
+    return pretty_datetime_from_now(self.modified)
+  
   def test(self):
     # record test
     self.tested = datetime.now()
