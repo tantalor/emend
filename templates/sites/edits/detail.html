@@ -18,6 +18,10 @@
     
   <p>This was first noticed on <abbr title="{{edit.created|rfc3339}}">{{edit.created_short}}</abbr>, about {{edit.created_pretty_timedelta}}.</p>
   
+  {% if edit.is_closed %}
+    <p>This was fixed as of <abbr title="{{edit.modified|rfc3339}}">{{edit.modified_short}}</abbr>, about {{edit.modified_pretty_timedelta}}.</p>
+  {% endif %}
+  
   <h2>Original</h2>
   <blockquote class="diff original">
     {% diff_src edit.original edit.proposal %}
