@@ -2,14 +2,15 @@ from os import environ
 from hashlib import md5
 from re import sub
 
+from counts import Counts
+
 from google.appengine.ext import db
 from google.appengine.api import users, memcache
-from google.appengine.ext.webapp import template
 
 from emend.const import DATE_SHORT
 from pretty_timedelta import pretty_datetime_from_now
 
-class User(db.Model):
+class User(db.Model, Counts):
   user = db.UserProperty(required=True)
   nickname = db.StringProperty()
   open = db.IntegerProperty(required=True, default=0)
@@ -52,14 +53,6 @@ class User(db.Model):
     gravatar = "http://www.gravatar.com/avatar"
     email_hash = md5(self.user.email())
     return "%s/%s" % (gravatar, email_hash.hexdigest())
-  
-  def gravatar(self, size=24):
-    return template.render('templates/sections/gravatar.html',
-      dict(
-        user=self,
-        size=size,
-      ),
-    )
   
   def created_pretty_timedelta(self):
     return pretty_datetime_from_now(self.created)

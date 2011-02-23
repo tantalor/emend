@@ -1,11 +1,11 @@
-{% extends "../base.html" %}
+{% extends "base.html" %}
 
 {% block title %}
   Emend > {{user|escape}} > Closed edits
 {% endblock %}
 
 {% block header %}
-  > <a href="/users">Users</a> > <a href="{{user.permalink}}">{{user|escape}}</a> > Closed edits
+  > <a href="/users">Users</a> > <a href="{{user.permalink()}}">{{user|escape}}</a> > Closed edits
 {% endblock %}
 
 {% block content %}
@@ -14,10 +14,10 @@
     <ul>
       {% for edit in edits %}
         <li>
-          <a href="{{edit.permalink}}">&ldquo;{{edit.original|utf8|escape}}&rdquo;
-            should be &ldquo;{{edit.proposal|utf8|escape}}&rdquo;</a>
-          at <a href="{{edit.site.permalink}}">{{edit.site|escape}}</a>
-          {{edit.created_pretty_timedelta}}  
+          <a href="{{edit.permalink()}}">&ldquo;{{edit.original|escape}}&rdquo;
+            should be &ldquo;{{edit.proposal|escape}}&rdquo;</a>
+          at <a href="{{edit.site.permalink()}}">{{edit.site|escape}}</a>
+          {{edit.created_pretty_timedelta()}}  
         </li>
       {% endfor %}
     </ul>
@@ -25,7 +25,7 @@
     {% if has_prev or has_next %}
       <p class="prev-next">
         {% if has_next %}
-          <a href="{{site.permalink}}?from={{next_from}}">next &rarr;</a>
+          <a href="{{site.permalink()}}?from={{next_from}}">next &rarr;</a>
         {% endif %}
       </p>
     {% endif %}

@@ -2,12 +2,12 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   
   <title>Emend > Sites > {{site.domain}}</title>
-  {% if handler.config.tagline %}
-    <subtitle>{{handler.config.tagline}}</subtitle>
+  {% if handler.config().tagline %}
+    <subtitle>{{handler.config().tagline}}</subtitle>
   {% endif %}
-  <link href="{{site.permalink}}?atom" rel="self"/>
-  <link href="{{site.permalink}}/"/>
-  <id>tag:{{handler.host}},2010:{{site.key}}</id>
+  <link href="{{site.permalink()}}?atom" rel="self"/>
+  <link href="{{site.permalink()}}/"/>
+  <id>tag:{{handler.host()}},2010:{{site.key}}</id>
   
   {% if open %} 
     <updated>{{open.0.created|rfc3339}}</updated>
@@ -16,12 +16,12 @@
       <entry>
         <title>"{{edit.proposal|escape}}"</title>
         <author>
-          <name>{{edit.author|utf8|escape}}</name>
+          <name>{{edit.author|escape}}</name>
           <uri>{{edit.author.permalink|escape}}</uri>
         </author>
-        <link href="{{edit.permalink}}"/>
+        <link href="{{edit.permalink()}}"/>
         <updated>{{edit.created|rfc3339}}</updated>
-        <id>tag:{{handler.host}},2010:{{edit.key}}</id>
+        <id>tag:{{handler.host()}},2010:{{edit.key}}</id>
         <summary type="xhtml">
           <div xmlns="http://www.w3.org/1999/xhtml">
             <p>&#8220;{% diff_src edit.original edit.proposal %}&#8221; should be &#8220;{% diff_dst edit.original edit.proposal %}&#8221; on <a href="{{edit.url|escape}}">{{edit.url|escape|cut:"http://"}}</a></p>

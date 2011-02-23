@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-  Emend{% if handler.config.tagline %}: {{handler.config.tagline}}{% endif %}
+  Emend{% if handler.config().tagline %}: {{handler.config().tagline}}{% endif %}
 {% endblock %}
 
 {% block head %}
@@ -10,8 +10,8 @@
 
 {% block content %}
   <div class="sixcol">
-  	{% if handler.config.tagline %}
-      <h2 class="first">{{handler.config.tagline}}</h2>
+  	{% if handler.config().tagline %}
+      <h2 class="first">{{handler.config().tagline}}</h2>
     {% endif %}
   
     <p><i>Emend</i> (verb), to improve by critical editing.</p>
@@ -19,27 +19,27 @@
     <p>From the Latin <i>emendare</i>, &ldquo;to free from fault.&rdquo;</p>
   
     {% if local_edit %}
-      <h2>Latest <a href="{{local_edit.site.permalink}}">{{local_edit.site}}</a> edit</h2>
+      <h2>Latest <a href="{{local_edit.site.permalink()}}">{{local_edit.site}}</a> edit</h2>
       <ul><li>
-        <a href="{{local_edit.permalink}}">&ldquo;{{local_edit.original|utf8|escape}}&rdquo;
-          should be &ldquo;{{local_edit.proposal|utf8|escape}}&rdquo;</a> by
-        <a href="{{local_edit.author.permalink}}">{{local_edit.author|utf8|escape}}</a>
-        {{local_edit.created_pretty_timedelta}}
+        <a href="{{local_edit.permalink()}}">&ldquo;{{local_edit.original|escape}}&rdquo;
+          should be &ldquo;{{local_edit.proposal|escape}}&rdquo;</a> by
+        <a href="{{local_edit.author.permalink()}}">{{local_edit.author|escape}}</a>
+        {{local_edit.created_pretty_timedelta()}}
       </li></ul>
     {% endif %}
   
     <h2>Propose an edit</h2>
-    {% if handler.current_user %}
+    {% if handler.current_user() %}
       <form action="/" method="post">
         <label class="field">
           <span class="name">URL</span>
           <input type="url" class="text" name="url" value="{{url}}" tabindex="10"/>
-          {% form_error url %}
+          {{form_error("url")}}
         </label>
         <label class="field">
           <span class="name">Original</span>
           <textarea name="original" tabindex="11">{{original}}</textarea>
-          {% form_error original %}
+          {{form_error("original")}}
         </label>
         <label class="field">
           <span class="name">Proposal</span>
@@ -49,13 +49,12 @@
             </span>
           {% endif %}  
           <textarea tabindex="13" name="proposal">{{proposal}}</textarea>
-          {% form_error proposal %}
+          {{form_error("proposal")}}
         </label>
         <label id="diff-container" class="field" {% if original_eq_proposal %}style="display:none"{% endif %}>
           <span class="name">Diff</span>
           <span id="diff">
             {% if original and proposal and not original_eq_proposal %}
-              {{original|diff:proposal}}
             {% endif %}
           </span>
         </label>
@@ -65,7 +64,7 @@
       </form>
     {% else %}
       <p>
-        Please <a href="{{handler.login_url|escape}}">log in</a> with your Google Account first.
+        Please <a href="{{handler.login_url()|escape}}">log in</a> with your Google Account first.
       </p>
       <p class="no-iphone">
         <object width="340" height="304" type="application/video"><param name="allowfullscreen" value="true" /><param name="allowscriptaccess" value="always" /><param name="movie" value="http://vimeo.com/moogaloop.swf?clip_id=12869068&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=0&amp;show_portrait=0&amp;color=dd3333&amp;fullscreen=1" /><embed src="http://vimeo.com/moogaloop.swf?clip_id=12869068&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=0&amp;show_portrait=0&amp;color=dd3333&amp;fullscreen=1" type="application/x-shockwave-flash" allowfullscreen="true" allowscriptaccess="always" width="340" height="304"></object>
@@ -80,10 +79,10 @@
         {% for edit in edits %}
           <li class="gravatar">
             {{edit.author.gravatar}}
-            <a href="{{edit.permalink}}">&ldquo;{{edit.original|truncate:32|utf8|escape}}&rdquo;
-              should be &ldquo;{{edit.proposal|truncate:32|utf8|escape}}&rdquo;</a>
-            by <a href="{{edit.author.permalink}}">{{edit.author|utf8|escape}}</a>
-            {{edit.created_pretty_timedelta}}
+            <a href="{{edit.permalink()}}">&ldquo;{{edit.original|truncate(32)|escape}}&rdquo;
+              should be &ldquo;{{edit.proposal|truncate(32)|escape}}&rdquo;</a>
+            by <a href="{{edit.author.permalink()}}">{{edit.author|escape}}</a>
+            {{edit.created_pretty_timedelta()}}
           </li>
         {% endfor %}
       </ul>
@@ -104,6 +103,6 @@
     {% endif %}
     <p>Use <a tabindex="53" href="/iphone">Emend on iPhone</a></p>
     <p>Add an <a tabindex="55" href="/widgets">Emend blog widget</a></p>
-    <p>Bookmarklet: <a tabindex="56" href="javascript:{% filter urlencode %}({{bookmarklet}})(){% endfilter %}">Emend</a></p>
+    <p>Bookmarklet: <a tabindex="56" href="javascript:{% filter quote %}({{bookmarklet}})(){% endfilter %}">Emend</a></p>
   </div>
 {% endblock %}

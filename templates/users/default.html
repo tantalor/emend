@@ -1,4 +1,4 @@
-{% extends "../base.html" %}
+{% extends "base.html" %}
 
 {% block title %}
   Emend > Users
@@ -16,9 +16,9 @@
     <ul>
       {% for user in users %}
         <li class="gravatar">
-          {{user.gravatar}}
-          <a href="{{user.permalink}}">{{user|escape}}</a>
-          {% counts user %}
+          {{gravatar(user)}}
+          <a href="{{user.permalink()}}">{{user|escape}}</a>
+          {{user.pretty_counts()}}
         </li>
       {% endfor %}
     </ul>

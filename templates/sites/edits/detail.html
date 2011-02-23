@@ -1,40 +1,40 @@
-{% extends "../../base.html" %}
+{% extends "base.html" %}
 
 {% block head %}
-  <link rel="canonical" href="{{edit.permalink}}">
+  <link rel="canonical" href="{{edit.permalink()}}">
 {% endblock %}
 
 {% block title %}
-  Emend > {{site.domain}} > {{edit.proposal|truncate:32|utf8|escape}}
+  Emend > {{site.domain}} > {{edit.proposal|truncate(32)|escape}}
 {% endblock %}
 
 {% block header %}
-  > <a href="/sites">Sites</a> > <a href="/sites/{{site.domain}}">{{site.domain}}</a> > {{edit.proposal|truncate:28|utf8|escape}}
+  > <a href="/sites">Sites</a> > <a href="/sites/{{site.domain}}">{{site.domain}}</a> > {{edit.proposal|truncate(28)|escape}}
 {% endblock %}
 
 {% block content %}
 <div class="twelvecol">
-  <p><span class="feature">{{edit.author.gravatar72}}</span>According to <a href="{{edit.author.permalink}}">{{edit.author|utf8|escape}}</a>, &ldquo;{{edit.original|utf8|escape}}&rdquo; should be &ldquo;{{edit.proposal|utf8|escape}}&rdquo; on <a href="{{edit.url|utf8}}">{{edit.url|truncate:45|utf8|escape}}</a>.<p>
+  <p><span class="feature">{{gravatar(edit.author,72)}}</span>According to <a href="{{edit.author.permalink()}}">{{edit.author|escape}}</a>, &ldquo;{{edit.original|escape}}&rdquo; should be &ldquo;{{edit.proposal|escape}}&rdquo; on <a href="{{edit.url}}">{{edit.url|truncate(45)|escape}}</a>.<p>
     
-  <p>This was first noticed on <abbr title="{{edit.created|rfc3339}}">{{edit.created_short}}</abbr>, about {{edit.created_pretty_timedelta}}.</p>
+  <p>This was first noticed on <abbr title="{{edit.created|rfc3339}}">{{edit.created_short}}</abbr>, about {{edit.created_pretty_timedelta()}}.</p>
   
   {% if edit.is_closed %}
-    <p>This was fixed as of <abbr title="{{edit.modified|rfc3339}}">{{edit.modified_short}}</abbr>, about {{edit.modified_pretty_timedelta}}.</p>
+    <p>This was fixed as of <abbr title="{{edit.modified|rfc3339}}">{{edit.modified_short}}</abbr>, about {{edit.modified_pretty_timedelta()}}.</p>
   {% endif %}
   
   <h2>Original</h2>
   <blockquote class="diff original">
-    {% diff_src edit.original edit.proposal %}
+    {{diff_src(edit.original, edit.proposal)}}
   </blockquote>
 
   <h2>Proposal</h2>
   <blockquote class="diff proposal">
-    {% diff_dst edit.original edit.proposal %}
+    {{diff_dst(edit.original, edit.proposal)}}
   </blockquote>
   
   <h2>Things to do</h2>
   
-  <p><a href="http://twitter.com/home?status={{edit.as_tweet|utf8|urlencode}}">Tweet this</a></p>
+  <p><a href="http://twitter.com/home?status={{edit.as_tweet()|quote}}">Tweet this</a></p>
   
   {% if edit.can_edit and edit.is_open %}
     <p><span class="fakelink click-close">Change to &ldquo;fixed&rdquo;</span></p>
@@ -45,7 +45,7 @@
   {% endif %}
   
   {% if edit.can_edit %}
-    <p><a href="{{edit.permalink}}/update">Update this</a></p>
+    <p><a href="{{edit.permalink()}}/update">Update this</a></p>
     <p><span class="fakelink click-delete">Delete this</span></p>
   {% endif %}
   
@@ -57,23 +57,23 @@
   {% if prev or next %}
     <p class="prev-next">
       {% if prev %}
-        <a href="{{prev.permalink}}">&larr; {{prev.proposal|truncate:32|utf8|escape}}</a>
+        <a href="{{prev.permalink()}}">&larr; {{prev.proposal|truncate(32)|escape}}</a>
       {% else %}
-        {% ifnotequal edit.site.open 1 %}
-          <a href="{{edit.site.permalink}}/open">{{edit.site.open}} open edits</a> |
-        {% endifnotequal %}
+        {% if edit.site.open != 1 %}
+          <a href="{{edit.site.permalink()}}/open">{{edit.site.open}} open edits</a> |
+        {% endif %}
       {% endif %}
     
       {% if prev and next %}
-        | <a href="{{edit.site.permalink}}/open">{{edit.site.open}} open edits</a> |
+        | <a href="{{edit.site.permalink()}}/open">{{edit.site.open}} open edits</a> |
       {% endif %}
     
       {% if next %}
-        <a href="{{next.permalink}}">{{next.proposal|truncate:32|utf8|escape}} &rarr;</a>
+        <a href="{{next.permalink()}}">{{next.proposal|truncate(32)|escape}} &rarr;</a>
       {% else %}
-        {% ifnotequal edit.site.open 1 %}
-          | <a href="{{edit.site.permalink}}/open">{{edit.site.open}} open edits</a>
-        {% endifnotequal %}
+        {% if edit.site.open != 1 %}
+          | <a href="{{edit.site.permalink()}}/open">{{edit.site.open}} open edits</a>
+        {% endif %}
       {% endif %}
     </p>
   {% endif %}

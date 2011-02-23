@@ -1,11 +1,11 @@
-{% extends "../base.html" %}
+{% extends "base.html" %}
 
 {% block title %}
-  Emend > {{user|utf8|escape}}
+  Emend > {{user|escape}}
 {% endblock %}
 
 {% block header %}
-  > <a href="/users">Users</a> > {{user|utf8|escape}}
+  > <a href="/users">Users</a> > {{user|escape}}
 {% endblock %}
 
 {% block content %}
@@ -18,16 +18,16 @@
     <ul>
       {% for edit in open %}
         <li>
-          <a href="{{edit.permalink}}">&ldquo;{{edit.original|utf8|escape}}&rdquo;
-            should be &ldquo;{{edit.proposal|utf8|escape}}&rdquo;</a>
-          at <a href="{{edit.site.permalink}}">{{edit.site|escape}}</a>
-          {{edit.created_pretty_timedelta}}  
+          <a href="{{edit.permalink()}}">&ldquo;{{edit.original|escape}}&rdquo;
+            should be &ldquo;{{edit.proposal|escape}}&rdquo;</a>
+          at <a href="{{edit.site.permalink()}}">{{edit.site|escape}}</a>
+          {{edit.created_pretty_timedelta()}}  
         </li>
       {% endfor %}
     </ul>
     {% if has_next_open %}
       <p class="prev-next">
-        <a href="{{user.permalink}}/open?from={{next_open_from}}">more open &rarr;</a>
+        <a href="{{user.permalink()}}/open?from={{next_open_from}}">more open &rarr;</a>
       </p>
     {% endif %}
   {% else %}
@@ -40,16 +40,16 @@
     <ul>
       {% for edit in closed %}
         <li>
-          <a href="{{edit.permalink}}">&ldquo;{{edit.original|utf8|escape}}&rdquo;
-            should be &ldquo;{{edit.proposal|utf8|escape}}&rdquo;</a>
-          at <a href="{{edit.site.permalink}}">{{edit.site|escape}}</a>
-          {{edit.created_pretty_timedelta}}  
+          <a href="{{edit.permalink()}}">&ldquo;{{edit.original|escape}}&rdquo;
+            should be &ldquo;{{edit.proposal|escape}}&rdquo;</a>
+          at <a href="{{edit.site.permalink()}}">{{edit.site|escape}}</a>
+          {{edit.created_pretty_timedelta()}}  
         </li>
       {% endfor %}
     </ul>
     {% if has_next_closed %}
       <p class="prev-next">
-        <a href="{{user.permalink}}/closed?from={{next_closed_from}}">more closed &rarr;</a>
+        <a href="{{user.permalink()}}/closed?from={{next_closed_from}}">more closed &rarr;</a>
       </p>
     {% endif %}
   {% else %}
@@ -58,10 +58,10 @@
   
   <h2>Other stuff</h2>
   
-  <p>Joined on <abbr title="{{user.created|rfc3339}}">{{user.created_short}}</abbr>, about {{user.created_pretty_timedelta}}.</p>
+  <p>Joined on <abbr title="{{user.created|rfc3339}}">{{user.created_short}}</abbr>, about {{user.created_pretty_timedelta()}}.</p>
     
-  {% if user.can_edit %}
-    <p><a href="{{user.shareable_permalink}}">Shareable permalink</a></p>
+  {% if user.can_edit() %}
+    <p><a href="{{user.shareable_permalink()}}">Shareable permalink</a></p>
   {% endif %}
 </div>
 {% endblock %}

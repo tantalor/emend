@@ -1,4 +1,4 @@
-{% extends "../base.html" %}
+{% extends "base.html" %}
 
 {% block title %}
   Emend > Sites
@@ -17,8 +17,8 @@
     <ul>
       {% for site in sites %}
         <li>
-          <a href="{{site.permalink}}">{{site.domain}}</a>
-          {% counts site %}
+          <a href="{{site.permalink()}}">{{site.domain}}</a>
+          {{site.pretty_counts()}}
         </li>
       {% endfor %}
     </ul>

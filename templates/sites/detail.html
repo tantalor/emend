@@ -1,4 +1,4 @@
-{% extends "../base.html" %}
+{% extends "base.html" %}
 
 {% block title %}
   Emend > {{site.domain}}
@@ -27,16 +27,16 @@
       {% for edit in open %}
         <li class="gravatar">
           {{edit.author.gravatar}}
-          <a href="{{edit.permalink}}">&ldquo;{{edit.original|utf8|escape}}&rdquo;
-            should be &ldquo;{{edit.proposal|utf8|escape}}&rdquo;</a> by
-          <a href="{{edit.author.permalink}}">{{edit.author|utf8|escape}}</a>
-          {{edit.created_pretty_timedelta}}
+          <a href="{{edit.permalink()}}">&ldquo;{{edit.original|escape}}&rdquo;
+            should be &ldquo;{{edit.proposal|escape}}&rdquo;</a> by
+          <a href="{{edit.author.permalink()}}">{{edit.author|escape}}</a>
+          {{edit.created_pretty_timedelta()}}
         </li>
       {% endfor %}
     </ul>
     {% if has_next_open %}
       <p class="prev-next">
-        <a href="{{site.permalink}}/open?from={{next_open_from}}">more open &rarr;</a>
+        <a href="{{site.permalink()}}/open?from={{next_open_from}}">more open &rarr;</a>
       </p>
     {% endif %}
   {% else %}
@@ -50,16 +50,16 @@
       {% for edit in closed %}
         <li class="gravatar">
           {{edit.author.gravatar}}
-          <a href="{{edit.permalink}}">&ldquo;{{edit.original|utf8|escape}}&rdquo;
-            should be &ldquo;{{edit.proposal|utf8|escape}}&rdquo;</a> by
-          <a href="{{edit.author.permalink}}">{{edit.author|utf8|escape}}</a>
-          {{edit.created_pretty_timedelta}}
+          <a href="{{edit.permalink()}}">&ldquo;{{edit.original|escape}}&rdquo;
+            should be &ldquo;{{edit.proposal|escape}}&rdquo;</a> by
+          <a href="{{edit.author.permalink()}}">{{edit.author|escape}}</a>
+          {{edit.created_pretty_timedelta()}}
         </li>
       {% endfor %}
     </ul>
     {% if has_next_closed %}
       <p class="prev-next">
-        <a href="{{site.permalink}}/closed?from={{next_closed_from}}">more closed &rarr;</a>
+        <a href="{{site.permalink()}}/closed?from={{next_closed_from}}">more closed &rarr;</a>
       </p>
     {% endif %}
   {% else %}

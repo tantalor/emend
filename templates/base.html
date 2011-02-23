@@ -1,3 +1,20 @@
+{% macro form_error(name) -%}
+  {% if errors and errors[name] %}
+     <span class="error">{{errors[name]}}</span>
+  {% endif %}
+{%- endmacro %}
+{% macro on_path(value) -%}
+  {% set query = handler.environ() %}
+  {% if query %}
+  {% else %}
+    ?{{value}}
+  {% endif %}
+{%- endmacro %}
+{% macro gravatar(user, size) -%}
+  <a href="{{user.permalink()}}">
+    <img class="gravatar" src="{{user.gravatar_url()}}?s={{size}}" alt="{{user|escape}}">
+  </a>
+{%- endmacro %}
 <!DOCTYPE html>
 <html>
   <head>
@@ -16,9 +33,9 @@
     <link type="text/css" rel="stylesheet" href="/css/site.css">
     <link type="text/css" rel="stylesheet" href="/css/awesome-buttons.css">
     <link rel="icon" href="/favicon.ico" />
-    <link rel="alternate" type="text/json" href="{{"json"|on_path}}" />
-    <link rel="alternate" type="text/yaml" href="{{"yaml"|on_path}}" />
-    <link rel="alternate" type="text/xml" href="{{"xml"|on_path}}" />
+    <link rel="alternate" type="text/json" href="{{on_path("json")}}" />
+    <link rel="alternate" type="text/yaml" href="{{on_path("yaml")}}" />
+    <link rel="alternate" type="text/xml" href="{{on_path("xml")}}" />
     
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
     
@@ -38,24 +55,24 @@
       <div class="row">
         <div class="twelvecol last">
         <div class="user-box">
-          {% if handler.current_user %}
+          {% if handler.current_user() %}
             <p>
-              You are <a tabindex="100" id="current-user" href="{{handler.current_user.permalink}}">{{handler.current_user|utf8|escape}}</a> -
+              You are <a tabindex="100" id="current-user" href="{{handler.current_user().permalink()}}">{{handler.current_user()|escape}}</a> -
               <span tabindex="101" class="fakelink change-nickname">Change nickname</span> -
-              <a tabindex="102" href="{{handler.logout_url|escape}}">Log out</a>
-              <input type="hidden" id="current-user-permalink" value="{{handler.current_user.permalink}}">
+              <a tabindex="102" href="{{handler.logout_url()|escape}}">Log out</a>
+              <input type="hidden" id="current-user-permalink" value="{{handler.current_user().permalink()}}">
             </p>
           {% else %}
             <p>
-              <a tabindex="103" href="{{handler.login_url|escape}}">Log in now</a> with your Google Account
+              <a tabindex="103" href="{{handler.login_url()|escape}}">Log in now</a> with your Google Account
             </p>
           {% endif %}
         </div>
         <p>
           <a tabindex="120" href="/">Home</a> -
           <a tabindex="121" href="/about">About</a> -
-          {% if handler.config.contact.admin %}
-            <a tabindex="126" href="mailto:{{handler.config.contact.admin}}">Contact</a> -
+          {% if handler.config().contact.admin %}
+            <a tabindex="126" href="mailto:{{handler.config().contact.admin}}">Contact</a> -
           {% endif %}
           {% if handler.twitter_credentials.screen_name %}
             <a tabindex="122" href="http://twitter.com/{{handler.twitter_credentials.screen_name}}">Twitter</a> -
@@ -64,11 +81,11 @@
           <a tabindex="124" href="/users">Users</a> -
           <a tabindex="125" href="/search">Search</a>
         </p>
-        {% if handler.is_admin %}
+        {% if handler.is_admin() %}
           <p>You are an <strong>admin</strong></p>
           <p>
-            {% for item in handler.config.admin.items %}
-              <a tabindex="{{forloop.counter0|add:150}}" href="{{item.1}}">{{item.0}}</a>
+            {% for item in handler.config().admin %}
+              <a tabindex="{{forloop.counter0+150}}" href="{{item.1}}">{{item.0}}</a>
               {% if not forloop.last %}-{% endif %}
             {% endfor %}
           </p>

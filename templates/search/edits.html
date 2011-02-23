@@ -1,11 +1,11 @@
-{% extends "../base.html" %}
+{% extends "base.html" %}
 
 {% block title %}
-  Emend > Search > {{query|default:default_heading|escape}}
+  Emend > Search > {{query or default_heading|escape}}
 {% endblock %}
 
 {% block header %}
-  > <a href="/search">Search</a> > {{query|default:default_heading|escape}}
+  > <a href="/search">Search</a> > {{query or default_heading|escape}}
 {% endblock %}
 
 {% block content %}
@@ -17,10 +17,10 @@
       {% for edit in edits %}
         <li class="gravatar">
           {{edit.author.gravatar}}
-          <a href="{{edit.permalink}}">&ldquo;{{edit.original|utf8|escape}}&rdquo;
-            should be &ldquo;{{edit.proposal|utf8|escape}}&rdquo;</a>
-            by <a href="{{edit.author.permalink}}">{{edit.author|utf8|escape}}</a>
-          {{edit.created_pretty_timedelta}}  
+          <a href="{{edit.permalink()}}">&ldquo;{{edit.original|escape}}&rdquo;
+            should be &ldquo;{{edit.proposal|escape}}&rdquo;</a>
+            by <a href="{{edit.author.permalink()}}">{{edit.author|escape}}</a>
+          {{edit.created_pretty_timedelta()}}  
         </li>
       {% endfor %}
     </ul>
