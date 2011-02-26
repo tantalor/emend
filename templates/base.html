@@ -85,8 +85,8 @@
           <p>You are an <strong>admin</strong></p>
           <p>
             {% for item in handler.config().admin %}
-              <a tabindex="{{forloop.counter0+150}}" href="{{item.1}}">{{item.0}}</a>
-              {% if not forloop.last %}-{% endif %}
+              <a tabindex="{{loop.index0+150}}" href="{{handler.config().admin[item]}}">{{item}}</a>
+              {% if not loop.last %}-{% endif %}
             {% endfor %}
           </p>
         {% endif %}
