@@ -11,8 +11,7 @@ class TestBitly(unittest.TestCase):
   def test_shorten(self):
     longUrl = "http://google.com"
     response = shorten(longUrl=longUrl)
-    expected = "http://bit.ly/1BArVh"
-    self.assertEquals(expected, response)
+    self.assertTrue(response.startswith('http://bit.ly/'))
 
 
 if __name__ == "__main__":

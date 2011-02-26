@@ -18,7 +18,7 @@ class TestHomepage(unittest.TestCase):
     # mock handler
     import handlers.default
     handler = mock_handler(page=handlers.default, request=request)
-    # execute handler
+    # execute handlers  
     try:
       handler.get()
     except UnicodeEncodeError:

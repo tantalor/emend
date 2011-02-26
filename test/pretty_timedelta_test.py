@@ -1,1 +1,0 @@
-../vendor/pretty_timedelta/test.py
