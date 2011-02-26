@@ -133,7 +133,7 @@ def post(handler, response):
   edit.tweet()
   
   # ping blogsearch
-  host_url = 'http://%s' % handler.host()()
+  host_url = 'http://%s' % handler.host()
   changes_url = '%s?atom' % host_url
   blogsearch.ping(name=site_name(), url=host_url, changesURL=changes_url)
   
