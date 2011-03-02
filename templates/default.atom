@@ -17,15 +17,15 @@
         <title>"{{edit.proposal|escape}}"</title>
         <author>
           <name>{{edit.author|escape}}</name>
-          <uri>{{edit.author.permalink|escape}}</uri>
+          <uri>{{edit.author.permalink()|escape}}</uri>
         </author>
         <link href="{{edit.permalink()}}"/>
         <updated>{{edit.created|rfc3339}}</updated>
-        <id>tag:{{handler.host()}},2010:{{edit.key}}</id>
+        <id>tag:{{handler.host()}},2010:{{edit.key()}}</id>
         <summary type="xhtml">
           <div xmlns="http://www.w3.org/1999/xhtml">
-            <p>&#8220;{% diff_src edit.original edit.proposal %}&#8221; should be &#8220;{% diff_dst edit.original edit.proposal %}&#8221; on <a href="{{edit.url|escape}}">{{edit.url|escape|cut:"http://"}}</a></p>
-            <p>More edits for <a href="{{edit.site.permalink|escape}}">{{edit.site}}</a></p>
+            <p>&#8220;{{diff_src(edit.original,edit.proposal)}}&#8221; should be &#8220;{{diff_dst(edit.original,edit.proposal)}}&#8221; on <a href="{{edit.url|escape}}">{{edit.url|escape|replace("http://", "")}}</a></p>
+            <p>More edits for <a href="{{edit.site.permalink()|escape}}">{{edit.site}}</a></p>
           </div>
         </summary>
       </entry>
