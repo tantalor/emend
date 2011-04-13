@@ -1,6 +1,6 @@
 import yaml
 
-from google.appengine.ext.webapp import WSGIApplication, template
+from google.appengine.ext.webapp import WSGIApplication
 from google.appengine.ext.webapp.util import run_wsgi_app
 
 from emend import RequestHandler
@@ -18,7 +18,6 @@ def application():
   return WSGIApplication(handlers(), debug=True)
 
 def main():
-  template.register_template_library('emend.template')
   run_wsgi_app(application())
 
 if __name__ == "__main__":
