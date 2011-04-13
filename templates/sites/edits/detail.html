@@ -14,7 +14,7 @@
 
 {% block content %}
 <div class="twelvecol">
-  <p><span class="feature">{{gravatar(edit.author,72)}}</span>According to <a href="{{edit.author.permalink()}}">{{edit.author|escape}}</a>, &ldquo;{{edit.original|escape}}&rdquo; should be &ldquo;{{edit.proposal|escape}}&rdquo; on <a href="{{edit.url}}">{{edit.url|truncate(45)|escape}}</a>.<p>
+  <p><span class="feature">{{gravatar(edit.author,72)}}</span>According to <a href="{{edit.author.permalink()}}">{{edit.author|escape}}</a>, &ldquo;{{edit.original|escape}}&rdquo; should be &ldquo;{{edit.proposal|escape}}&rdquo; on <a href="{{edit.url}}">{{edit.url|truncate(45,True)|escape}}</a>.<p>
     
   <p>This was first noticed on <abbr title="{{edit.created|rfc3339}}">{{edit.created_short}}</abbr>, about {{edit.created_pretty_timedelta()}}.</p>
   
