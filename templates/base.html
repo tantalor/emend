@@ -4,11 +4,13 @@
   {% endif %}
 {%- endmacro %}
 {% macro on_path(value) -%}
-  {% set query = handler.environ() %}
-  {% if query %}
-  {% else %}
-    ?{{value}}
-  {% endif %}
+  {%- set env = handler.environ() -%}
+  {%- set path = env['PATH_INFO'] -%}
+  {%- if env['QUERY_STRING'] -%}
+    {{path}}{{value}}?{{env['QUERY_STRING']}}
+  {%- else -%}
+    {{path}}{{value}}
+  {%- endif -%}
 {%- endmacro %}
 {% macro gravatar(user, size) -%}
   <a href="{{user.permalink()}}">
@@ -33,9 +35,9 @@
     <link type="text/css" rel="stylesheet" href="/css/site.css">
     <link type="text/css" rel="stylesheet" href="/css/awesome-buttons.css">
     <link rel="icon" href="/favicon.ico" />
-    <link rel="alternate" type="text/json" href="{{on_path("json")}}" />
-    <link rel="alternate" type="text/yaml" href="{{on_path("yaml")}}" />
-    <link rel="alternate" type="text/xml" href="{{on_path("xml")}}" />
+    <link rel="alternate" type="text/json" href="{{on_path(".json")}}" />
+    <link rel="alternate" type="text/yaml" href="{{on_path(".yaml")}}" />
+    <link rel="alternate" type="text/xml" href="{{on_path(".xml")}}" />
     
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
     
