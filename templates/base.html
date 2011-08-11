@@ -83,6 +83,12 @@
           <a tabindex="124" href="/users">Users</a> -
           <a tabindex="125" href="/search">Search</a>
         </p>
+        <p>
+          This page as
+            <a href="{{on_path(".json")}}">json</a>,
+            <a href="{{on_path(".yaml")}}">yaml</a>, or
+            <a href="{{on_path(".xml")}}">xml</a>.
+        </p>
         {% if handler.is_admin() %}
           <p>You are an <strong>admin</strong></p>
           <p>
