@@ -14,7 +14,7 @@
   - /sites
   - handlers.sites.default
 -
-  - /sites/([^/]+)
+  - /sites/([^/]+?)
   - handlers.sites.detail
 -
   - /sites/([^/]+)/open
@@ -26,25 +26,25 @@
   - /sites/([^/]+)/edits/([^/]+)/close
   - handlers.sites.edits.close
 -
-  - /sites/([^/]+)/edits/([^/]+)
+  - /sites/([^/]+)/edits/([\d]+)
   - handlers.sites.edits.detail
 -
-  - /sites/([^/]+)/edits/([^/]+)/open
+  - /sites/([^/]+)/edits/([\d]+)/open
   - handlers.sites.edits.open
 -
-  - /sites/([^/]+)/edits/([^/]+)/pingback
+  - /sites/([^/]+)/edits/([\d]+)/pingback
   - handlers.sites.edits.pingback
 -
-  - /sites/([^/]+)/edits/([^/]+)/test
+  - /sites/([^/]+)/edits/([\d]+)/test
   - handlers.sites.edits.test
 -
-  - /sites/([^/]+)/edits/([^/]+)/trackback
+  - /sites/([^/]+)/edits/([\d]+)/trackback
   - handlers.sites.edits.trackback
 -
-  - /sites/([^/]+)/edits/([^/]+)/update
+  - /sites/([^/]+)/edits/([\d]+)/update
   - handlers.sites.edits.update
 -
-  - /sites/([^/]+)/edits/([^/]+)/delete
+  - /sites/([^/]+)/edits/([\d]+)/delete
   - handlers.sites.edits.delete
 -
   - /tasks/edits/test
@@ -53,7 +53,7 @@
   - /users
   - handlers.users.default
 -
-  - /users/([^/]+)
+  - /users/([^/]+?)
   - handlers.users.detail
 -
   - /users/([^/]+)/closed
