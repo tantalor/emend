@@ -10,7 +10,7 @@ def routes():
 
 def handlers():
   return [(path, handler) for (path, handler) in [
-    (path, RequestHandler.with_page(page))
+    RequestHandler.path_with_page(path, page)
     for (path, page) in routes()
   ] if handler]
 
