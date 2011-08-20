@@ -1,9 +1,6 @@
 [submodule "vendor/jellyfish"]
 	path = vendor/jellyfish
 	url = git://github.com/tantalor/jellyfish.git
-[submodule "vendor/pretty_timedelta"]
-	path = vendor/pretty_timedelta
-	url = git://github.com/tantalor/pretty_timedelta.git
 [submodule "vendor/awesome-buttons"]
 	path = vendor/awesome-buttons
 	url = git://github.com/gr2m/awesome-buttons.git
