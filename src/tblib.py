@@ -1,1 +1,1 @@
-../vendor/tblib.py
+../site-packages/tblib.py
