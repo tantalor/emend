@@ -29,3 +29,5 @@ You can put your environment anywhere. In this example it is a directory called 
 Lastly, add a symlink to your site-packages directory,
 
     ln -s env/lib/python2.5/site-packages
+
+Emend's application root is "app".
