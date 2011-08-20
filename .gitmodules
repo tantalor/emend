@@ -1,6 +1,3 @@
-[submodule "vendor/megaera"]
-	path = vendor/megaera
-	url = git://github.com/tantalor/megaera.git
 [submodule "vendor/jellyfish"]
 	path = vendor/jellyfish
 	url = git://github.com/tantalor/jellyfish.git
