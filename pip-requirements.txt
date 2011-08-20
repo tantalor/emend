@@ -3,4 +3,5 @@ Jinja2==2.6
 -e git+ssh://git@github.com/tantalor/megaera.git#egg=Megaera
 -e git+ssh://git@github.com/tantalor/pblib.git#egg=pblib
 -e git+ssh://git@github.com/tantalor/tblib.git#egg=tblib
+-e git+ssh://git@github.com/tantalor/gaeunit.git#egg=gaeunit
 html5lib==0.90
