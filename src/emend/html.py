@@ -1,7 +1,7 @@
 import re
 import htmlentitydefs
 import html5lib
-from html5lib import treebuilders, treewalkers
+from html5lib import treebuilders, treewalkers, constants
 from html5lib.tokenizer import HTMLTokenizer
 from html5lib.serializer.htmlserializer import HTMLSerializer
 
@@ -19,10 +19,12 @@ def decode_entities(html):
     html = html.replace('&%s;' % entity, unichr(codepoint))
   return html
 
+tag_types = [constants.tokenTypes[x] for x in "StartTag", "EndTag", "EmptyTag"]
+
 class StripTags(HTMLTokenizer):
   def __iter__(self):
-    for token in super(StripTags, self).__iter__():
-      if token["type"] not in ["StartTag", "EndTag", "EmptyTag"]:
+    for token in HTMLTokenizer.__iter__(self):
+      if token["type"] not in tag_types:
         yield token
 
 def strip_tags(html):
