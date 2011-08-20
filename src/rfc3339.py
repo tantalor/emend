@@ -1,1 +1,1 @@
-../vendor/rfc3339/rfc3339.py
+../site-packages/rfc3339.py
