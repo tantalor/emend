@@ -3,3 +3,5 @@
 local.yaml
 TODO
 index.yaml
+env/
+site-packages
