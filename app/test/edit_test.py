@@ -163,9 +163,9 @@ class TestEdit(unittest.TestCase):
     self.assertEquals(edit.test(), "uncertain")
   
   def test_url_sha1(self):
-    edit = MockEdit(url="http://foo.com")
+    edit = MockEdit(url=u"http://test.com/“tell-your-girl”/")
     edit.put()
-    self.assertEquals(edit.url_sha1, "01f4420b64c9cbf03e293359105d55d04ff81d90")
+    self.assertEquals(edit.url_sha1, "21806e538e36dfb9b502b25df77464d09f117afb")
 
 if __name__ == "__main__":
   unittest.main()

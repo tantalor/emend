@@ -35,7 +35,7 @@ class Edit(search.SearchableModel):
   modified_short = property(fget=lambda self: self.modified.strftime(DATE_SHORT))
   
   def put(self):
-    self.url_sha1 = hashlib.sha1(self.url).hexdigest()
+    self.url_sha1 = hashlib.sha1(self.url.encode('utf8')).hexdigest()
     super(Edit, self).put()
   
   def can_edit(self):
