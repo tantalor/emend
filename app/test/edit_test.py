@@ -6,12 +6,9 @@ import handlers.sites.edits.detail
 from mocks import MockEdit, mock_handler
 from emend import stubs, html
 
-from google.appengine.ext.webapp import template
-
 
 class TestEdit(unittest.TestCase):
   def setUp(self):
-    template.register_template_library('emend.template')
     stubs.all()
   
   def test_unicode_original(self):
