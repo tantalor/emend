@@ -161,7 +161,11 @@ class TestEdit(unittest.TestCase):
       return html.clean("pirate ninja robot &ldquo;spam&rdquo; should be &ldquo;eggs&rdquo;")
     edit.page_content = mock_content
     self.assertEquals(edit.test(), "uncertain")
-
+  
+  def test_url_sha1(self):
+    edit = MockEdit(url="http://foo.com")
+    edit.put()
+    self.assertEquals(edit.url_sha1, "01f4420b64c9cbf03e293359105d55d04ff81d90")
 
 if __name__ == "__main__":
   unittest.main()

@@ -9,6 +9,7 @@ from user import User
 from google.appengine.ext import db, search
 from google.appengine.api import users
 from google.appengine.api.urlfetch_errors import DownloadError
+import hashlib
 
 from emend import bitly, twitter, html
 from emend.const import DATE_SHORT
@@ -18,6 +19,7 @@ from megaera.fetch import fetch_decode
 class Edit(search.SearchableModel):
   index = db.IntegerProperty(required=True)
   url = db.StringProperty(required=True)
+  url_sha1 = db.StringProperty()
   author = db.ReferenceProperty(required=True, reference_class=User)
   created = db.DateTimeProperty(auto_now_add=True)
   modified = db.DateTimeProperty()
@@ -31,6 +33,10 @@ class Edit(search.SearchableModel):
   is_closed = property(fget=lambda self: self.status == 'closed')
   created_short = property(fget=lambda self: self.created.strftime(DATE_SHORT))
   modified_short = property(fget=lambda self: self.modified.strftime(DATE_SHORT))
+  
+  def put(self):
+    self.url_sha1 = hashlib.sha1(self.url).hexdigest()
+    super(Edit, self).put()
   
   def can_edit(self):
     user = users.get_current_user()
