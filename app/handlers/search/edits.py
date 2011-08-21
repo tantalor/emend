@@ -28,8 +28,10 @@ def get(handler, response):
   if to_key:
     search_args['to_edit'] = Edit.get(to_key)
   # search edits
-  if re.match('^http://', query):
-    edits = search_by_url(query, **search_args)
+  url_sha1_match = re.match('^url_sha1:(\w+)$', query)
+  if url_sha1_match:
+    (url_sha1,) = url_sha1_match.groups()
+    edits = search_by_url_sha1(url_sha1, **search_args)
   else:
     edits = search_by_query(query, **search_args)
   # check for next/prev
@@ -73,3 +75,7 @@ def search_by_query(query, **kwargs):
 
 def search_by_url(url, **kwargs):
   return search(Edit.all().filter('url =', url), **kwargs)
+
+
+def search_by_url_sha1(url_sha1, **kwargs):
+  return search(Edit.all().filter('url_sha1 =', url_sha1), **kwargs)
