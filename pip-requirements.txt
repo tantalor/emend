@@ -7,3 +7,9 @@ Jinja2==2.6
 -e git+ssh://git@github.com/tantalor/pretty_timedelta.git#egg=pretty_timedelta
 -e git+ssh://git@github.com/tonyg/python-rfc3339.git#egg=rfc3339
 html5lib==0.90
+Django==1.3
+PyYAML==3.10
+WebOb==1.1rc1
+antlr-python-runtime==3.1.3
+ipaddr==2.1.9
+simplejson==2.1.6
