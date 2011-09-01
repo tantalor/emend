@@ -1,8 +1,8 @@
 function()
 {
   window.open(
-    'http://www.emendapp.com?url='+encodeURIComponent(location.protocol+"//"+location.host+location.pathname)+
-      '&v=4&original='+
+    'http://www.emendapp.com?url='+encodeURIComponent(location.href.replace(/#.*/, ''))+
+      '&v=5&original='+
       encodeURIComponent(
         window.getSelection ? window.getSelection() :
         document.getSelection ? document.getSelection() :
