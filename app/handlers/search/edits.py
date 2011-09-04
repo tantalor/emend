@@ -3,6 +3,7 @@ from emend import Edit
 
 
 PAGE_SIZE = 10
+URL_SHA1_QUERY = re.compile('^url_sha1:(\w+)$')
 
 
 def get(handler, response):
@@ -28,7 +29,7 @@ def get(handler, response):
   if to_key:
     search_args['to_edit'] = Edit.get(to_key)
   # search edits
-  url_sha1_match = re.match('^url_sha1:(\w+)$', query)
+  url_sha1_match = URL_SHA1_QUERY.match(query)
   if url_sha1_match:
     (url_sha1,) = url_sha1_match.groups()
     edits = search_by_url_sha1(url_sha1, **search_args)
