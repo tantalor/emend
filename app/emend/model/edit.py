@@ -100,6 +100,7 @@ class Edit(search.SearchableModel):
       site=self.site.sanitize(),
       url=self.url,
       author=self.author.sanitize(),
+      url_sha1=self.url_sha1,
     )
   
   def open(self):
