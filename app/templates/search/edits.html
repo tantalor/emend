@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
 {% block title %}
-  Emend > Search > {{query or default_heading|escape}}
+  Emend > Search > {{heading|escape}}
 {% endblock %}
 
 {% block header %}
-  > <a href="/search">Search</a> > {{query or default_heading|escape}}
+  > <a href="/search">Search</a> > {{heading|escape}}
 {% endblock %}
 
 {% block content %}

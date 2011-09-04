@@ -9,16 +9,17 @@ URL_SHA1_QUERY = re.compile('^url_sha1:(\w+)$')
 def get(handler, response):
   query = handler.request.get('q')
   status = handler.request.get('status')
+  url_sha1 = handler.request.get('url_sha1')
   response.query = query
   response.status = status
   search_args = dict(status=status)
   # default heading
   if status == "open":
-    response.default_heading = "Open edits"
+    heading = "Open edits"
   elif status == "closed":
-    response.default_heading = "Closed edits"
+    heading = "Closed edits"
   else:
-    response.default_heading = "All edits"
+    heading = "All edits"
   # from edit
   from_key = handler.request.get('from')
   if from_key:
@@ -29,12 +30,17 @@ def get(handler, response):
   if to_key:
     search_args['to_edit'] = Edit.get(to_key)
   # search edits
-  url_sha1_match = URL_SHA1_QUERY.match(query)
-  if url_sha1_match:
-    (url_sha1,) = url_sha1_match.groups()
+  if not url_sha1:
+    url_sha1_match = URL_SHA1_QUERY.match(query)
+    if url_sha1_match:
+      (url_sha1,) = url_sha1_match.groups()
+  if url_sha1:
     edits = search_by_url_sha1(url_sha1, **search_args)
+    heading = "sha1(url) = %s..." % (url_sha1[:6])
   else:
     edits = search_by_query(query, **search_args)
+    if query:
+      heading = query
   # check for next/prev
   if to_key:
     if len(edits) > PAGE_SIZE + 1:
@@ -47,6 +53,7 @@ def get(handler, response):
     edits = edits[:-1]
   # for output
   response.edits = edits[:PAGE_SIZE]
+  response.heading = heading
 
 
 def search(query, from_edit=None, to_edit=None, status=None):
