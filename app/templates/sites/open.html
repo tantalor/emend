@@ -1,5 +1,14 @@
 {% extends "base.html" %}
 
+{% block head %}
+  {% if has_prev %}
+    <link re="prev" href="{{site.permalink()}}/open?from={{prev_from}}" />
+  {% endif %}
+  {% if has_next %}
+    <link re="next" href="{{site.permalink()}}/open?from={{next_from}}" />
+  {% endif %}
+{% endblock %}
+
 {% block title %}
   Emend > {{site.domain}} > Open edits
 {% endblock %}
@@ -24,6 +33,12 @@
   
     {% if has_prev or has_next %}
       <p class="prev-next">
+        {% if has_prev %}
+          <a href="{{site.permalink()}}/open?from={{prev_from}}">&larr; prev</a>
+        {% endif %}
+        {% if has_prev and has_next %}
+          |
+        {% endif %}
         {% if has_next %}
           <a href="{{site.permalink()}}/open?from={{next_from}}">next &rarr;</a>
         {% endif %}

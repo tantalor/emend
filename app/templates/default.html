@@ -6,6 +6,9 @@
 
 {% block head %}
   <link href="/?atom" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed" />
+  {% if has_next %}
+    <link rel="next" href="/search/edits?status=open&amp;from={{next_from}}" />
+  {% endif %}
 {% endblock %}
 
 {% block content %}

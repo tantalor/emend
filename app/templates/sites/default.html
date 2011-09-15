@@ -1,5 +1,14 @@
 {% extends "base.html" %}
 
+{% block head %}
+  {% if has_prev %}
+    <link rel="prev" href="/sites?from={{prev_from}}" />
+  {% endif %}
+  {% if has_next %}
+    <link rel="next" href="/sites?from={{next_from}}" />
+  {% endif %}
+{% endblock %}
+
 {% block title %}
   Emend > Sites
 {% endblock %}

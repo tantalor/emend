@@ -1,5 +1,11 @@
 {% extends "base.html" %}
 
+{% block head %}
+  {% if from_key %}
+    <link rel="next" href="/users?from={{from_key}}" />
+  {% endif %}
+{% endblock %}
+
 {% block title %}
   Emend > Users
 {% endblock %}

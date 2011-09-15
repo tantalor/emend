@@ -1,5 +1,11 @@
 {% extends "base.html" %}
 
+{% block head %}
+  {% if has_next %}
+    <link rel href="{{user.permalink()}}/open?from={{next_from}}" />
+  {% endif %}
+{% endblock %}
+
 {% block title %}
   Emend > {{user|escape}} > Open edits
 {% endblock %}
@@ -25,7 +31,7 @@
     {% if has_prev or has_next %}
       <p class="prev-next">
         {% if has_next %}
-          <a href="{{site.permalink()}}?from={{next_from}}">next &rarr;</a>
+          <a href="{{user.permalink()}}/open?from={{next_from}}">next &rarr;</a>
         {% endif %}
       </p>
     {% endif %}

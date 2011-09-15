@@ -4,6 +4,15 @@
   Emend > Search > {{heading|escape}}
 {% endblock %}
 
+{% block head %}
+  {% if to_key %}
+    <link rel="prev" href="/search/edits?status={{status}}&amp;q={{query}}&amp;to={{to_key}}" />
+  {% endif %}
+  {% if from_key %}
+    <link rel="next" href="/search/edits?status={{status}}&amp;q={{query}}&amp;from={{from_key}}" />
+  {% endif %}
+{% endblock %}
+
 {% block header %}
   > <a href="/search">Search</a> > {{heading|escape}}
 {% endblock %}

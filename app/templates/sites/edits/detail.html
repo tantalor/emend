@@ -2,6 +2,12 @@
 
 {% block head %}
   <link rel="canonical" href="{{edit.permalink()}}">
+  {% if prev %}
+    <link rel="prev" href="{{prev.permalink()}}" />
+  {% endif %}
+  {% if next %}
+    <link re="next" href="{{next.permalink()}}" />
+  {% endif %}
 {% endblock %}
 
 {% block title %}
