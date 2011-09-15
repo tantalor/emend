@@ -1,6 +1,7 @@
 from google.appengine.api import urlfetch, memcache
 
 import re
+from urlparse import urlparse, urljoin
 
 from megaera.fetch import fetch_decode
 
@@ -18,17 +19,16 @@ def canonical_url(url):
   html = fetch_decode(url)
   if html:
     # extract canonical url
-    _url = canonical_url_in_html(html)
+    _url = canonical_url_in_html(html, url)
     if _url:
       # cache for posterity
       memcache.set(cache_key, _url)
       return _url
 
-def canonical_url_in_html(html):
+def canonical_url_in_html(html, url):
   match = __canonical_re__.search(html)
   if match:
-    return match.group(1)
-
+    return urljoin(url, match.group(1))
 
 if __name__ == '__main__':
   import stubs
