@@ -32,5 +32,6 @@ class Site(db.Model, Counts):
       domain=self.domain,
       open=self.open,
       closed=self.closed,
+      permalink=self.permalink(),
     )
     return json

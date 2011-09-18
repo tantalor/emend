@@ -101,6 +101,7 @@ class Edit(search.SearchableModel):
       url=self.url,
       author=self.author.sanitize(),
       url_sha1=self.url_sha1,
+      permalink=self.permalink(),
     )
   
   def open(self):

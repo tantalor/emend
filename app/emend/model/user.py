@@ -64,5 +64,6 @@ class User(db.Model, Counts):
   
   def sanitize(self):
     return dict(
-      nickname=unicode(self)
+      nickname=unicode(self),
+      permalink=self.permalink(),
     )
