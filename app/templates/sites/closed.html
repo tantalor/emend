@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
 {% block head %}
-  {% if has_prev %}
-    <link re="prev" href="{{site.permalink()}}/closed?from={{prev_from}}" />
+  {% if previous %}
+    <link re="prev" href="{{previous.url}}" />
   {% endif %}
-  {% if has_next %}
-    <link re="next" href="{{site.permalink()}}/closed?from={{next_from}}" />
+  {% if next %}
+    <link re="next" href="{{next.url}}" />
   {% endif %}
 {% endblock %}
 
@@ -31,16 +31,16 @@
       {% endfor %}
     </ul>
   
-    {% if has_prev or has_next %}
+    {% if previous or next %}
       <p class="prev-next">
-        {% if has_prev %}
-          <a href="{{site.permalink()}}/closed?from={{prev_from}}">&larr; prev</a>
+        {% if previous %}
+          <a href="{{previous.url}}">&larr; prev</a>
         {% endif %}
-        {% if has_prev and has_next %}
+        {% if previous and next %}
           |
         {% endif %}
-        {% if has_next %}
-          <a href="{{site.permalink()}}/closed?from={{next_from}}">next &rarr;</a>
+        {% if next %}
+          <a href="{{next.url}}">next &rarr;</a>
         {% endif %}
       </p>
     {% endif %}
