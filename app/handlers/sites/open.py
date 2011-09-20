@@ -8,7 +8,6 @@ def get(handler, response):
   from_index = handler.request.get('from')
   if from_index:
     from_index = int(from_index)
-    response.prev_from = from_index + PAGE_SIZE
     edits = Edit.all().\
       ancestor(site).\
       filter('index <=', from_index).\
@@ -21,7 +20,8 @@ def get(handler, response):
       order('-index').\
       fetch(1)
     if top_edit[0].index != edits[0].index:
-      response.has_prev = 1
+      response.previous.index = from_index + PAGE_SIZE
+      response.previous.url = "%s/open?from=%s" % (site.permalink(), response.previous.index)
   else:
     edits = Edit.all().\
       ancestor(site).\
@@ -30,5 +30,5 @@ def get(handler, response):
       fetch(PAGE_SIZE+1)
   response.edits = edits[:PAGE_SIZE]
   if len(edits) > PAGE_SIZE:
-    response.has_next = 1
-    response.next_from = edits[-1].index
+    response.next.index = edits[-1].index
+    response.next.url = "%s/open?from=%s" % (site.permalink(), response.next.index)
