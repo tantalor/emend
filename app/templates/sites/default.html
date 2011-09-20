@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
 {% block head %}
-  {% if has_prev %}
-    <link rel="prev" href="/sites?from={{prev_from}}" />
+  {% if previous %}
+    <link rel="prev" href="{{previous.url}}" />
   {% endif %}
-  {% if has_next %}
-    <link rel="next" href="/sites?from={{next_from}}" />
+  {% if next %}
+    <link rel="next" href="{{next.url}}" />
   {% endif %}
 {% endblock %}
 
@@ -35,16 +35,16 @@
     <p>No sites</p>
   {% endif %}
 
-  {% if has_prev or has_next %}
+  {% if previous or next %}
     <p class="prev-next">
-      {% if has_prev %}
-        <a href="/sites?from={{prev_from}}">&larr; prev</a>
+      {% if previous %}
+        <a href="{{previous.url}}">&larr; prev</a>
       {% endif %}
 
-      {% if has_prev and has_next %}|{% endif %}
+      {% if previous and next %}|{% endif %}
 
-      {% if has_next %}
-        <a href="/sites?from={{next_from}}">next &rarr;</a>
+      {% if next %}
+        <a href="{{next.url}}">next &rarr;</a>
       {% endif %}
     </p>
   {% endif %}

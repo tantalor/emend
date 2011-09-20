@@ -27,5 +27,5 @@ def get(handler, response):
   response.sites = sites[:PAGE_SIZE]
   
   if len(sites) > PAGE_SIZE:
-    response.has_next = 1
-    response.next_from = sites[PAGE_SIZE].domain
+    response.next.domain = sites[PAGE_SIZE].domain
+    response.next.url = "http://%s/sites?from=%s" % (handler.host(), response.next.domain)
