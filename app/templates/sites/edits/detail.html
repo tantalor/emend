@@ -2,11 +2,11 @@
 
 {% block head %}
   <link rel="canonical" href="{{edit.permalink()}}">
-  {% if prev %}
-    <link rel="prev" href="{{prev.permalink()}}" />
+  {% if previous %}
+    <link rel="prev" href="{{previous.url}}" />
   {% endif %}
   {% if next %}
-    <link re="next" href="{{next.permalink()}}" />
+    <link re="next" href="{{next.url}}" />
   {% endif %}
 {% endblock %}
 
@@ -60,22 +60,22 @@
     <span class="fakelink click-trackback">Trackback</span>
   </p>
   
-  {% if prev or next %}
+  {% if previous or next %}
     <p class="prev-next">
-      {% if prev %}
-        <a href="{{prev.permalink()}}">&larr; {{prev.proposal|truncate(32)|escape}}</a>
+      {% if previous %}
+        <a href="{{previous.url}}">&larr; {{previous.edit.proposal|truncate(32)|escape}}</a>
       {% else %}
         {% if edit.site.open != 1 %}
           <a href="{{edit.site.permalink()}}/open">{{edit.site.open}} open edits</a> |
         {% endif %}
       {% endif %}
     
-      {% if prev and next %}
+      {% if previous and next %}
         | <a href="{{edit.site.permalink()}}/open">{{edit.site.open}} open edits</a> |
       {% endif %}
     
       {% if next %}
-        <a href="{{next.permalink()}}">{{next.proposal|truncate(32)|escape}} &rarr;</a>
+        <a href="{{next.url}}">{{next.edit.proposal|truncate(32)|escape}} &rarr;</a>
       {% else %}
         {% if edit.site.open != 1 %}
           | <a href="{{edit.site.permalink()}}/open">{{edit.site.open}} open edits</a>

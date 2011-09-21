@@ -9,9 +9,10 @@ def get(handler, response):
     filter('index >', edit.index).\
     filter('status =', 'open').\
     order('index').\
-    fetch(1)
+    get()
   if next:
-    response.next = next[0]
+    response.next.edit = next
+    response.next.url = next.permalink()
   
   # prev  
   prev = Edit.all().\
@@ -19,7 +20,7 @@ def get(handler, response):
     filter('index <', edit.index).\
     filter('status =', 'open').\
     order('-index').\
-    fetch(1)
+    get()
   if prev:
-    response.prev = prev[0]
-  
+    response.previous.edit = prev
+    response.previous.url = prev.permalink()
