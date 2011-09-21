@@ -47,7 +47,7 @@ def get(handler, response):
       response.users = users[1:PAGE_SIZE+1]
     else:
       response.users = users[:PAGE_SIZE]
-  elif from_key:
+  elif from_user:
     # get users with same open & closed count, order by key
     users = User.all().\
       filter('open =', from_user.open).\
