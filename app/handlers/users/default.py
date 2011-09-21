@@ -39,4 +39,5 @@ def get(handler, response):
   
   response.users = users[:PAGE_SIZE]
   if len(users) > PAGE_SIZE:
-    response.from_key = users[PAGE_SIZE].key()
+    response.next.user = users[PAGE_SIZE]
+    response.next.url = "http://%s/users?from=%s" % (handler.host(), response.next.user.key())
