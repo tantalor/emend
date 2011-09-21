@@ -57,17 +57,17 @@ def get(handler, response):
   
   # pagination
   if to_site:
-    response.next.domain = to_site.domain
-    response.next.url = "http://%s/sites?from=%s" % (handler.host(), response.next.domain)
+    response.next.site = to_site
+    response.next.url = "http://%s/sites?from=%s" % (handler.host(), response.next.site.domain)
     
     if len(sites) > PAGE_SIZE+1:
-      response.previous.domain = sites[1].domain
-      response.previous.url = "http://%s/sites?to=%s" % (handler.host(), response.previous.domain)
+      response.previous.site = sites[1]
+      response.previous.url = "http://%s/sites?to=%s" % (handler.host(), response.previous.site.domain)
   else:
     if from_site:
-      response.previous.domain = from_site.domain
-      response.previous.url = "http://%s/sites?to=%s" % (handler.host(), response.previous.domain)
+      response.previous.site = from_site
+      response.previous.url = "http://%s/sites?to=%s" % (handler.host(), response.previous.site.domain)
   
     if len(sites) > PAGE_SIZE:
-      response.next.domain = sites[PAGE_SIZE].domain
-      response.next.url = "http://%s/sites?from=%s" % (handler.host(), response.next.domain)
+      response.next.site = sites[PAGE_SIZE]
+      response.next.url = "http://%s/sites?from=%s" % (handler.host(), response.next.site.domain)
