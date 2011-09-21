@@ -20,8 +20,9 @@ def get(handler, response):
     sites = Site.all().\
       filter('open =', to_site.open).\
       filter('domain <=', to_site.domain).\
-      order('domain').\
+      order('-domain').\
       fetch(PAGE_SIZE+2)
+    sites.reverse()
     if len(sites) < PAGE_SIZE+2:
       pad = Site.all().\
         filter('open >', to_site.open).\
