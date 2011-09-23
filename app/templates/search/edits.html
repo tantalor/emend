@@ -5,11 +5,11 @@
 {% endblock %}
 
 {% block head %}
-  {% if to_key %}
-    <link rel="prev" href="/search/edits?status={{status}}&amp;q={{query}}&amp;to={{to_key}}" />
+  {% if previous %}
+    <link rel="prev" href="{{previous.url}}" />
   {% endif %}
-  {% if from_key %}
-    <link rel="next" href="/search/edits?status={{status}}&amp;q={{query}}&amp;from={{from_key}}" />
+  {% if next %}
+    <link rel="next" href="{{next.url}}" />
   {% endif %}
 {% endblock %}
 
@@ -34,16 +34,16 @@
       {% endfor %}
     </ul>
   
-    {% if to_key or from_key %}
+    {% if previous or next %}
       <p class="prev-next">
-        {% if to_key %}
-          <a href="/search/edits?status={{status}}&amp;q={{query}}&amp;to={{to_key}}">&larr; prev</a>
+        {% if previous %}
+          <a href="{{previous.url}}">&larr; prev</a>
         {% endif %}
-        {% if to_key and from_key %}
+        {% if previous and next %}
           |
         {% endif %}
-        {% if from_key %}
-          <a href="/search/edits?status={{status}}&amp;q={{query}}&amp;from={{from_key}}">next &rarr;</a>
+        {% if next %}
+          <a href="{{next.url}}">next &rarr;</a>
         {% endif %}
       </p>
     {% endif %}
