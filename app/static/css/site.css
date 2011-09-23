@@ -160,6 +160,10 @@ a img.gravatar {
   border: none;
 }
 
+.chrome {
+  display: none;
+}
+
 /* mobile */
 
 @media handheld, only screen and (max-width: 767px) {

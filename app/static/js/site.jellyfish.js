@@ -44,6 +44,13 @@ Jellyfish(function () {
     });
     /* diff */
     this.sting('[name=proposal]/keyup', diff);
+    /* chrome webstore */
+    this.sting('.click-install-chrome/click', function (evt) {
+      if (chrome.webstore && chrome.webstore.install) {
+        evt.preventDefault();
+        chrome.webstore.install();
+      }
+    });
   });
   /* edit detail */
   this.bloom('/sites/:site/edits/:index', function () {

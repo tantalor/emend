@@ -9,6 +9,14 @@
   {% if has_next %}
     <link rel="next" href="/search/edits?status=open&amp;from={{next_from}}" />
   {% endif %}
+  <link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/aidceblfaocjjjnmbiaaadpbgmnglmeg">
+  <script type="text/javascript" charset="utf-8">
+    if (window.chrome) {
+      $(function () {
+        $('.chrome').show();
+      });
+    }
+  </script>
 {% endblock %}
 
 {% block content %}
@@ -107,5 +115,6 @@
     <p>Use <a tabindex="53" href="/iphone">Emend on iPhone</a></p>
     <p>Add an <a tabindex="55" href="/widgets">Emend blog widget</a></p>
     <p>Bookmarklet: <a tabindex="56" href="javascript:{% filter quote %}({{bookmarklet}})(){% endfilter %}">Emend</a></p>
+    <p class="chrome">Install our <a href="https://chrome.google.com/webstore/detail/aidceblfaocjjjnmbiaaadpbgmnglmeg" class="click-install-chrome">Chrome extension</a></p>
   </div>
 {% endblock %}
