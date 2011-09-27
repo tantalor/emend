@@ -12,7 +12,15 @@ def get(handler, response):
   q = handler.request.get('q')
   status = handler.request.get('status')
   url_sha1 = handler.request.get('url_sha1')
-  cursor = handler.request.get('cursor')
+  from_key = handler.request.get('from')
+  to_key = handler.request.get('to')
+  
+  from_edit, to_edit = None, None
+  
+  if from_key:
+    from_edit = Edit.get(from_key)
+  if to_key:
+    to_edit = Edit.get(to_key)
   
   if url_sha1:
     response.heading = "sha1(url) = %s..." % (url_sha1[:6])
@@ -32,24 +40,46 @@ def get(handler, response):
     query = query.filter('status =', status)
   if q:
     query = query.search(q)
+  if from_edit:
+    query = query.filter('created <=', from_edit.created)
+  if to_edit:
+    query = query.filter('created >', to_edit.created)
   
   # sort
-  query = query.order('-created')
+  if to_edit:
+    query = query.order('created')
+  else:
+    query = query.order('-created')
   
-  # cursor
-  if cursor:
-    query = query.with_cursor(cursor)
-  
-  edits = query.fetch(PAGE_SIZE)
-  cursor = query.cursor()
-  
-  if len(edits) == PAGE_SIZE:
-    response.next.cursor = cursor
-    # build next url
-    query_dict = cgi.parse_qs(os.environ.get('QUERY_STRING'), keep_blank_values=True)
-    query_dict['cursor'] = cursor
-    response.next.cursor = cursor
-    response.next.url = 'http://%s/search/edits?%s' % (handler.host(), urllib.urlencode(query_dict, doseq=True))
-  
-  # for output
+  # output
+  edits = query.fetch(PAGE_SIZE+1)
   response.edits = edits[:PAGE_SIZE]
+  if to_edit:
+    response.edits.reverse()
+  
+  # pagination
+  query_dict = cgi.parse_qs(os.environ.get('QUERY_STRING'), keep_blank_values=True)
+  if to_edit: # backward
+    next_query_dict = query_dict.copy()
+    next_query_dict.pop("to", None)
+    next_query_dict["from"] = to_edit.key() # first on next page
+    response.next.url = 'http://%s/search/edits?%s' % (handler.host(), urllib.urlencode(next_query_dict, doseq=True))
+    
+    if len(edits) > PAGE_SIZE:
+      previous_query_dict = query_dict.copy()
+      previous_query_dict.pop("from", None)
+      previous_query_dict["to"] = response.edits[0].key() # first on this page
+      response.previous.url = 'http://%s/search/edits?%s' % (handler.host(), urllib.urlencode(previous_query_dict, doseq=True))
+      
+  else: # forward
+    if len(edits) > PAGE_SIZE:
+      next_query_dict = query_dict.copy()
+      next_query_dict.pop("to", None)
+      next_query_dict["from"] = edits[-1].key() # first on next page
+      response.next.url = 'http://%s/search/edits?%s' % (handler.host(), urllib.urlencode(next_query_dict, doseq=True))
+    
+    if response.edits and from_edit:
+      previous_query_dict = query_dict.copy()
+      previous_query_dict.pop("from", None)
+      previous_query_dict["to"] = response.edits[0].key() # first on this page
+      response.previous.url = 'http://%s/search/edits?%s' % (handler.host(), urllib.urlencode(previous_query_dict, doseq=True))
