@@ -3,6 +3,8 @@ version: 1
 runtime: python
 api_version: 1
 
+default_expiration: "10d"
+
 builtins:
 - remote_api: on
 
