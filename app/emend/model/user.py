@@ -16,6 +16,7 @@ class User(db.Model, Counts):
   open = db.IntegerProperty(required=True, default=0)
   closed = db.IntegerProperty(required=True, default=0)
   created = db.DateTimeProperty(auto_now_add=True)
+  banned = db.BooleanProperty(default=False)
   
   created_short = property(fget=lambda self: self.created.strftime(DATE_SHORT))
   

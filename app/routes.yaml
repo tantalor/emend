@@ -65,6 +65,12 @@
   - /users/([^/]+)/nickname
   - handlers.users.nickname
 -
+  - /users/([^/]+)/ban
+  - handlers.users.ban
+-
+  - /users/([^/]+)/unban
+  - handlers.users.unban
+-
   - /widgets
   - handlers.widgets
 -

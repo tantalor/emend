@@ -122,4 +122,29 @@ Jellyfish(function () {
       }, 'json');
     });
   });
+  /* user detail */
+  this.bloom('/users/:user', function () {
+    /* ban */
+    this.sting('.click-ban/click', function (evt) {
+      evt.preventDefault();
+      $.post(this.href, {json: 1}, function (response) {
+        if (response.success) {
+          alert('User is now banned.');
+        } else { 
+          alert('Failed to ban user.');
+        }
+      }, 'json'); 
+    });
+    /* unban */
+    this.sting('.click-unban/click', function (evt) {
+      evt.preventDefault();
+      $.post(this.href, {json: 1}, function (response) {
+        if (response.success) {
+          alert('User is no longer banned.');
+        } else { 
+          alert('Failed to unban user.');
+        }
+      }, 'json'); 
+    });
+  });
 });

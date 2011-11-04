@@ -63,5 +63,13 @@
   {% if user.can_edit() %}
     <p><a href="{{user.shareable_permalink()}}">Shareable permalink</a></p>
   {% endif %}
+  
+  {% if handler.is_admin() %}
+    {% if user.banned %}
+      <p><a href="{{user.permalink()}}/unban" class="click-unban">Unban {{user}}</a></p>
+    {% else %}
+      <p><a href="{{user.permalink()}}/ban" class="click-ban">Ban {{user}}</a></p>
+    {% endif %}
+  {% endif %}
 </div>
 {% endblock %}
