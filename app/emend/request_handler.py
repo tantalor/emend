@@ -36,9 +36,9 @@ class RequestHandler(megaera.RequestHandler):
         return cached
       try:
         # User models are keyed by user email
-        uncached = User.get_or_insert(key_name=key_name, user=user)
-        uncached.invalidate() # cache it
-        return uncached
+        user = User.get_or_insert(key_name=key_name, user=user)
+        user.invalidate() # cache it
+        return user
       except CapabilityDisabledError:
         pass
   
