@@ -15,6 +15,7 @@ from megaera import local, NotFoundException
 
 from google.appengine.api import users, memcache
 from google.appengine.ext import db
+from google.appengine.runtime.apiproxy_errors import CapabilityDisabledError
 
 class RequestHandler(megaera.RequestHandler):
   
@@ -28,17 +29,19 @@ class RequestHandler(megaera.RequestHandler):
   
   def current_user(self):
     """Returns the logged-in User object."""
-    user = users.get_current_user()
-    if user:
-      key_name = User.key_name_from_email(user.email())
-      cached = memcache.get(key_name)
-      if cached:
-        return cached
+    u = users.get_current_user()
+    if u:
+      key_name = User.key_name_from_email(u.email())
+      user = memcache.get(key_name)
+      if user:
+        if not user.banned:
+          return user
       try:
         # User models are keyed by user email
-        user = User.get_or_insert(key_name=key_name, user=user)
+        user = User.get_or_insert(key_name=key_name, user=u)
         user.invalidate() # cache it
-        return user
+        if not user.banned:
+          return user
       except CapabilityDisabledError:
         pass
   
