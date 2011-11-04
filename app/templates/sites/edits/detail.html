@@ -42,15 +42,15 @@
   
   <p><a href="http://twitter.com/home?status={{edit.as_tweet()|quote}}">Tweet this</a></p>
   
-  {% if edit.can_edit and edit.is_open %}
+  {% if edit.can_edit() and edit.is_open() %}
     <p><span class="fakelink click-close">Change to &ldquo;fixed&rdquo;</span></p>
   {% endif %}
   
-  {% if edit.can_edit and edit.is_closed %}
+  {% if edit.can_edit() and edit.is_closed() %}
     <p><span class="fakelink click-open">Change back to &ldquo;unfixed&rdquo;</span></p>
   {% endif %}
   
-  {% if edit.can_edit %}
+  {% if edit.can_edit() %}
     <p><a href="{{edit.permalink()}}/update">Update this</a></p>
     <p><span class="fakelink click-delete">Delete this</span></p>
   {% endif %}
