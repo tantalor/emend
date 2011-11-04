@@ -43,7 +43,8 @@ class Edit(search.SearchableModel):
     if users.is_current_user_admin():
       return True
     if user and user == self.author.user:
-      return True
+      if not self.author.banned:
+        return True
   
   def permalink(self):
     return "%s/edits/%s" % (self.site.permalink(), self.index)
