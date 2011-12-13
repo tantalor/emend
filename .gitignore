@@ -3,5 +3,9 @@
 local.yaml
 TODO
 index.yaml
-env/
-site-packages
+.Python
+bin/
+include/
+lib/
+build/
+src/
