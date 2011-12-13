@@ -16,18 +16,16 @@ via [YQL](http://developer.yahoo.com/yql/).
 
 Emend expects its requirements to be installed by `pip` in a `virtualenv` environment.
 
-From your project root, setup the environment,
+Setup the environment in the project root,
 
-    virtualenv -p /usr/bin/python2.5 --no-site-packages env
+    virtualenv -p /usr/bin/python2.7 --no-site-packages .
 
-Then install Emend's requirements,
+Activate the environment,
 
-    env/bin/pip -E env install -r pip-requirements.txt
+    source bin/activate
 
-You can put your environment anywhere. In this example it is a directory called "env".
+Install Emend's requirements,
 
-Lastly, add a symlink to your site-packages directory,
-
-    ln -s env/lib/python2.5/site-packages
+    pip install -r pip-requirements.txt
 
 Emend's application root is "app".
