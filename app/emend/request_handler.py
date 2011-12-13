@@ -2,13 +2,7 @@ import urllib
 import logging
 import os
 
-from urllib import quote
-
 from model import Edit, Site, User
-
-from diff import diff, diff_src, diff_dst
-
-from rfc3339 import datetimetostr as rfc3339
 
 import megaera
 from megaera import local, NotFoundException
@@ -18,14 +12,6 @@ from google.appengine.ext import db
 from google.appengine.runtime.apiproxy_errors import CapabilityDisabledError
 
 class RequestHandler(megaera.RequestHandler):
-  
-  def __init__(self):
-    super(RequestHandler, self).__init__()
-    self.jinja.filters['quote'] = lambda s: quote(s.encode('utf8'))
-    self.jinja.globals['diff'] = diff
-    self.jinja.globals['diff_src'] = diff_src
-    self.jinja.globals['diff_dst'] = diff_dst
-    self.jinja.filters['rfc3339'] = rfc3339
   
   def current_user(self):
     """Returns the logged-in User object."""
