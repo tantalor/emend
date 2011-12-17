@@ -4,6 +4,7 @@ import logging
 from emend import Site, Edit, User
 
 from emend import suggest, bookmarklet, site_name, blogsearch, canonical_url
+from emend.model.edit import get_url_sha1_bloom
 from megaera.env import is_dev
 
 from google.appengine.ext import db
@@ -121,6 +122,12 @@ def post(handler, response):
     return edit
   
   edit = db.run_in_transaction(put_edit)
+  
+  # add to bloom
+  bloom = get_url_sha1_bloom()
+  if bloom:
+    bloom.add(edit.url_sha1)
+    bloom.put()
   
   # clear cache
   handler.invalidate()
