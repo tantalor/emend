@@ -16,9 +16,6 @@ jinja2_env.globals['diff_src'] = diff_src
 jinja2_env.globals['diff_dst'] = diff_dst
 jinja2_env.filters['rfc3339'] = rfc3339
 
-import logging
-logging.getLogger().setLevel(logging.DEBUG)
-
 def routes():
   return yaml.load(file('routes.yaml'))
 

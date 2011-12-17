@@ -39,10 +39,8 @@ def get(handler, response):
   if url_sha1:
     # check bloom first
     if not url_sha1 in get_url_sha1_bloom():
-      logging.debug('bloom miss %s', url_sha1)
       return
     # continue with query
-    logging.debug('bloom hit %s', url_sha1)
     query = query.filter('url_sha1 =', url_sha1)
   if status:
     query = query.filter('status =', status)
@@ -65,11 +63,8 @@ def get(handler, response):
   if to_edit:
     response.edits.reverse()
   
-  if url_sha1:
-    if edits:
-      logging.debug('bloom true positive %s', url_sha1)
-    else:
-      logging.debug('bloom false positive %s', url_sha1)
+  if url_sha1 and not edits:
+    logging.error('bloom false positive %s', url_sha1)
   
   # pagination
   query_dict = cgi.parse_qs(os.environ.get('QUERY_STRING'), keep_blank_values=True)
