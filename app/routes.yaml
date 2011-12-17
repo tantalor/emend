@@ -1,4 +1,7 @@
 -
+  - /admin/url_sha1_bloom
+  - handlers.admin.url_sha1_bloom
+-
   - /iphone
   - handlers.iphone
 -
