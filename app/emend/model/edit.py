@@ -7,7 +7,7 @@ from site import Site
 from user import User
 
 from google.appengine.ext import db, search
-from google.appengine.api import users
+from google.appengine.api import users, memcache
 from google.appengine.api.urlfetch_errors import DownloadError
 import hashlib
 
@@ -217,7 +217,15 @@ class Bloom(db.Model):
   
   def put(self):
     self.pickled = pickle.dumps(self.get_filter())
+    memcache.set(key=self.key().name(), namespace='bloom', value=self)
     return super(Bloom, self).put()
+  
+  @classmethod
+  def get_by_key_name(cls, key_name):
+    bloom = memcache.get(key=key_name, namespace='bloom')
+    if bloom:
+      return bloom
+    return super(Bloom, cls).get_by_key_name(key_name)
   
   def add(self, k):
     self.get_filter().add(k)
