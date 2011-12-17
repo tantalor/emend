@@ -16,6 +16,10 @@ from emend.const import DATE_SHORT
 from pretty_timedelta import pretty_datetime_from_now
 from megaera.fetch import fetch_decode
 
+from bloom import BloomFilter
+import pickle
+
+
 class Edit(search.SearchableModel):
   index = db.IntegerProperty(required=True)
   url = db.StringProperty(required=True)
@@ -191,3 +195,37 @@ class Edit(search.SearchableModel):
           return 'unfixed'
         else:
           return 'uncertain'
+
+
+class Bloom(db.Model):
+  pickled = db.BlobProperty()
+  
+  def get_filter(self):
+    if hasattr(self, '_filter'):
+      return getattr(self, '_filter')
+    if self.pickled:
+      _filter = pickle.loads(self.pickled)
+    else:
+      _filter = BloomFilter(m=10000, k=2)
+    setattr(self, '_filter', _filter)
+    return _filter
+  
+  def reset(self):
+    self.pickled = None
+    if hasattr(self, '_filter'):
+      delattr(self, '_filter')
+  
+  def put(self):
+    self.pickled = pickle.dumps(self.get_filter())
+    return super(Bloom, self).put()
+  
+  def add(self, k):
+    self.get_filter().add(k)
+  
+  def __contains__(self, k):
+    if k in self.get_filter():
+      return 1
+
+
+def get_bloom():
+  return Bloom.get_or_insert('edits')
