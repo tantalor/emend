@@ -11,7 +11,7 @@ from google.appengine.api import users
 from google.appengine.api.urlfetch_errors import DownloadError
 import hashlib
 
-from emend import bitly, twitter, html
+import emend
 from emend.const import DATE_SHORT
 from pretty_timedelta import pretty_datetime_from_now
 from megaera.fetch import fetch_decode
@@ -76,7 +76,7 @@ class Edit(search.SearchableModel):
   def short_url(self):
     """Try to shorten the url, but suppress errors."""
     try:
-      return bitly.shorten(self.permalink())
+      return emend.bitly.shorten(self.permalink())
     except DownloadError, e:
       logging.error("failed to shorten: %s", e)
     except KeyError, e:
@@ -87,7 +87,7 @@ class Edit(search.SearchableModel):
     status = self.as_tweet().encode('utf8')
     if status:
       try:
-        return twitter.tweet(status)
+        return emend.twitter.tweet(status)
       except DownloadError, e:
         logging.error("failed to tweet: %s", e)
       except KeyError, e:
@@ -157,7 +157,7 @@ class Edit(search.SearchableModel):
     content = fetch_decode(self.url)
     if content:
       # decode html entities, strip tags
-      return html.clean(content)
+      return emend.html.clean(content)
   
   def created_pretty_timedelta(self):
     return pretty_datetime_from_now(self.created)
