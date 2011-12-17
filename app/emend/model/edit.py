@@ -227,5 +227,6 @@ class Bloom(db.Model):
       return 1
 
 
-def get_bloom():
-  return Bloom.get_or_insert('edits')
+def get_url_sha1_bloom():
+  key_name = 'edits-url-sha1'
+  return Bloom.get_by_key_name(key_name) or Bloom(key_name=key_name)
