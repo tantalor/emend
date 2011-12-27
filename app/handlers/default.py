@@ -6,6 +6,7 @@ from emend import Site, Edit, User
 from emend import suggest, bookmarklet, site_name, blogsearch, canonical_url
 from emend.model.edit import get_url_sha1_bloom
 from megaera.env import is_dev
+from megaera.fetch import fetch
 
 from google.appengine.ext import db
 from google.appengine.api.urlfetch import DownloadError
@@ -90,6 +91,17 @@ def post(handler, response):
     handler.form_error(original="Original required")
   if not proposal:
     handler.form_error(proposal="Proposal required")
+  
+  # check for valid response from URL
+  try:
+    response = fetch(url)
+    if response.status_code != 200:
+      handler.form_error(url="Unexpected response: %s" % response.status_code)
+  except DownloadError:
+    handler.form_error(url="Connection refused")
+  except Exception, e:
+    handler.form_error(url="Error, %s" % e);
+  
   # exit if errors occured
   if handler.has_errors():
     return
