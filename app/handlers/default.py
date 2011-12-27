@@ -8,6 +8,7 @@ from emend.model.edit import get_url_sha1_bloom
 from megaera.env import is_dev
 
 from google.appengine.ext import db
+from google.appengine.api.urlfetch import DownloadError
 
 from os import environ
 
@@ -33,9 +34,13 @@ def get(handler, response):
   if response.url:
     # get canonical URL
     try:
-      response.url = canonical_url(response.url) or response.url
-    except:
-      pass
+      my_canonical_url = canonical_url(response.url)
+      if my_canonical_url:
+        response.url = my_canonical_url
+    except DownloadError:
+      handler.form_error(url="Connection refused")
+    except Exception, e:
+      handler.form_error(url="Error, %s" % e);
     # lookup latest edit for the URL
     local_edits = Edit.all().\
       filter('url =', response.url).\
