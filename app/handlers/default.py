@@ -92,6 +92,10 @@ def post(handler, response):
   if not proposal:
     handler.form_error(proposal="Proposal required")
   
+  # require diff
+  if original == proposal:
+    handler.form_error(proposal="Same as original")
+  
   # check for valid response from URL
   try:
     response = fetch(url)
