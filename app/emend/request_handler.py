@@ -93,7 +93,10 @@ class RequestHandler(megaera.RequestHandler):
       return os.environ
     else:
       return os.environ.get(k)
-    
+  
+  def base_path(self):
+    return 'http://%s%s' % (self.host(), self.environ('PATH_INFO'))
+  
   def twitter_credentials(self):
     """Returns Emend's twitter credentials, if any."""
     try:
