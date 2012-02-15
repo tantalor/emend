@@ -31,22 +31,22 @@
         </li>
       {% endfor %}
     </ul>
-  
-    {% if previous or next %}
-      <p class="prev-next">
-        {% if previous %}
-          <a href="{{previous.url}}">&larr; prev</a>
-        {% endif %}
-
-        {% if previous and next %}|{% endif %}
-
-        {% if next %}
-          <a href="{{next.url}}">next &rarr;</a>
-        {% endif %}
-      </p>
-    {% endif %}
   {% else %}
     <p>No users</p>
+  {% endif %}
+  
+  {% if previous or next %}
+    <p class="prev-next">
+      {% if previous %}
+        <a href="{{previous.url}}">&larr; prev</a>
+      {% endif %}
+
+      {% if previous and next %}|{% endif %}
+
+      {% if next %}
+        <a href="{{next.url}}">next &rarr;</a>
+      {% endif %}
+    </p>
   {% endif %}
 </div>
 {% endblock %}

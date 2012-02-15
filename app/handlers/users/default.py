@@ -25,7 +25,9 @@ def get(handler, response):
   # pagination
   if to_cursor:
     response.next.url = "%s?from=%s" % (handler.base_path(), reverse(to_cursor))
-    response.previous.url = "%s?to=%s" % (handler.base_path(), query.cursor())
+    
+    if response.users:
+      response.previous.url = "%s?to=%s" % (handler.base_path(), query.cursor())
   else:
     if from_cursor:
       response.previous.url = "%s?to=%s" % (handler.base_path(), reverse(from_cursor))
