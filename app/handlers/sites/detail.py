@@ -14,8 +14,7 @@ def get(handler, response):
     fetch(PAGE_SIZE+1)
   response.open = open_edits[:PAGE_SIZE]
   if len(open_edits) == PAGE_SIZE+1:
-    response.has_next_open = 1
-    response.next_open_from = open_edits[PAGE_SIZE].index
+    response.next.open.url = "%s/open%s?from=%s" % (site.permalink(), handler.extension(), open_edits[PAGE_SIZE].index)
   # get some closed edits
   closed_edits = Edit.all().\
     ancestor(site).\
@@ -24,5 +23,4 @@ def get(handler, response):
     fetch(PAGE_SIZE+1)
   response.closed = closed_edits[:PAGE_SIZE]
   if len(closed_edits) == PAGE_SIZE+1:
-    response.has_next_closed = 1
-    response.next_closed_from = closed_edits[PAGE_SIZE].index
+    response.next.closed.url = "%s/closed%s?from=%s" % (site.permalink(), handler.extension(), closed_edits[PAGE_SIZE].index)
