@@ -8,6 +8,15 @@
   > <a href="/users">Users</a> > {{user|escape}}
 {% endblock %}
 
+{% block head %}
+  {% if next and next.open %}
+    <link re="next" href="{{next.open.url}}" />
+  {% endif %}
+  {% if next and next.closed %}
+    <link re="next" href="{{next.closed.url}}" />
+  {% endif %}
+{% endblock %}
+
 {% block content %}
 <div class="twelvecol">  
   <h2 class="first">
@@ -25,9 +34,9 @@
         </li>
       {% endfor %}
     </ul>
-    {% if has_next_open %}
+    {% if next and next.open %}
       <p class="prev-next">
-        <a href="{{user.permalink()}}/open?from={{next_open_from}}">more open &rarr;</a>
+        <a href="{{next.open.url}}">more open &rarr;</a>
       </p>
     {% endif %}
   {% else %}
@@ -47,9 +56,9 @@
         </li>
       {% endfor %}
     </ul>
-    {% if has_next_closed %}
+    {% if next and next.closed %}
       <p class="prev-next">
-        <a href="{{user.permalink()}}/closed?from={{next_closed_from}}">more closed &rarr;</a>
+        <a href="{{next.closed.url}}">more closed &rarr;</a>
       </p>
     {% endif %}
   {% else %}

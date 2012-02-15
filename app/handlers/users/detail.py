@@ -12,8 +12,7 @@ def get(handler, response):
     fetch(PAGE_SIZE+1)
   response.open = open_edits[:PAGE_SIZE]
   if len(open_edits) == PAGE_SIZE+1:
-    response.has_next_open = 1
-    response.next_open_from = open_edits[PAGE_SIZE].key()
+    response.next.open.url = "%s/open%s?from=%s" % (user.permalink(), handler.extension(), open_edits[PAGE_SIZE].key())
   # get some closed edits
   closed_edits = Edit.all().\
     filter('author =', user).\
@@ -22,5 +21,4 @@ def get(handler, response):
     fetch(PAGE_SIZE+1)
   response.closed = closed_edits[:PAGE_SIZE]
   if len(closed_edits) == PAGE_SIZE+1:
-    response.has_next_closed = 1
-    response.next_closed_from = closed_edits[PAGE_SIZE].key()
+    response.next.closed.url = "%s/closed%s?from=%s" % (user.permalink(), handler.extension(), closed_edits[PAGE_SIZE].key())
