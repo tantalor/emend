@@ -21,7 +21,7 @@ def get(handler, response):
       fetch(1)
     if top_edit[0].index != edits[0].index:
       response.previous.index = from_index + PAGE_SIZE
-      response.previous.url = "%s/closed?from=%s" % (site.permalink(), response.previous.index)
+      response.previous.url = "%s?from=%s" % (handler.base_path(), response.previous.index)
   else:
     edits = Edit.all().\
       ancestor(site).\
@@ -31,4 +31,4 @@ def get(handler, response):
   response.edits = edits[:PAGE_SIZE]
   if len(edits) > PAGE_SIZE:
     response.next.index = edits[-1].index
-    response.next.url = "%s/closed?from=%s" % (site.permalink(), response.next.index)
+    response.next.url = "%s?from=%s" % (handler.base_path(), response.next.index)
