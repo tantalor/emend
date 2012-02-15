@@ -5,7 +5,7 @@
   {% if handler.config().tagline %}
     <subtitle>{{handler.config().tagline}}</subtitle>
   {% endif %}
-  <link href="http://{{handler.host()}}/?atom" rel="self"/>
+  <link href="http://{{handler.host()}}/.atom" rel="self"/>
   <link href="http://{{handler.host()}}/"/>
   <id>tag:{{handler.host()}},2010:</id>
   

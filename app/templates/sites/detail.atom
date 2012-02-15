@@ -5,7 +5,7 @@
   {% if handler.config().tagline %}
     <subtitle>{{handler.config().tagline}}</subtitle>
   {% endif %}
-  <link href="{{site.permalink()}}?atom" rel="self"/>
+  <link href="{{site.permalink()}}.atom" rel="self"/>
   <link href="{{site.permalink()}}/"/>
   <id>tag:{{handler.host()}},2010:{{site.key()}}</id>
   

@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block head %}
-  <link href="{{site.permlink}}?atom" type="application/rss+xml" rel="alternate" title="{{site}} RSS Feed" />
+  <link href="{{site.permalink()}}.atom" type="application/rss+xml" rel="alternate" title="{{site}} RSS Feed" />
   {% if next and next.open %}
     <link re="next" href="{{next.open.url}}" />
   {% endif %}
