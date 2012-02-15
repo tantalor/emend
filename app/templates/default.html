@@ -6,8 +6,8 @@
 
 {% block head %}
   <link href="/?atom" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed" />
-  {% if has_next %}
-    <link rel="next" href="/search/edits?status=open&amp;from={{next_from}}" />
+  {% if next %}
+    <link re="next" href="{{next.url}}" />
   {% endif %}
   <link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/aidceblfaocjjjnmbiaaadpbgmnglmeg">
   <script type="text/javascript" charset="utf-8">
@@ -97,9 +97,9 @@
           </li>
         {% endfor %}
       </ul>
-      {% if has_next %}
+      {% if next %}
         <p style="text-align:right">
-          <a href="/search/edits?status=open&amp;from={{next_from}}">more open edits &rarr;</a>
+          <a href="{{next.url}}">more open edits &rarr;</a>
         </p>
       {% endif %}
     {% else %}

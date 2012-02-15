@@ -55,16 +55,16 @@ def get(handler, response):
       .filter('status =', 'open')\
       .order('-created')\
       .fetch(PAGE_SIZE+1)
-    has_next, next_from = None, None
+    next = None
     if len(edits) > PAGE_SIZE:
-      has_next = 1
-      next_from = edits[PAGE_SIZE].key()
+      next = dict(
+        url="http://%s/search/edits%s?status=open&from=%s" % (handler.host(), handler.extension(), edits[PAGE_SIZE].key())
+      )
     # cache these and update the response
     handler.cache(
       bookmarklet=bookmarklet(),
       edits=edits[:PAGE_SIZE],
-      has_next=has_next,
-      next_from=next_from,
+      next=next,
     )
 
 def post(handler, response):
