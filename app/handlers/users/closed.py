@@ -31,5 +31,4 @@ def get(handler, response):
   response.edits = edits[:PAGE_SIZE]
   
   if len(edits) > PAGE_SIZE:
-    response.has_next = 1
-    response.next_from = edits[PAGE_SIZE].key()
+    response.next.url = "%s?from=%s" % (handler.base_path(), edits[PAGE_SIZE].key())
