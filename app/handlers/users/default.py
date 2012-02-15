@@ -2,7 +2,7 @@ from emend import User
 from google.appengine.datastore import datastore_query
 
 
-PAGE_SIZE = 1
+PAGE_SIZE = 10
 
 def get(handler, response):
   # parameters
