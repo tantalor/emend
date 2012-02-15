@@ -24,19 +24,14 @@ def get(handler, response):
   
   # pagination
   if to_cursor:
-    response.next.cursor = reverse(to_cursor)
-    response.next.url = "%s?from=%s" % (handler.base_path(), response.next.cursor)
-    
-    response.previous.cursor = query.cursor()
-    response.previous.url = "%s?to=%s" % (handler.base_path(), response.previous.cursor)
+    response.next.url = "%s?from=%s" % (handler.base_path(), reverse(to_cursor))
+    response.previous.url = "%s?to=%s" % (handler.base_path(), query.cursor())
   else:
     if from_cursor:
-      response.previous.cursor = reverse(from_cursor)
-      response.previous.url = "%s?to=%s" % (handler.base_path(), response.previous.cursor)
+      response.previous.url = "%s?to=%s" % (handler.base_path(), reverse(from_cursor))
     
     if len(response.users) >= PAGE_SIZE:
-      response.next.cursor = query.cursor()
-      response.next.url = "%s?from=%s" % (handler.base_path(), response.next.cursor)
+      response.next.url = "%s?from=%s" % (handler.base_path(), query.cursor())
 
 def forward_query():
   return User.all().order('-open').order('-closed').order('-__key__')
