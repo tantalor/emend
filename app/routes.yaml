@@ -77,6 +77,12 @@
   - /widgets
   - handlers.widgets
 -
+  - /privacy
+  - handlers.privacy
+-
+  - /terms
+  - handlers.terms
+-
   - /sections/diff
   - handlers.sections.diff
 -
