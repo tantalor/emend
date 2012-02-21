@@ -8,7 +8,6 @@ default_expiration: "10d"
 
 builtins: 
   - appstats: on 
-  - datastore_admin: on 
   - remote_api: on 
 
 libraries:
