@@ -53,6 +53,9 @@
   - /tasks/edits/test
   - handlers.tasks.edits.test
 -
+  - /tasks/edits/url_sha1_bloom/insert
+  - handlers.tasks.edits.url_sha1_bloom.insert
+-
   - /users
   - handlers.users.default
 -

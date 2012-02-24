@@ -4,12 +4,12 @@ import logging
 from emend import Site, Edit, User
 
 from emend import suggest, bookmarklet, site_name, blogsearch, canonical_url
-from emend.model.edit import get_url_sha1_bloom
 from megaera.env import is_dev
 from megaera.fetch import fetch
 
 from google.appengine.ext import db
 from google.appengine.api.urlfetch import DownloadError
+from google.appengine.api import taskqueue
 
 from os import environ
 
@@ -144,11 +144,13 @@ def post(handler, response):
   
   edit = db.run_in_transaction(put_edit)
   
-  # add to bloom
-  bloom = get_url_sha1_bloom()
-  if bloom:
-    bloom.add(edit.url_sha1)
-    bloom.put()
+  # queue to inserts to bloom
+  taskqueue.add(
+    url="/tasks/edits/url_sha1_bloom/insert.json",
+    params=dict(
+      url_sha1=edit.url_sha1,
+    ),
+  )
   
   # clear cache
   handler.invalidate()
