@@ -87,21 +87,6 @@ class RequestHandler(megaera.RequestHandler):
         return user
     if required:
       raise NotFoundException("user not found")
-
-  def environ(self, k=None):
-    if k is None:
-      return os.environ
-    else:
-      return os.environ.get(k)
-  
-  def base_path(self):
-    return 'http://%s%s' % (self.host(), self.environ('PATH_INFO'))
-  
-  def extension(self):
-    url_args = self.url_args()
-    if url_args[-1]:
-      return '.'+url_args[-1]
-    return ''
   
   def twitter_credentials(self):
     """Returns Emend's twitter credentials, if any."""
