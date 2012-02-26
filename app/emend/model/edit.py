@@ -19,6 +19,7 @@ from megaera.fetch import fetch_decode
 from bloom import BloomFilter
 import pickle
 
+__identity__ = lambda s: s
 
 class Edit(search.SearchableModel):
   index = db.IntegerProperty(required=True)
@@ -51,7 +52,7 @@ class Edit(search.SearchableModel):
         return True
   
   def permalink(self, urlize):
-    return "%s/edits/%s" % (self.site.permalink(urlize), self.index)
+    return urlize("%s/edits/%s" % (self.site.permalink(__identity__), self.index))
   
   def as_tweet(self, max_len=140):
     """This edit as a tweet (unicode)."""
