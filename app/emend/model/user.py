@@ -1,4 +1,3 @@
-from os import environ
 from hashlib import md5
 from re import sub
 
@@ -32,13 +31,12 @@ class User(db.Model, Counts):
     if self.user == user:
       return True
   
-  def permalink(self, shareable=False):
-    host = environ.get('HTTP_HOST')
+  def permalink(self, urlize, shareable=False):
     if self.can_edit() and not shareable:
       key = self.user.email()
     else:
       key = self.key()
-    return "http://%s/users/%s" % (host, key)
+    return urlize("/users/%s" % key)
   
   def shareable_permalink(self):
     return self.permalink(shareable=True)
@@ -63,8 +61,8 @@ class User(db.Model, Counts):
     """Accepts google.appengine.api.users.User object."""
     return '%s:%s' % (prefix, email)
   
-  def sanitize(self):
+  def sanitize(self, urlize):
     return dict(
       nickname=unicode(self),
-      permalink=self.permalink(),
+      permalink=self.permalink(urlize=urlize),
     )

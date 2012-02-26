@@ -5,12 +5,12 @@
 {% endblock %}
 
 {% block header %}
-  > <a href="/sites">Sites</a> > <a href="/sites/{{site.domain}}">{{site.domain}}</a> > <a href="{{edit.permalink()}}">{{edit.proposal|truncate(28)|escape}}</a> > Update
+  > <a href="/sites">Sites</a> > <a href="/sites/{{site.domain}}">{{site.domain}}</a> > <a href="{{edit.permalink(handler.urlize)}}">{{edit.proposal|truncate(28)|escape}}</a> > Update
 {% endblock %}
 
 {% block content %}
 <div class="twelvecol">  
-  <form action="{{edit.permalink()}}/update" method="post">
+  <form action="{{edit.permalink(handler.urlize)}}/update" method="post">
     <label class="field">
       <span class="name">URL</span>
       <input type="url" class="text" name="url" value="{{url}}"/>

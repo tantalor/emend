@@ -1,4 +1,3 @@
-from os import environ
 import re
 
 from counts import Counts
@@ -23,15 +22,14 @@ class Site(db.Model, Counts):
   def __str__(self):
     return self.domain
   
-  def permalink(self):
-    host = environ.get('HTTP_HOST')
-    return "http://%s/sites/%s" % (host, self.domain)
+  def permalink(self, urlize):
+    return urlize("/sites/%s" % self.domain)
   
-  def sanitize(self):
+  def sanitize(self, urlize):
     json = dict(
       domain=self.domain,
       open=self.open,
       closed=self.closed,
-      permalink=self.permalink(),
+      permalink=self.permalink(urlize),
     )
     return json

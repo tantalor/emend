@@ -50,8 +50,8 @@ class Edit(search.SearchableModel):
       if not self.author.banned:
         return True
   
-  def permalink(self):
-    return "%s/edits/%s" % (self.site.permalink(), self.index)
+  def permalink(self, urlize):
+    return "%s/edits/%s" % (self.site.permalink(urlize), self.index)
   
   def as_tweet(self, max_len=140):
     """This edit as a tweet (unicode)."""
@@ -97,16 +97,16 @@ class Edit(search.SearchableModel):
       except KeyError, e:
         logging.warn('missing credentials: %s', e)
   
-  def sanitize(self):
+  def sanitize(self, urlize):
     return dict(
       original=self.original,
       proposal=self.proposal,
       status=self.status,
-      site=self.site.sanitize(),
+      site=self.site.sanitize(urlize),
       url=self.url,
-      author=self.author.sanitize(),
+      author=self.author.sanitize(urlize),
       url_sha1=self.url_sha1,
-      permalink=self.permalink(),
+      permalink=self.permalink(urlize),
     )
   
   def open(self):

@@ -24,8 +24,8 @@
       {% for edit in edits %}
         <li class="gravatar">
           {{edit.author.gravatar}}
-          <a href="{{edit.permalink()}}">&ldquo;{{edit.proposal|escape}}&rdquo;</a>
-          by <a href="{{edit.author.permalink()}}">{{edit.author|escape}}</a>
+          <a href="{{edit.permalink(handler.urlize)}}">&ldquo;{{edit.proposal|escape}}&rdquo;</a>
+          by <a href="{{edit.author.permalink(handler.urlize)}}">{{edit.author|escape}}</a>
           {{edit.created_pretty_timedelta()}}  
         </li>
       {% endfor %}

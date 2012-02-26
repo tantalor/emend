@@ -11,7 +11,7 @@
 {% endblock %}
 
 {% block header %}
-  > <a href="/users">Users</a> > <a href="{{user.permalink()}}">{{user|escape}}</a> > Closed edits
+  > <a href="/users">Users</a> > <a href="{{user.permalink(handler.urlize)}}">{{user|escape}}</a> > Closed edits
 {% endblock %}
 
 {% block content %}
@@ -20,9 +20,9 @@
     <ul>
       {% for edit in edits %}
         <li>
-          <a href="{{edit.permalink()}}">&ldquo;{{edit.original|escape}}&rdquo;
+          <a href="{{edit.permalink(handler.urlize)}}">&ldquo;{{edit.original|escape}}&rdquo;
             should be &ldquo;{{edit.proposal|escape}}&rdquo;</a>
-          at <a href="{{edit.site.permalink()}}">{{edit.site|escape}}</a>
+          at <a href="{{edit.site.permalink(handler.urlize)}}">{{edit.site|escape}}</a>
           {{edit.created_pretty_timedelta()}}  
         </li>
       {% endfor %}

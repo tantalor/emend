@@ -50,22 +50,27 @@ def get(handler, response):
     if local_edits:
       response.local_edit = local_edits[0]
   # get latest edits and bookmarklet (cached)
-  if not handler.cached():
-    edits = Edit.all()\
-      .filter('status =', 'open')\
-      .order('-created')\
-      .fetch(PAGE_SIZE+1)
-    next = None
-    if len(edits) > PAGE_SIZE:
-      next = dict(
-        url="http://%s/search/edits%s?status=open&from=%s" % (handler.host(), handler.extension(), edits[PAGE_SIZE].key())
-      )
-    # cache these and update the response
-    handler.cache(
-      bookmarklet=bookmarklet(),
-      edits=edits[:PAGE_SIZE],
-      next=next,
+  if handler.cached():
+    # cache hit
+    response.next['url']=handler.urlize("/search/edits")+("?status=open&from=%s" % response.next['key'])
+  # cache miss
+  edits = Edit.all()\
+    .filter('status =', 'open')\
+    .order('-created')\
+    .fetch(PAGE_SIZE+1)
+  next = None
+  if len(edits) > PAGE_SIZE:
+    next = dict(
+      key=edits[PAGE_SIZE].key(),
     )
+  # cache these and update the response
+  handler.cache(
+    bookmarklet=bookmarklet(),
+    edits=edits[:PAGE_SIZE],
+    next=next,
+  )
+  if len(edits) > PAGE_SIZE:
+    response.next['url']=handler.urlize("/search/edits")+("?status=open&from=%s" % edits[PAGE_SIZE].key())
 
 def post(handler, response):
   if not handler.current_user():

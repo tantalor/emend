@@ -26,7 +26,7 @@
     <ul>
       {% for site in sites %}
         <li>
-          <a href="{{site.permalink()}}">{{site.domain}}</a>
+          <a href="{{site.permalink(handler.urlize)}}">{{site.domain}}</a>
           {{site.pretty_counts()}}
         </li>
       {% endfor %}
