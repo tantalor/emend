@@ -22,14 +22,14 @@ class Site(db.Model, Counts):
   def __str__(self):
     return self.domain
   
-  def permalink(self, urlize):
-    return urlize("/sites/%s" % self.domain)
+  def permalink(self):
+    return "/sites/%s" % self.domain
   
   def sanitize(self, urlize):
     json = dict(
       domain=self.domain,
       open=self.open,
       closed=self.closed,
-      permalink=self.permalink(urlize),
+      permalink=urlize(self.permalink()),
     )
     return json

@@ -12,7 +12,7 @@ def get(handler, response):
     get()
   if next:
     response.next.edit = next
-    response.next.url = next.permalink()
+    response.next.url = handler.urlize(next.permalink())
   
   # prev  
   prev = Edit.all().\
@@ -23,4 +23,4 @@ def get(handler, response):
     get()
   if prev:
     response.previous.edit = prev
-    response.previous.url = prev.permalink()
+    response.previous.url = handler.urlize(prev.permalink())

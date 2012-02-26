@@ -26,7 +26,7 @@
       {% for user in users %}
         <li class="gravatar">
           {{gravatar(user)}}
-          <a href="{{user.permalink(handler.urlize)}}">{{user|escape}}</a>
+          <a href="{{user.permalink()}}">{{user|escape}}</a>
           {{user.pretty_counts()}}
         </li>
       {% endfor %}

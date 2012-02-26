@@ -31,12 +31,12 @@ class User(db.Model, Counts):
     if self.user == user:
       return True
   
-  def permalink(self, urlize, shareable=False):
+  def permalink(self, shareable=False):
     if self.can_edit() and not shareable:
       key = self.user.email()
     else:
       key = self.key()
-    return urlize("/users/%s" % key)
+    return "/users/%s" % key
   
   def shareable_permalink(self):
     return self.permalink(shareable=True)
@@ -64,5 +64,5 @@ class User(db.Model, Counts):
   def sanitize(self, urlize):
     return dict(
       nickname=unicode(self),
-      permalink=self.permalink(urlize=urlize),
+      permalink=urlize(self.permalink()),
     )

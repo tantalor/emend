@@ -5,8 +5,8 @@
   {% if handler.config().tagline %}
     <subtitle>{{handler.config().tagline}}</subtitle>
   {% endif %}
-  <link href="{{site.permalink(handler.urlize)}}.atom" rel="self"/>
-  <link href="{{site.permalink(handler.urlize)}}/"/>
+  <link href="{{site.permalink()}}.atom" rel="self"/>
+  <link href="{{site.permalink()}}/"/>
   <id>tag:{{handler.host()}},2010:{{site.key()}}</id>
   
   {% if open %} 
@@ -17,9 +17,9 @@
         <title>"{{edit.proposal|escape}}"</title>
         <author>
           <name>{{edit.author|escape}}</name>
-          <uri>{{edit.author.permalink(handler.urlize)|escape}}</uri>
+          <uri>{{edit.author.permalink()|escape}}</uri>
         </author>
-        <link href="{{edit.permalink(handler.urlize)}}"/>
+        <link href="{{edit.permalink()}}"/>
         <updated>{{edit.created|rfc3339}}</updated>
         <id>tag:{{handler.host()}},2010:{{edit.key()}}</id>
         <summary type="xhtml">
