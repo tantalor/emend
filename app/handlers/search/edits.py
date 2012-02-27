@@ -3,6 +3,7 @@ import os
 import cgi
 import urllib
 import logging
+import hashlib
 
 from emend import Edit
 from emend.model.edit import get_url_sha1_bloom
@@ -13,6 +14,7 @@ PAGE_SIZE = 10
 def get(handler, response):
   q = handler.request.get('q')
   status = handler.request.get('status')
+  url = handler.request.get('url')
   url_sha1 = handler.request.get('url_sha1')
   from_key = handler.request.get('from')
   to_key = handler.request.get('to')
@@ -24,9 +26,12 @@ def get(handler, response):
   if to_key:
     to_edit = Edit.get(to_key)
   
+  if url:
+    url_sha1 = hashlib.sha1(url.encode('utf8')).hexdigest()
+  
   if url_sha1:
     response.heading = "sha1(url) = %s..." % (url_sha1[:6])
-  if status == "open":
+  elif status == "open":
     response.heading = "Open edits"
   elif status == "closed":
     response.heading = "Closed edits"
