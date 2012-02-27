@@ -29,7 +29,9 @@ def get(handler, response):
   if url:
     url_sha1 = hashlib.sha1(url.encode('utf8')).hexdigest()
   
-  if url_sha1:
+  if q:
+    response.heading = "Edits matching %s" % q
+  elif url_sha1:
     response.heading = "sha1(url) = %s..." % (url_sha1[:6])
   elif status == "open":
     response.heading = "Open edits"
