@@ -49,6 +49,10 @@ def get(handler, response):
       fetch(1)
     if local_edits:
       response.local_edit = local_edits[0]
+  # navigation
+  response.sites.url = handler.urlize("/sites")
+  response.users.url = handler.urlize("/users")
+  response.search.url = handler.urlize("/search")
   # url to next page of open edits
   def next_open_edits(key):
     return handler.urlize("/search/edits")+("?status=open&from=%s" % key)
